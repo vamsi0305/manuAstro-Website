@@ -4,7 +4,7 @@ import { ShoppingCart, Search, User, Menu, X, ChevronDown, Heart } from 'lucide-
 import { useCartStore } from '@/stores/cartStore'
 import { useAuthStore } from '@/stores/authStore'
 
-/* Exact services from manuastro.com */
+/* ─── Exact navigation from manuastro.com ─────────────────────────── */
 const SERVICES_MENU = [
     { label: 'Vedic Astrology', slug: '/services/vedic-astrology' },
     { label: 'Palm Reading', slug: '/services/palm-reading' },
@@ -14,20 +14,56 @@ const SERVICES_MENU = [
     { label: 'Face Reading & Numerology', slug: '/services/face-reading' },
 ]
 
-/* Exact top-level nav from manuastro.com */
-const NAV_LINKS = [
-    { label: 'Home', to: '/' },
-    { label: 'Year 2026', to: '/horoscope' },
-    { label: 'Rudraksha', to: '/collections/rudraksha' },
-    { label: 'About Us', to: '/about' },
-    { label: "FAQ's", to: '/faq' },
-    { label: 'Blogs', to: '/blog' },
-    { label: 'Contact Us', to: '/contact' },
+const RUDRAKSHA_MENU = [
+    { label: '1 Face Rudraksha', slug: '/collections/1-face-rudraksha' },
+    { label: '2 Face Rudraksha', slug: '/collections/2-face-rudraksha' },
+    { label: '3 Face Rudraksha', slug: '/collections/3-face-rudraksha' },
+    { label: '4 Face Rudraksha', slug: '/collections/4-face-rudraksha' },
+    { label: '5 Face Rudraksha', slug: '/collections/5-face-rudraksha' },
+    { label: '6 Face Rudraksha', slug: '/collections/6-face-rudraksha' },
+    { label: '7 Face Rudraksha', slug: '/collections/7-face-rudraksha' },
+    { label: '8 Face Rudraksha', slug: '/collections/8-face-rudraksha' },
+    { label: '9 Face Rudraksha', slug: '/collections/9-face-rudraksha' },
+    { label: '10 Face Rudraksha', slug: '/collections/10-face-rudraksha' },
+    { label: '11 Face Rudraksha', slug: '/collections/11-face-rudraksha' },
+    { label: '12 Face Rudraksha', slug: '/collections/12-face-rudraksha' },
+    { label: '13 Face Rudraksha', slug: '/collections/13-face-rudraksha' },
+    { label: '14 Face Rudraksha', slug: '/collections/14-face-rudraksha' },
+    { label: '15 Face Rudraksha', slug: '/collections/15-face-rudraksha' },
+    { label: '16 Face Rudraksha', slug: '/collections/16-face-rudraksha' },
+    { label: 'Gauri Shankar Rudraksha', slug: '/collections/gauri-shankar-rudraksha' },
+    { label: 'Gauri Shankar Ganesh Rudraksha', slug: '/collections/gauri-shankar-ganesh-rudraksha' },
+    { label: 'Garbh Gauri Rudraksha', slug: '/collections/garbh-gauri-rudraksha' },
+    { label: 'Garbh Gauri Ganesh Rudraksha', slug: '/collections/garbh-gauri-ganesh-rudraksha' },
 ]
+
+const YANTRA_MENU = [
+    { label: 'Copper Platted Yantra', slug: '/collections/copper-platted-yantra' },
+    { label: 'Export Premium Yantra', slug: '/collections/export-premium-yantra' },
+    { label: 'Meru Shree Yantra (3D)', slug: '/collections/meru-shree-yantra' },
+    { label: 'Pyra Silver Pendants', slug: '/collections/pyra-silver-pendants' },
+]
+
+const SHOP_MORE_MENU = [
+    { label: 'Vastu Products', slug: '/collections/vastu' },
+    { label: 'Dosh Nivaran Kit', slug: '/collections/dosh-nivaran-kit' },
+    { label: 'Feng Shui Remedies', slug: '/collections/feng-shui-remedies' },
+    { label: 'Pooja Samagri', slug: '/collections/pooja-samagri' },
+    { label: 'Idols', slug: '/collections/idols' },
+    { label: 'Shaligram', slug: '/collections/shaligram' },
+    { label: 'Shivling', slug: '/collections/shivling' },
+]
+
+const GALLERY_MENU = [
+    { label: 'Sannidhiya', slug: '/gallery/sannidhiya' },
+    { label: 'Consultations', slug: '/gallery/consultations' },
+]
+
+type DropdownKey = 'services' | 'rudraksha' | 'yantra' | 'shopmore' | 'gallery' | null
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false)
-    const [servicesOpen, setServicesOpen] = useState(false)
+    const [activeDropdown, setActiveDropdown] = useState<DropdownKey>(null)
     const [searchOpen, setSearchOpen] = useState(false)
     const [query, setQuery] = useState('')
     const [scrolled, setScrolled] = useState(false)
@@ -35,27 +71,24 @@ export default function Navbar() {
     const cartCount = useCartStore(s => s.items.reduce((n, i) => n + i.quantity, 0))
     const { user, isAuthenticated } = useAuthStore()
     const navigate = useNavigate()
-    const dropdownRef = useRef<HTMLDivElement>(null)
+    const navRef = useRef<HTMLDivElement>(null)
     const searchRef = useRef<HTMLInputElement>(null)
 
-    /* scroll shadow */
     useEffect(() => {
         const fn = () => setScrolled(window.scrollY > 6)
         window.addEventListener('scroll', fn)
         return () => window.removeEventListener('scroll', fn)
     }, [])
 
-    /* close dropdown on outside click */
     useEffect(() => {
         const fn = (e: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node))
-                setServicesOpen(false)
+            if (navRef.current && !navRef.current.contains(e.target as Node))
+                setActiveDropdown(null)
         }
         document.addEventListener('mousedown', fn)
         return () => document.removeEventListener('mousedown', fn)
     }, [])
 
-    /* focus search input */
     useEffect(() => {
         if (searchOpen) setTimeout(() => searchRef.current?.focus(), 80)
     }, [searchOpen])
@@ -65,6 +98,8 @@ export default function Navbar() {
         if (query.trim()) { navigate(`/shop?q=${encodeURIComponent(query.trim())}`); setSearchOpen(false); setQuery('') }
     }
 
+    const toggle = (key: DropdownKey) => setActiveDropdown(v => v === key ? null : key)
+
     const linkStyle = ({ isActive }: { isActive: boolean }) => ({
         fontFamily: 'DM Sans, sans-serif',
         fontSize: '13.5px',
@@ -73,6 +108,36 @@ export default function Navbar() {
         transition: 'color 0.18s',
         textDecoration: 'none',
     })
+
+    const DropdownMenu = ({ items, isOpen, onClose }: { items: { label: string; slug: string }[]; isOpen: boolean; onClose: () => void }) => {
+        if (!isOpen) return null
+        return (
+            <div
+                className="absolute top-full left-0 mt-1 min-w-[200px] rounded-xl py-1.5 overflow-hidden z-50"
+                style={{ background: '#fff', boxShadow: '0 8px 32px rgba(0,0,0,0.12)', border: '1px solid rgba(201,151,42,0.14)' }}
+            >
+                {items.map(s => (
+                    <Link key={s.slug} to={s.slug} onClick={onClose}
+                        className="block px-4 py-2 text-[13px] transition-colors hover:bg-orange-50 hover:text-[#c74500]"
+                        style={{ color: '#3a2010', fontFamily: 'DM Sans, sans-serif', whiteSpace: 'nowrap' }}
+                    >
+                        {s.label}
+                    </Link>
+                ))}
+            </div>
+        )
+    }
+
+    const NavDropdownBtn = ({ label, dKey }: { label: string; dKey: DropdownKey }) => (
+        <button
+            onClick={() => toggle(dKey)}
+            className="flex items-center gap-0.5 px-2.5 py-1.5 rounded-lg text-[13.5px] font-medium hover:bg-orange-50 hover:text-[#c74500] transition-colors whitespace-nowrap"
+            style={{ color: activeDropdown === dKey ? '#c74500' : '#3a2010', fontFamily: 'DM Sans, sans-serif', background: 'transparent', border: 'none', cursor: 'pointer' }}
+        >
+            {label}
+            <ChevronDown size={12} className="ml-0.5 flex-shrink-0" style={{ transform: activeDropdown === dKey ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+        </button>
+    )
 
     return (
         <header
@@ -84,11 +149,11 @@ export default function Navbar() {
                 transition: 'box-shadow 0.25s, border-color 0.25s',
             }}
         >
-            <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-                <div className="flex items-center h-16 gap-6">
+            <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-10">
+                <div className="flex items-center h-16 gap-4" ref={navRef}>
 
                     {/* ── LOGO ─── */}
-                    <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 mr-4">
+                    <Link to="/" className="flex items-center gap-2 flex-shrink-0">
                         <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg font-bold text-white flex-shrink-0"
                             style={{ background: 'linear-gradient(135deg,#c74500,#e07a10)', fontFamily: 'Cinzel, serif', boxShadow: '0 2px 10px rgba(199,69,0,0.25)' }}>
                             मं
@@ -100,39 +165,59 @@ export default function Navbar() {
                     </Link>
 
                     {/* ── DESKTOP NAV ─── */}
-                    <nav className="hidden lg:flex items-center gap-1 flex-1">
-                        {NAV_LINKS.map(l => (
-                            <NavLink key={l.to} to={l.to} style={linkStyle}
-                                className="px-3 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all">
-                                {l.label}
-                            </NavLink>
-                        ))}
+                    <nav className="hidden xl:flex items-center gap-0.5 flex-1 flex-wrap">
 
-                        {/* Services dropdown */}
-                        <div ref={dropdownRef} className="relative">
-                            <button
-                                onClick={() => setServicesOpen(v => !v)}
-                                className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[13.5px] font-medium hover:bg-orange-50 transition-colors"
-                                style={{ color: servicesOpen ? '#c74500' : '#3a2010', fontFamily: 'DM Sans, sans-serif', background: 'transparent', border: 'none', cursor: 'pointer' }}>
-                                Services <ChevronDown size={13} style={{ transform: servicesOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-                            </button>
+                        <NavLink to="/" style={linkStyle} className="px-2.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Home</NavLink>
+                        <NavLink to="/horoscope" style={linkStyle} className="px-2.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Horoscope 2026</NavLink>
 
-                            {servicesOpen && (
-                                <div className="absolute top-full left-0 mt-2 w-52 rounded-xl py-1.5 overflow-hidden z-50"
-                                    style={{ background: '#fff', boxShadow: '0 8px 32px rgba(0,0,0,0.10)' }}>
-                                    {SERVICES_MENU.map(s => (
-                                        <Link key={s.slug} to={s.slug}
-                                            onClick={() => setServicesOpen(false)}
-                                            className="block px-4 py-2 text-[13px] transition-colors hover:bg-orange-50"
-                                            style={{ color: '#3a2010', fontFamily: 'DM Sans, sans-serif' }}
-                                            onMouseEnter={e => e.currentTarget.style.color = '#c74500'}
-                                            onMouseLeave={e => e.currentTarget.style.color = '#3a2010'}>
-                                            {s.label}
-                                        </Link>
-                                    ))}
-                                </div>
-                            )}
+                        {/* Services */}
+                        <div className="relative">
+                            <NavDropdownBtn label="Services" dKey="services" />
+                            <DropdownMenu items={SERVICES_MENU} isOpen={activeDropdown === 'services'} onClose={() => setActiveDropdown(null)} />
                         </div>
+
+                        {/* Rudraksha */}
+                        <div className="relative">
+                            <NavDropdownBtn label="Rudraksha" dKey="rudraksha" />
+                            <div
+                                className={`absolute top-full left-0 mt-1 z-50 ${activeDropdown === 'rudraksha' ? 'block' : 'hidden'}`}
+                                style={{ background: '#fff', boxShadow: '0 8px 32px rgba(0,0,0,0.12)', border: '1px solid rgba(201,151,42,0.14)', borderRadius: '12px', padding: '6px 0', minWidth: '220px', maxHeight: '70vh', overflowY: 'auto' }}
+                            >
+                                {RUDRAKSHA_MENU.map(s => (
+                                    <Link key={s.slug} to={s.slug} onClick={() => setActiveDropdown(null)}
+                                        className="block px-4 py-2 text-[13px] transition-colors hover:bg-orange-50 hover:text-[#c74500]"
+                                        style={{ color: '#3a2010', fontFamily: 'DM Sans, sans-serif', whiteSpace: 'nowrap' }}
+                                    >
+                                        {s.label}
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+
+                        <NavLink to="/collections/gemstones" style={linkStyle} className="px-2.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Gemstones</NavLink>
+
+                        {/* Yantra */}
+                        <div className="relative">
+                            <NavDropdownBtn label="Yantra" dKey="yantra" />
+                            <DropdownMenu items={YANTRA_MENU} isOpen={activeDropdown === 'yantra'} onClose={() => setActiveDropdown(null)} />
+                        </div>
+
+                        {/* Shop More */}
+                        <div className="relative">
+                            <NavDropdownBtn label="Shop More" dKey="shopmore" />
+                            <DropdownMenu items={SHOP_MORE_MENU} isOpen={activeDropdown === 'shopmore'} onClose={() => setActiveDropdown(null)} />
+                        </div>
+
+                        <NavLink to="/about" style={linkStyle} className="px-2.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">About Us</NavLink>
+
+                        {/* Gallery */}
+                        <div className="relative">
+                            <NavDropdownBtn label="Gallery" dKey="gallery" />
+                            <DropdownMenu items={GALLERY_MENU} isOpen={activeDropdown === 'gallery'} onClose={() => setActiveDropdown(null)} />
+                        </div>
+
+                        <NavLink to="/blog" style={linkStyle} className="px-2.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Blogs</NavLink>
+                        <NavLink to="/contact" style={linkStyle} className="px-2.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Contact Us</NavLink>
                     </nav>
 
                     {/* ── ACTIONS ─── */}
@@ -145,8 +230,8 @@ export default function Navbar() {
                                     ref={searchRef}
                                     value={query}
                                     onChange={e => setQuery(e.target.value)}
-                                    placeholder="Search products…"
-                                    className="w-40 sm:w-52 px-3 py-1.5 text-sm rounded-lg outline-none"
+                                    placeholder="Search…"
+                                    className="w-36 sm:w-48 px-3 py-1.5 text-sm rounded-lg outline-none"
                                     style={{ background: '#fdf8f0', border: '1px solid rgba(201,151,42,0.3)', color: '#2d1508', fontFamily: 'DM Sans, sans-serif' }}
                                 />
                                 <button type="button" onClick={() => setSearchOpen(false)} className="p-1.5" style={{ color: '#888' }}>
@@ -160,12 +245,10 @@ export default function Navbar() {
                             </button>
                         )}
 
-                        {/* Wishlist */}
                         <Link to="/wishlist" className="p-2 rounded-lg hover:bg-orange-50 transition-colors hidden sm:flex" style={{ color: '#3a2010' }}>
                             <Heart size={18} />
                         </Link>
 
-                        {/* Cart */}
                         <Link to="/cart" className="relative p-2 rounded-lg hover:bg-orange-50 transition-colors" style={{ color: '#3a2010' }}>
                             <ShoppingCart size={18} />
                             {cartCount > 0 && (
@@ -176,7 +259,6 @@ export default function Navbar() {
                             )}
                         </Link>
 
-                        {/* Account */}
                         {isAuthenticated ? (
                             <Link to="/dashboard"
                                 className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-colors"
@@ -193,7 +275,7 @@ export default function Navbar() {
 
                         {/* Mobile burger */}
                         <button onClick={() => setMenuOpen(v => !v)}
-                            className="lg:hidden p-2 rounded-lg hover:bg-orange-50 transition-colors ml-1" style={{ color: '#3a2010' }}>
+                            className="xl:hidden p-2 rounded-lg hover:bg-orange-50 transition-colors ml-1" style={{ color: '#3a2010' }}>
                             {menuOpen ? <X size={20} /> : <Menu size={20} />}
                         </button>
                     </div>
@@ -202,20 +284,31 @@ export default function Navbar() {
 
             {/* ── MOBILE MENU ─── */}
             {menuOpen && (
-                <div className="lg:hidden" style={{ background: '#fff', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
-                    <div className="max-w-7xl mx-auto px-5 py-4 flex flex-col gap-1">
-                        {NAV_LINKS.map(l => (
-                            <NavLink key={l.to} to={l.to} onClick={() => setMenuOpen(false)}
-                                style={linkStyle}
-                                className="py-2.5 px-3 rounded-lg hover:bg-orange-50 transition-colors">
-                                {l.label}
-                            </NavLink>
-                        ))}
-                        <div className="mt-1 pt-3" style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}>
-                            <p className="text-[10px] font-bold uppercase tracking-widest mb-2 px-3" style={{ color: '#c9972a', fontFamily: 'DM Sans, sans-serif' }}>Services</p>
+                <div className="xl:hidden" style={{ background: '#fff', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+                    <div className="max-w-screen-xl mx-auto px-5 py-4 flex flex-col gap-1">
+                        <NavLink to="/" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">Home</NavLink>
+                        <NavLink to="/horoscope" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">Horoscope 2026</NavLink>
+                        <NavLink to="/collections/gemstones" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">Gemstones</NavLink>
+                        <NavLink to="/about" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">About Us</NavLink>
+                        <NavLink to="/blog" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">Blogs</NavLink>
+                        <NavLink to="/contact" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">Contact Us</NavLink>
+
+                        <div className="mt-2 pt-3 border-t border-orange-50">
+                            <p className="text-[10px] font-bold uppercase tracking-widest mb-2 px-3" style={{ color: '#c9972a' }}>Services</p>
                             {SERVICES_MENU.map(s => (
                                 <Link key={s.slug} to={s.slug} onClick={() => setMenuOpen(false)}
-                                    className="block py-2 px-3 text-[13px] rounded-lg hover:bg-orange-50 transition-colors"
+                                    className="block py-2 px-3 text-[13px] rounded-lg hover:bg-orange-50"
+                                    style={{ color: '#3a2010', fontFamily: 'DM Sans, sans-serif' }}>
+                                    {s.label}
+                                </Link>
+                            ))}
+                        </div>
+
+                        <div className="mt-2 pt-3 border-t border-orange-50">
+                            <p className="text-[10px] font-bold uppercase tracking-widest mb-2 px-3" style={{ color: '#c9972a' }}>Rudraksha</p>
+                            {RUDRAKSHA_MENU.slice(0, 8).map(s => (
+                                <Link key={s.slug} to={s.slug} onClick={() => setMenuOpen(false)}
+                                    className="block py-2 px-3 text-[13px] rounded-lg hover:bg-orange-50"
                                     style={{ color: '#3a2010', fontFamily: 'DM Sans, sans-serif' }}>
                                     {s.label}
                                 </Link>

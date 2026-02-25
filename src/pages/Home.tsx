@@ -7,8 +7,8 @@ import { useCartStore } from '@/stores/cartStore'
 const CDN = 'https://cdn.shopify.com/s/files/1/0634/2521/6555/files'
 const IMG = {
     // Founder & About
-    hero: `${CDN}/Er_Manu_Gupta.png?v=1736767500`,
-    about: `${CDN}/Er_Manu_Gupta.png?v=1736767500`,
+    hero: `https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311&width=900`,
+    about: `https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311&width=900`,
     // Real Rudraksha product images from manuastro.com
     p_gauri_ganesh: `${CDN}/GSGR.jpg?v=1770991476`,
     p_10_mukhi: `${CDN}/10fr02.jpg?v=1770984663`,
@@ -20,16 +20,16 @@ const IMG = {
     p_gauri_shankar: `${CDN}/GSR.png?v=1770991378`,
     p_garbh_gauri: `${CDN}/GarbhGauri.png?v=1770990982`,
     // Service Artworks
-    s_vedic: `${CDN}/VA.webp?v=1734005891`,
-    s_palm: `${CDN}/PR.webp?v=1734005891`,
-    s_personal: `${CDN}/PC.webp?v=1734005891`,
-    s_vaastu: `${CDN}/VS.webp?v=1734005891`,
-    s_corp: `${CDN}/CP.webp?v=1734005891`,
-    s_face: `${CDN}/FRN.webp?v=1734005891`,
+    s_vedic: `https://manuastro.com/cdn/shop/files/Vedic_Astrology_New_500x500_jpg.jpg?v=1770036692&width=1920`,
+    s_palm: `https://manuastro.com/cdn/shop/files/Palm_Reading_New_500x500_jpg.jpg?v=1770036747&width=1920`,
+    s_personal: `https://manuastro.com/cdn/shop/files/Personal_Consultation_New_500x500_jpg.jpg?v=1770036746&width=1920`,
+    s_vaastu: `https://manuastro.com/cdn/shop/files/Vaastu_Consultation_New_500x500_jpg.jpg?v=1770036851&width=1920`,
+    s_corp: `https://manuastro.com/cdn/shop/files/Corporate_Programs_New500x500_jpg.jpg?v=1770036889&width=1920`,
+    s_face: `https://manuastro.com/cdn/shop/files/Face_Reading_Numerology_New_500x500_jpg.jpg?v=1770038794&width=1920`,
     // Blog images
-    blog1: 'https://cdn.shopify.com/s/files/1/0634/2521/6555/articles/NUMEROLOGY_BLOG.png?v=1738743126',
-    blog2: 'https://cdn.shopify.com/s/files/1/0634/2521/6555/articles/VAASTU_BLOG.png?v=1738739985',
-    blog3: 'https://cdn.shopify.com/s/files/1/0634/2521/6555/articles/HOROSCOPE_BLOG.png?v=1738738328',
+    blog1: 'https://manuastro.com/cdn/shop/articles/4.jpg?v=1767595180&width=1000',
+    blog2: 'https://manuastro.com/cdn/shop/articles/3.jpg?v=1767595482&width=1000',
+    blog3: 'https://manuastro.com/cdn/shop/articles/2.jpg?v=1767595410&width=1000',
 }
 
 /* ─── Real products from manuastro.com ──────────────────────────────────── */
