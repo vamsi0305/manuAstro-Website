@@ -131,7 +131,7 @@ export default function Navbar() {
     const NavDropdownBtn = ({ label, dKey }: { label: string; dKey: DropdownKey }) => (
         <button
             onClick={() => toggle(dKey)}
-            className="flex items-center gap-0.5 px-2.5 py-1.5 rounded-lg text-[13.5px] font-medium hover:bg-orange-50 hover:text-[#c74500] transition-colors whitespace-nowrap"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-[13.5px] font-medium hover:bg-orange-50 hover:text-[#c74500] transition-colors whitespace-nowrap"
             style={{ color: activeDropdown === dKey ? '#c74500' : '#3a2010', fontFamily: 'DM Sans, sans-serif', background: 'transparent', border: 'none', cursor: 'pointer' }}
         >
             {label}
@@ -153,7 +153,7 @@ export default function Navbar() {
                 <div className="flex items-center h-16 gap-4" ref={navRef}>
 
                     {/* ── LOGO ─── */}
-                    <Link to="/" className="flex items-center gap-2 flex-shrink-0">
+                    <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
                         <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg font-bold text-white flex-shrink-0"
                             style={{ background: 'linear-gradient(135deg,#c74500,#e07a10)', fontFamily: 'Cinzel, serif', boxShadow: '0 2px 10px rgba(199,69,0,0.25)' }}>
                             मं
@@ -165,10 +165,10 @@ export default function Navbar() {
                     </Link>
 
                     {/* ── DESKTOP NAV ─── */}
-                    <nav className="hidden xl:flex items-center gap-0.5 flex-1 flex-wrap">
+                    <nav className="hidden xl:flex items-center gap-1.5 flex-1 flex-wrap">
 
-                        <NavLink to="/" style={linkStyle} className="px-2.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Home</NavLink>
-                        <NavLink to="/horoscope" style={linkStyle} className="px-2.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Horoscope 2026</NavLink>
+                        <NavLink to="/" style={linkStyle} className="px-3.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Home</NavLink>
+                        <NavLink to="/horoscope" style={linkStyle} className="px-3.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Horoscope 2026</NavLink>
 
                         {/* Services */}
                         <div className="relative">
@@ -194,7 +194,7 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        <NavLink to="/collections/gemstones" style={linkStyle} className="px-2.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Gemstones</NavLink>
+                        <NavLink to="/collections/gemstones" style={linkStyle} className="px-3.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Gemstones</NavLink>
 
                         {/* Yantra */}
                         <div className="relative">
@@ -208,7 +208,7 @@ export default function Navbar() {
                             <DropdownMenu items={SHOP_MORE_MENU} isOpen={activeDropdown === 'shopmore'} onClose={() => setActiveDropdown(null)} />
                         </div>
 
-                        <NavLink to="/about" style={linkStyle} className="px-2.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">About Us</NavLink>
+                        <NavLink to="/about" style={linkStyle} className="px-3.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">About Us</NavLink>
 
                         {/* Gallery */}
                         <div className="relative">
@@ -216,8 +216,8 @@ export default function Navbar() {
                             <DropdownMenu items={GALLERY_MENU} isOpen={activeDropdown === 'gallery'} onClose={() => setActiveDropdown(null)} />
                         </div>
 
-                        <NavLink to="/blog" style={linkStyle} className="px-2.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Blogs</NavLink>
-                        <NavLink to="/contact" style={linkStyle} className="px-2.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Contact Us</NavLink>
+                        <NavLink to="/blog" style={linkStyle} className="px-3.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Blogs</NavLink>
+                        <NavLink to="/contact" style={linkStyle} className="px-3.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Contact Us</NavLink>
                     </nav>
 
                     {/* ── ACTIONS ─── */}
