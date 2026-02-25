@@ -1,0 +1,474 @@
+/* ── Google Fonts ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+/* ── Tailwind ─────────────────────────────────────────── */
+@import "tailwindcss";
+
+/* ── Root Variables ───────────────────────────────────── */
+:root {
+  /* Colors */
+  --color-bg: #fdf7ed;
+  --color-bg-secondary: #faf2e2;
+  --color-bg-card: #fff9f2;
+  --color-border: #e8d5b4;
+  --color-border-light: #f0e4ca;
+
+  /* Text */
+  --color-text-primary: #3a1f0d;
+  --color-text-secondary: #6b3f1a;
+  --color-text-muted: #9c6e3a;
+
+  /* Brand */
+  --color-saffron: #c74500;
+  --color-gold: #c9972a;
+  --color-earth: #7a3012;
+  --color-forest: #3a6b3f;
+
+  /* Fonts */
+  --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'DM Sans', 'Inter', system-ui, sans-serif;
+  --font-accent: 'Cinzel', 'Trajan Pro', serif;
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+/* ── Base ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Typography ───────────────────────────────────────── */
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+h4,
+h5,
+h6 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+/* ── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fdf0de;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4a24c;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c47a20;
+}
+
+/* ── Page wrapper ─────────────────────────────────────── */
+.page-wrapper {
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+/* ── Glass Card ───────────────────────────────────────── */
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(99, 44, 14, 0.08);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 32px rgba(99, 44, 14, 0.14);
+  transform: translateY(-3px);
+}
+
+/* ── Saffron Button ───────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.2s;
+  background: linear-gradient(135deg, #c74500, #e05a00);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(199, 69, 0, 0.30);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #a33700, #c74500);
+  box-shadow: 0 6px 20px rgba(199, 69, 0, 0.40);
+  transform: translateY(-1px);
+}
+
+/* ── Gold Button ──────────────────────────────────────── */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.2s;
+  background: linear-gradient(135deg, #c9972a, #f0c050);
+  color: #3a1f0d;
+  box-shadow: 0 4px 14px rgba(201, 151, 42, 0.30);
+}
+
+.btn-gold:hover {
+  box-shadow: 0 6px 20px rgba(201, 151, 42, 0.45);
+  transform: translateY(-1px);
+}
+
+/* ── Outline Button ───────────────────────────────────── */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 26px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  background: transparent;
+  border: 1.5px solid var(--color-saffron);
+  color: var(--color-saffron);
+  transition: all 0.2s;
+}
+
+.btn-outline:hover {
+  background: rgba(199, 69, 0, 0.07);
+}
+
+/* ── Section divider ──────────────────────────────────── */
+.divider-ornamental {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 auto;
+  width: fit-content;
+  color: var(--color-gold);
+  font-size: 1.2rem;
+}
+
+.divider-ornamental::before,
+.divider-ornamental::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold));
+}
+
+.divider-ornamental::after {
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+}
+
+/* ── Decorative heading underline ─────────────────────── */
+.heading-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.heading-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #c74500, #c9972a);
+}
+
+/* ── Product badge ────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-saffron {
+  background: rgba(199, 69, 0, 0.1);
+  color: #c74500;
+  border: 1px solid rgba(199, 69, 0, 0.2);
+}
+
+.badge-gold {
+  background: rgba(201, 151, 42, 0.12);
+  color: #9a6f10;
+  border: 1px solid rgba(201, 151, 42, 0.25);
+}
+
+.badge-forest {
+  background: rgba(58, 107, 63, 0.1);
+  color: #3a6b3f;
+  border: 1px solid rgba(58, 107, 63, 0.2);
+}
+
+.badge-earth {
+  background: rgba(122, 48, 18, 0.1);
+  color: #7a3012;
+  border: 1px solid rgba(122, 48, 18, 0.2);
+}
+
+/* ── Trust bar icons ──────────────────────────────────── */
+.trust-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+/* ── Nav link hover ───────────────────────────────────── */
+.nav-link {
+  position: relative;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: 4px 0;
+  transition: color 0.2s;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-saffron);
+  transition: width 0.25s;
+}
+
+.nav-link:hover {
+  color: var(--color-saffron);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ── Input Fields ─────────────────────────────────────── */
+input,
+select,
+textarea {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-saffron);
+  box-shadow: 0 0 0 3px rgba(199, 69, 0, 0.10);
+}
+
+/* ── Star Rating ──────────────────────────────────────── */
+.stars {
+  color: #f0c050;
+  letter-spacing: 1px;
+}
+
+/* ── Section padding ──────────────────────────────────── */
+.section {
+  padding: 80px 0;
+}
+
+.section-sm {
+  padding: 50px 0;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ── Mandala decorative bg circles ───────────────────── */
+.mandala-bg {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 151, 42, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Product card image area ──────────────────────────── */
+.product-img-wrap {
+  position: relative;
+  background: linear-gradient(135deg, #fdf3e3, #fce8c8);
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
