@@ -8,6 +8,7 @@ const ShopPage = lazy(() => import('@/pages/Shop/ShopPage'))
 const CategoryPage = lazy(() => import('@/pages/Shop/CategoryPage'))
 const ProductDetail = lazy(() => import('@/pages/Shop/ProductDetail'))
 const CartPage = lazy(() => import('@/pages/Shop/CartPage'))
+const WishlistPage = lazy(() => import('@/pages/Wishlist'))
 const CheckoutPage = lazy(() => import('@/pages/Shop/CheckoutPage'))
 const Horoscope = lazy(() => import('@/pages/Horoscope'))
 const BlogList = lazy(() => import('@/pages/Blog/BlogList'))
@@ -83,6 +84,7 @@ export const routes: RouteObject[] = [
     { path: '/rudraksha', element: <S><RudrakshaList /></S> },
     { path: '/yantra', element: <S><YantraList /></S> },
     { path: '/cart', element: <S><CartPage /></S> },
+    { path: '/wishlist', element: <S><WishlistPage /></S> },
     {
         path: '/checkout',
         element: <ProtectedRoute><S><CheckoutPage /></S></ProtectedRoute>,

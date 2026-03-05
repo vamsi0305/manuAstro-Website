@@ -28,77 +28,127 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fdf7ed] flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="card p-8 sm:p-10 bg-white shadow-2xl"
-        >
-          <div className="text-center mb-10">
-            <Link to="/" className="inline-block w-16 h-16 bg-saffron rounded-2xl mb-6 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-saffron/20 group">
-              <span className="group-hover:scale-110 transition-transform">मं</span>
-            </Link>
-            <h1 className="text-3xl font-serif text-earth mb-2">Welcome Back</h1>
-            <p className="text-sm text-secondary">Sign in to access your sacred dashboard.</p>
+    <div style={{
+      minHeight: '100vh',
+      background: 'var(--color-bg)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '2rem'
+    }}>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="card" style={{
+          width: '100%',
+          maxWidth: '480px',
+          padding: '3rem 2.5rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.5rem'
+        }}>
+        <div style={{ textAlign: 'center', marginBottom: '0.5rem' }}>
+          <div style={{
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            border: '2px solid var(--color-gold)',
+            background: 'var(--color-bg-card)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 1rem',
+            fontSize: '1.8rem',
+            color: 'var(--color-saffron)'
+          }}>ॐ</div>
+          <h1 className="font-serif" style={{
+            fontSize: '2rem',
+            color: 'var(--color-earth)'
+          }}>Welcome Back</h1>
+          <p style={{
+            color: 'var(--color-text-muted)',
+            fontSize: '0.9rem',
+            marginTop: '0.25rem'
+          }}>Sign in to your ManuAstro account</p>
+        </div>
+
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <label style={{
+              fontSize: '0.85rem',
+              color: 'var(--color-text-secondary)',
+              fontFamily: 'var(--font-accent)',
+              letterSpacing: '0.05em'
+            }}>Email Address</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '0.75rem 1rem',
+                border: '1px solid var(--color-border)',
+                borderRadius: '0.5rem',
+                background: 'var(--color-bg)',
+                color: 'var(--color-text-primary)',
+                fontSize: '0.95rem',
+                outline: 'none'
+              }}
+              placeholder="you@example.com"
+              required
+            />
           </div>
 
-          <form className="space-y-5" onSubmit={handleSubmit}>
-            <div>
-              <label className="block text-sm font-medium text-earth mb-1.5">Email Address</label>
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/50" size={18} />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@example.com"
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-gold/10 bg-[#faf2e2]/30 text-earth placeholder-muted/60 focus:outline-none focus:ring-2 focus:ring-saffron transition-all"
-                  required
-                />
-              </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <label style={{
+                fontSize: '0.85rem',
+                color: 'var(--color-text-secondary)',
+                fontFamily: 'var(--font-accent)',
+                letterSpacing: '0.05em'
+              }}>Password</label>
             </div>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '0.75rem 1rem',
+                border: '1px solid var(--color-border)',
+                borderRadius: '0.5rem',
+                background: 'var(--color-bg)',
+                color: 'var(--color-text-primary)',
+                fontSize: '0.95rem',
+                outline: 'none'
+              }}
+              placeholder="••••••••"
+              required
+            />
+          </div>
 
-            <div>
-              <div className="flex justify-between items-center mb-1.5">
-                <label className="block text-sm font-medium text-earth">Password</label>
-                <Link to="/forgot-password" hidden className="text-xs font-bold text-saffron hover:underline">Forgot?</Link>
-              </div>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/50" size={18} />
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-gold/10 bg-[#faf2e2]/30 text-earth placeholder-muted/60 focus:outline-none focus:ring-2 focus:ring-saffron transition-all"
-                  required
-                />
-              </div>
-            </div>
-
+          <div style={{ marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <button
               type="submit"
               disabled={loading}
-              className="btn-primary w-full py-3 text-base font-semibold justify-center mt-4"
+              className="btn-primary"
+              style={{ width: '100%', padding: '0.875rem', fontSize: '1rem', justifyContent: 'center' }}
             >
-              {loading ? 'Authenticating...' : 'Sign In'} <LogIn size={18} className="ml-2" />
+              {loading ? 'Authenticating...' : 'Sign In'}
             </button>
-          </form>
-
-          <div className="relative my-8">
-            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gold/10"></div></div>
-            <div className="relative flex justify-center text-xs uppercase tracking-widest"><span className="bg-white px-4 text-muted">New Here?</span></div>
           </div>
+        </form>
 
-          <Link
-            to="/register"
-            className="btn-gold w-full py-3 text-base justify-center"
-          >
-            Create Free Account
-          </Link>
-        </motion.div>
-      </div>
+        <p style={{
+          textAlign: 'center',
+          fontSize: '0.875rem',
+          color: 'var(--color-text-muted)',
+          marginTop: '0.5rem'
+        }}>
+          Don't have an account? <Link to="/register" style={{ color: 'var(--color-saffron)' }}>Create one free</Link>
+        </p>
+
+      </motion.div>
     </div>
   )
 }

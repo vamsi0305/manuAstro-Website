@@ -36,118 +36,226 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fdf7ed] flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-lg">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="card p-8 sm:p-10 bg-white shadow-2xl"
-        >
-          <div className="text-center mb-10">
-            <h1 className="text-3xl font-serif text-earth mb-2">Create Account</h1>
-            <p className="text-sm text-secondary">Join the ManuAstro community for Vedic insights.</p>
+    <div style={{
+      minHeight: '100vh',
+      background: 'var(--color-bg)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '2rem'
+    }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="card" style={{
+          width: '100%',
+          maxWidth: '560px',
+          padding: '3rem 2.5rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.5rem'
+        }}>
+        <div style={{ textAlign: 'center', marginBottom: '0.5rem' }}>
+          <div style={{
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            border: '2px solid var(--color-gold)',
+            background: 'var(--color-bg-card)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 1rem',
+            fontSize: '1.8rem',
+            color: 'var(--color-saffron)'
+          }}>ॐ</div>
+          <h1 className="font-serif" style={{
+            fontSize: '2rem',
+            color: 'var(--color-earth)'
+          }}>Create Account</h1>
+          <p style={{
+            color: 'var(--color-text-muted)',
+            fontSize: '0.9rem',
+            marginTop: '0.25rem'
+          }}>Join the ManuAstro community for Vedic insights</p>
+        </div>
+
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '1rem'
+          }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <label style={{
+                fontSize: '0.85rem',
+                color: 'var(--color-text-secondary)',
+                fontFamily: 'var(--font-accent)',
+                letterSpacing: '0.05em'
+              }}>Full Name</label>
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem 1rem',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '0.5rem',
+                  background: 'var(--color-bg)',
+                  color: 'var(--color-text-primary)',
+                  fontSize: '0.95rem',
+                  outline: 'none'
+                }}
+                placeholder="John Doe"
+                required
+              />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <label style={{
+                fontSize: '0.85rem',
+                color: 'var(--color-text-secondary)',
+                fontFamily: 'var(--font-accent)',
+                letterSpacing: '0.05em'
+              }}>Email Address</label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem 1rem',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '0.5rem',
+                  background: 'var(--color-bg)',
+                  color: 'var(--color-text-primary)',
+                  fontSize: '0.95rem',
+                  outline: 'none'
+                }}
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <label style={{
+                fontSize: '0.85rem',
+                color: 'var(--color-text-secondary)',
+                fontFamily: 'var(--font-accent)',
+                letterSpacing: '0.05em'
+              }}>Phone Number</label>
+              <input
+                type="tel"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem 1rem',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '0.5rem',
+                  background: 'var(--color-bg)',
+                  color: 'var(--color-text-primary)',
+                  fontSize: '0.95rem',
+                  outline: 'none'
+                }}
+                placeholder="+91 XXXXX XXXXX"
+                required
+              />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <label style={{
+                fontSize: '0.85rem',
+                color: 'var(--color-text-secondary)',
+                fontFamily: 'var(--font-accent)',
+                letterSpacing: '0.05em'
+              }}>Password</label>
+              <input
+                type="password"
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem 1rem',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '0.5rem',
+                  background: 'var(--color-bg)',
+                  color: 'var(--color-text-primary)',
+                  fontSize: '0.95rem',
+                  outline: 'none'
+                }}
+                placeholder="••••••••"
+                required
+              />
+            </div>
           </div>
 
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-earth mb-1.5">Full Name</label>
-                <div className="relative">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/50" size={18} />
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="John Doe"
-                    className="w-full pl-12 pr-4 py-2.5 rounded-xl border border-gold/10 bg-[#faf2e2]/30 text-earth placeholder-muted/60 focus:outline-none focus:ring-2 focus:ring-saffron transition-all"
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-earth mb-1.5">Email Address</label>
-                <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/50" size={18} />
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="john@example.com"
-                    className="w-full pl-12 pr-4 py-2.5 rounded-xl border border-gold/10 bg-[#faf2e2]/30 text-earth placeholder-muted/60 focus:outline-none focus:ring-2 focus:ring-saffron transition-all"
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-earth mb-1.5">Phone Number</label>
-                <div className="relative">
-                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/50" size={18} />
-                  <input
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="+91 XXXXX XXXXX"
-                    className="w-full pl-12 pr-4 py-2.5 rounded-xl border border-gold/10 bg-[#faf2e2]/30 text-earth placeholder-muted/60 focus:outline-none focus:ring-2 focus:ring-saffron transition-all"
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-earth mb-1.5">Password</label>
-                <div className="relative">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/50" size={18} />
-                  <input
-                    type="password"
-                    value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    placeholder="••••••••"
-                    className="w-full pl-12 pr-4 py-2.5 rounded-xl border border-gold/10 bg-[#faf2e2]/30 text-earth placeholder-muted/60 focus:outline-none focus:ring-2 focus:ring-saffron transition-all"
-                    required
-                  />
-                </div>
-              </div>
-            </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <label style={{
+              fontSize: '0.85rem',
+              color: 'var(--color-text-secondary)',
+              fontFamily: 'var(--font-accent)',
+              letterSpacing: '0.05em'
+            }}>Confirm Password</label>
+            <input
+              type="password"
+              value={formData.confirmPassword}
+              onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+              style={{
+                width: '100%',
+                padding: '0.75rem 1rem',
+                border: '1px solid var(--color-border)',
+                borderRadius: '0.5rem',
+                background: 'var(--color-bg)',
+                color: 'var(--color-text-primary)',
+                fontSize: '0.95rem',
+                outline: 'none'
+              }}
+              placeholder="••••••••"
+              required
+            />
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium text-earth mb-1.5">Confirm Password</label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/50" size={18} />
-                <input
-                  type="password"
-                  value={formData.confirmPassword}
-                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  placeholder="••••••••"
-                  className="w-full pl-12 pr-4 py-2.5 rounded-xl border border-gold/10 bg-[#faf2e2]/30 text-earth placeholder-muted/60 focus:outline-none focus:ring-2 focus:ring-saffron transition-all"
-                  required
-                />
-              </div>
-            </div>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+            <input type="checkbox" required style={{
+              marginTop: '3px',
+              accentColor: 'var(--color-saffron)',
+              width: '16px',
+              height: '16px'
+            }} />
+            <span style={{
+              fontSize: '0.85rem',
+              color: 'var(--color-text-muted)',
+              lineHeight: 1.5
+            }}>
+              I agree to the <Link to="/terms" style={{ color: 'var(--color-saffron)' }}>Terms of Service</Link> and <Link to="/privacy" style={{ color: 'var(--color-saffron)' }}>Privacy Policy</Link>
+            </span>
+          </div>
 
-            <div className="flex items-start gap-3 py-2">
-              <input type="checkbox" className="mt-1 accent-saffron h-4 w-4 rounded" required />
-              <p className="text-sm text-secondary leading-tight">
-                I agree to the <Link to="/terms" className="text-saffron font-bold hover:underline">Terms</Link> and <Link to="/privacy" className="text-saffron font-bold hover:underline">Privacy Policy</Link>.
-              </p>
-            </div>
-
+          <div style={{ marginTop: '0.5rem' }}>
             <button
               type="submit"
               disabled={loading}
-              className="btn-primary w-full py-3 text-base font-semibold justify-center mt-2 group"
+              className="btn-primary"
+              style={{ width: '100%', padding: '0.875rem', fontSize: '1rem', justifyContent: 'center' }}
             >
-              {loading ? 'Sacred initiation...' : 'Create Account'}
-              <CheckCircle size={18} className="ml-2 group-hover:scale-110 transition-transform" />
+              {loading ? 'Creating Account...' : 'Create Account'}
             </button>
-          </form>
-
-          <div className="text-center mt-10 pt-8 border-t border-gold/10">
-            <p className="text-sm text-muted">
-              Already have an account?
-              <Link to="/login" className="text-saffron font-bold ml-1 hover:underline">Sign In Instead</Link>
-            </p>
           </div>
-        </motion.div>
-      </div>
+        </form>
+
+        <p style={{
+          textAlign: 'center',
+          fontSize: '0.875rem',
+          color: 'var(--color-text-muted)',
+          marginTop: '0.5rem'
+        }}>
+          Already have an account? <Link to="/login" style={{ color: 'var(--color-saffron)' }}>Sign In</Link>
+        </p>
+
+      </motion.div>
     </div>
   )
 }
