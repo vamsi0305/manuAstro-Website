@@ -18,7 +18,7 @@ export default function VedicAstrology() {
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1400&auto=format&fit=crop" alt="Vedic Astrology" className="w-full h-full object-cover opacity-15" />
+          <img src="https://manuastro.com/cdn/shop/files/Vedic_Astrology_New_500x500_jpg.jpg?v=1770036692" alt="Vedic Astrology" className="w-full h-full object-cover opacity-15" />
           <div style={{ position: 'absolute', inset: 0, background: 'var(--color-bg)', opacity: 0.75 }} />
         </div>
 

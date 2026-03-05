@@ -9,33 +9,18 @@ const MUKHI_TABS = [
     'All', '1 Mukhi', '2 Mukhi', '3 Mukhi', '4 Mukhi', '5 Mukhi', '6 Mukhi', '7 Mukhi', '8 Mukhi', '9 Mukhi', '10 Mukhi', '11 Mukhi', '12 Mukhi', '13 Mukhi', '14 Mukhi', 'Gauri Shankar', 'Garbha Gauri'
 ]
 
-const rudrakshaImages: Record<number, string> = {
-    1: 'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=400&h=300&fit=crop',
-    2: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
-    3: 'https://images.unsplash.com/photo-1596516109370-29001ec8ec36?w=400&h=300&fit=crop',
-    4: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=400&h=300&fit=crop',
-    5: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=300&fit=crop',
-    6: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=400&h=300&fit=crop',
-    7: 'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=400&h=300&fit=crop&v=2',
-    8: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=300&fit=crop',
-    9: 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?w=400&h=300&fit=crop',
-    10: 'https://images.unsplash.com/photo-1611955167811-4711904bb9f8?w=400&h=300&fit=crop',
-    11: 'https://images.unsplash.com/photo-1596516109370-29001ec8ec36?w=400&h=300&fit=crop&v=2',
-    12: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=400&h=300&fit=crop&v=2',
-    13: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=300&fit=crop&v=3',
-    14: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=400&h=300&fit=crop&v=3',
-}
-
-const MOCK_RUDRAKSHA = Array.from({ length: 14 }, (_, i) => ({
-    id: `r${i + 1}`,
-    name: `${i + 1} Mukhi Nepali Rudraksha`,
-    slug: `${i + 1}-mukhi-nepali`,
-    price: 500 * (i + 1),
-    mukhi: `${i + 1} Mukhi`,
-    benefit: 'Enhances focus and spiritual growth.',
-    rating: 5,
-    image: rudrakshaImages[i + 1] || rudrakshaImages[5]
-}))
+const MOCK_RUDRAKSHA = [
+    { id: 'r1', name: 'Gauri Shankar Ganesh Rudraksha (2.25g)', slug: 'gauri-shankar-ganesh-rudraksha', price: 65000, mukhi: 'Gauri Shankar', benefit: 'Balance and obstacle removal.', image: 'https://manuastro.com/cdn/shop/files/GSGR.jpg?v=1770991476' },
+    { id: 'r2', name: '10 Mukhi Nepali Rudraksha (2.96g)', slug: '10-mukhi-nepali-rudraksha', price: 7150, mukhi: '10 Mukhi', benefit: 'Protection and peace.', image: 'https://manuastro.com/cdn/shop/files/10fr_1.jpg?v=1770986595' },
+    { id: 'r3', name: '5 Mukhi Nepali Rudraksha (6.44g)', slug: '5-mukhi-nepali-rudraksha-6-44', price: 1320, mukhi: '5 Mukhi', benefit: 'Health and academic success.', image: 'https://manuastro.com/cdn/shop/files/01_12.jpg?v=1770928499' },
+    { id: 'r4', name: '4 Mukhi Nepali Rudraksha (4.7g)', slug: '4-mukhi-nepali-rudraksha', price: 1200, mukhi: '4 Mukhi', benefit: 'Creativity and knowledge.', image: 'https://manuastro.com/cdn/shop/files/01_10.jpg?v=1770927798' },
+    { id: 'r5', name: '5 Mukhi Nepali Rudraksha (5.65g)', slug: '5-mukhi-nepali-rudraksha-5-65', price: 1320, mukhi: '5 Mukhi', benefit: 'General well-being and memory.', image: 'https://manuastro.com/cdn/shop/files/01_11.jpg?v=1770928893' },
+    { id: 'r6', name: '16 Mukhi Nepali Rudraksha (2.73g)', slug: '16-mukhi-nepali-rudraksha', price: 110000, mukhi: '16 Mukhi', benefit: 'Victory and security.', image: 'https://manuastro.com/cdn/shop/files/16_FACE_1.jpg?v=1770990686' },
+    { id: 'r7', name: '15 Mukhi Nepali Rudraksha (2.73g)', slug: '15-mukhi-nepali-rudraksha', price: 45000, mukhi: '15 Mukhi', benefit: 'Wealth and economic gain.', image: 'https://manuastro.com/cdn/shop/files/15_FACE_1.jpg?v=1770990668' },
+    { id: 'r8', name: '14 Mukhi Nepali Rudraksha (2.5g)', slug: '14-mukhi-nepali-rudraksha', price: 40000, mukhi: '14 Mukhi', benefit: 'Dev Mani - Ultimate protection.', image: 'https://manuastro.com/cdn/shop/files/14_FACE_1.jpg?v=1770990639', badge: 'Dev Mani' },
+    { id: 'r9', name: '13 Mukhi Nepali Rudraksha (2.27g)', slug: '13-mukhi-nepali-rudraksha', price: 21000, mukhi: '13 Mukhi', benefit: 'Attraction and charisma.', image: 'https://manuastro.com/cdn/shop/files/13_FACE_1.jpg?v=1770990713' },
+    { id: 'r10', name: 'Gauri Shankar Rudraksha (3.67g)', slug: 'gauri-shankar-rudraksha', price: 9680, mukhi: 'Gauri Shankar', benefit: 'Unity and relationship harmony.', image: 'https://manuastro.com/cdn/shop/files/GSR.png?v=1770991378' },
+]
 
 export default function RudrakshaList() {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -60,7 +45,7 @@ export default function RudrakshaList() {
             {/* ════ HERO ════ */}
             <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
                 <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-                    <img src="https://images.unsplash.com/photo-1609743522653-52354461eb27?w=1400&auto=format&fit=crop" alt="Nepali Rudraksha" className="w-full h-full object-cover opacity-15" />
+                    <img src="https://manuastro.com/cdn/shop/files/16_FACE_1.jpg?v=1770990686" alt="Nepali Rudraksha" className="w-full h-full object-cover opacity-15" />
                     <div style={{ position: 'absolute', inset: 0, background: 'var(--color-bg)', opacity: 0.75 }} />
                 </div>
 
@@ -154,7 +139,7 @@ export default function RudrakshaList() {
                                         }}
                                         loading="lazy"
                                         onError={(e) => {
-                                            e.currentTarget.src = 'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=400&h=300&fit=crop';
+                                            e.currentTarget.src = 'https://cdn.shopify.com/s/files/1/0634/2521/6555/files/13_FACE_1.jpg?v=1770990713';
                                         }}
                                     />
                                     {/* Planet badge top-left */}
@@ -166,7 +151,7 @@ export default function RudrakshaList() {
                                             padding: '0.2rem 0.6rem', borderRadius: '1rem',
                                             fontFamily: 'var(--font-accent)', letterSpacing: '0.05em'
                                         }}>
-                                            {p.mukhi}
+                                            {(p as any).badge || p.mukhi}
                                         </span>
                                     )}
                                     {/* Wishlist heart top-right */}

@@ -8,25 +8,30 @@ import SEOHead from '@/components/SEOHead'
 const CDN = 'https://cdn.shopify.com/s/files/1/0634/2521/6555/files'
 const IMG = {
     // Founder & About
-    hero: `https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311&width=900`,
-    about: `https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311&width=900`,
+    hero: `https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311`,
+    about: `https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311`,
+    // Testimonials
+    t_sakshi: `https://manuastro.com/cdn/shop/files/sakshi-malik.webp?v=1760455941`,
+    t_satyawart: `https://manuastro.com/cdn/shop/files/satyawart-kadian.webp?v=1760456114`,
+    t_devendra: `https://manuastro.com/cdn/shop/files/devendra-singh.webp?v=1760456542`,
     // Real Rudraksha product images from manuastro.com
     p_gauri_ganesh: `${CDN}/GSGR.jpg?v=1770991476`,
-    p_10_mukhi: `${CDN}/10fr02.jpg?v=1770984663`,
-    p_11_mukhi: `${CDN}/11fr02.jpg?v=1770989986`,
-    p_13_mukhi: `${CDN}/13_FACE_1.jpg?v=1770990713`,
-    p_14_mukhi: `${CDN}/14_FACE_1.jpg?v=1770990639`,
-    p_15_mukhi: `${CDN}/15_FACE_1.jpg?v=1770990668`,
-    p_16_mukhi: `${CDN}/16_FACE_1.jpg?v=1770990686`,
-    p_gauri_shankar: `${CDN}/GSR.png?v=1770991378`,
-    p_garbh_gauri: `${CDN}/GarbhGauri.png?v=1770990982`,
+    p_10_mukhi: `https://manuastro.com/cdn/shop/files/10fr_1.jpg?v=1770986595`,
+    p_5_mukhi_644: `https://manuastro.com/cdn/shop/files/01_12.jpg?v=1770928499`,
+    p_4_mukhi: `https://manuastro.com/cdn/shop/files/01_10.jpg?v=1770927798`,
+    p_5_mukhi_565: `https://manuastro.com/cdn/shop/files/01_11.jpg?v=1770928893`,
+    p_16_mukhi: `https://manuastro.com/cdn/shop/files/16_FACE_1.jpg?v=1770990686`,
+    p_15_mukhi: `https://manuastro.com/cdn/shop/files/15_FACE_1.jpg?v=1770990668`,
+    p_14_mukhi: `https://manuastro.com/cdn/shop/files/14_FACE_1.jpg?v=1770990639`,
+    p_13_mukhi: `https://manuastro.com/cdn/shop/files/13_FACE_1.jpg?v=1770990713`,
+    p_gauri_shankar: `https://manuastro.com/cdn/shop/files/GSR.png?v=1770991378`,
     // Service Artworks
-    s_vedic: `https://manuastro.com/cdn/shop/files/Vedic_Astrology_New_500x500_jpg.jpg?v=1770036692&width=1920`,
-    s_palm: `https://manuastro.com/cdn/shop/files/Palm_Reading_New_500x500_jpg.jpg?v=1770036747&width=1920`,
-    s_personal: `https://manuastro.com/cdn/shop/files/Personal_Consultation_New_500x500_jpg.jpg?v=1770036746&width=1920`,
-    s_vaastu: `https://manuastro.com/cdn/shop/files/Vaastu_Consultation_New_500x500_jpg.jpg?v=1770036851&width=1920`,
-    s_corp: `https://manuastro.com/cdn/shop/files/Corporate_Programs_New500x500_jpg.jpg?v=1770036889&width=1920`,
-    s_face: `https://manuastro.com/cdn/shop/files/Face_Reading_Numerology_New_500x500_jpg.jpg?v=1770038794&width=1920`,
+    s_vedic: `https://manuastro.com/cdn/shop/files/Vedic_Astrology_New_500x500_jpg.jpg?v=1770036692`,
+    s_palm: `https://manuastro.com/cdn/shop/files/Palm_Reading_New_500x500_jpg.jpg?v=1770036747`,
+    s_personal: `https://manuastro.com/cdn/shop/files/Personal_Consultation_New_500x500_jpg.jpg?v=1770036746`,
+    s_vaastu: `https://manuastro.com/cdn/shop/files/Vaastu_Consultation_New_500x500_jpg.jpg?v=1770036851`,
+    s_corp: `https://manuastro.com/cdn/shop/files/Corporate_Programs_New500x500_jpg.jpg?v=1770036889`,
+    s_face: `https://manuastro.com/cdn/shop/files/Face_Reading_Numerology_New_500x500_jpg.jpg?v=1770038794`,
     // Blog images
     blog1: 'https://manuastro.com/cdn/shop/articles/4.jpg?v=1767595180&width=1000',
     blog2: 'https://manuastro.com/cdn/shop/articles/3.jpg?v=1767595482&width=1000',
@@ -36,49 +41,49 @@ const IMG = {
 /* ─── Real products from manuastro.com ──────────────────────────────────── */
 const PRODUCTS = [
     {
-        id: '1', name: 'Natural Gauri Shankar Ganesh Rudraksha (2.25 Gram)',
+        id: '1', name: 'Gauri Shankar Ganesh Rudraksha (2.25g)',
         slug: 'natural-gauri-shankar-ganesh-rudraksha-2-25-gram',
         price: 65000, compare: 72000, rating: 5.0, reviews: 42, badge: 'Rare',
         img: IMG.p_gauri_ganesh, cat: 'Rudraksha',
     },
     {
-        id: '2', name: 'Natural Gauri Shankar Rudraksha (3.67 Gram)',
+        id: '2', name: 'Gauri Shankar Rudraksha (3.67g)',
         slug: 'natural-gauri-shankar-rudraksha3-67-gram',
         price: 9680, compare: 12000, rating: 4.9, reviews: 78, badge: 'Popular',
         img: IMG.p_gauri_shankar, cat: 'Rudraksha',
     },
     {
-        id: '3', name: '100% Natural Nepali 16 Mukhi Rudraksha (2.73 Gram)',
+        id: '3', name: '16 Mukhi Nepali Rudraksha (2.73g)',
         slug: '100-natural-nepali-16-mukhi-rudraksha-2-73-gram',
         price: 110000, compare: 130000, rating: 5.0, reviews: 17, badge: 'Premium',
         img: IMG.p_16_mukhi, cat: 'Rudraksha',
     },
     {
-        id: '4', name: '100% Natural Nepali 15 Mukhi Rudraksha (2.73 Gram)',
+        id: '4', name: '15 Mukhi Nepali Rudraksha (2.73g)',
         slug: '100-natural-nepali-15-mukhi-rudraksha-2-73-gram',
         price: 45000, compare: 55000, rating: 5.0, reviews: 23, badge: 'Premium',
         img: IMG.p_15_mukhi, cat: 'Rudraksha',
     },
     {
-        id: '5', name: '100% Natural Nepali 14 Mukhi Rudraksha (2.5 Gram)',
+        id: '5', name: '14 Mukhi Nepali Rudraksha (2.5g)',
         slug: '100-natural-nepali-14-mukhi-rudraksha-2-5-gram',
         price: 40000, compare: 48000, rating: 4.9, reviews: 31, badge: 'Dev Mani',
         img: IMG.p_14_mukhi, cat: 'Rudraksha',
     },
     {
-        id: '6', name: '100% Natural Nepali 13 Mukhi Rudraksha (2.27 Gram)',
+        id: '6', name: '13 Mukhi Nepali Rudraksha (2.27g)',
         slug: '100-natural-nepali-13-mukhi-rudraksha-2-27-gram',
         price: 21000, compare: 26000, rating: 4.8, reviews: 44, badge: 'Power',
         img: IMG.p_13_mukhi, cat: 'Rudraksha',
     },
     {
-        id: '7', name: '100% Natural Nepali 11 Mukhi Rudraksha (3.07 Gram)',
-        slug: '100-natural-nepali-11-mukhi-rudraksha-2-68-gram-copy',
-        price: 9680, compare: 12000, rating: 4.8, reviews: 62, badge: 'Best Seller',
-        img: IMG.p_11_mukhi, cat: 'Rudraksha',
+        id: '7', name: '5 Mukhi Nepali Rudraksha (6.44g)',
+        slug: '100-natural-nepali-5-mukhi-rudraksha-6-44-gram',
+        price: 1320, compare: 2000, rating: 4.8, reviews: 62, badge: 'Best Seller',
+        img: IMG.p_5_mukhi_644, cat: 'Rudraksha',
     },
     {
-        id: '8', name: '100% Natural Nepali 10 Mukhi Rudraksha (2.96 Gram)',
+        id: '8', name: '10 Mukhi Nepali Rudraksha (2.96g)',
         slug: '100-natural-nepali-10-mukhi-rudraksha-2-96-gram',
         price: 7150, compare: 9000, rating: 4.7, reviews: 89, badge: 'Top Rated',
         img: IMG.p_10_mukhi, cat: 'Rudraksha',
@@ -86,10 +91,34 @@ const PRODUCTS = [
 ]
 
 const TESTIMONIALS = [
-    { name: 'Priya Sharma', city: 'Bengaluru', initials: 'PS', color: '#c74500', rating: 5, review: 'Manu Ji\'s Vedic reading transformed my career. His predictions were spot-on and the Rudraksha he recommended brought incredible peace of mind.' },
-    { name: 'Rajesh Nair', city: 'Mumbai', initials: 'RN', color: '#c9972a', rating: 5, review: 'After the Vaastu consultation, our business revenue doubled in 3 months. The changes were simple but the impact was remarkable.' },
-    { name: 'Ananya K.', city: 'Chennai', initials: 'AK', color: '#3a6b3f', rating: 5, review: 'The palm reading session was deeply insightful. Manu Ji read details about my past that nobody else knew. A true master of ancient sciences.' },
-    { name: 'Vikram Malhotra', city: 'Delhi', initials: 'VM', color: '#7a3012', rating: 5, review: 'Ordered the Rudraksha — beautiful packaging, genuine quality, truly energised. Manu Ji\'s guidance on wearing it was thorough and helpful.' },
+    {
+        name: 'Padamshree Sakshi Malik',
+        title: 'International Wrestler, Commonwealth Games 2022 Gold Winner',
+        img: IMG.t_sakshi,
+        rating: 5,
+        review: 'Sir aapse baat karke bhout positive feel hota hai… aap bhout acha motivate bhi karte ho.. or aapke btaaye huye uppaye se muje bhout fayda hua hai or professional life or personal life me bhi bhout good changes hue hain.'
+    },
+    {
+        name: 'Satyawart Kadian',
+        title: 'International Wrestler, India',
+        img: IMG.t_satyawart,
+        rating: 5,
+        review: 'Bhout jayda positive hua hu sir mai.. or aapse milne k baad aapke uppaye kr baad muje esa lagta hai ki abhi sare kaam ache hi honge.. or mai life me or bhout achieve kar sakta hu.'
+    },
+    {
+        name: 'Devendra Singh',
+        title: 'Under Secretary, Government of India',
+        img: IMG.t_devendra,
+        rating: 5,
+        review: 'I appreciate your work and your experience in the field of Astrology, Vastu and allied subjects. Your advice and clarity of subject to your clients is of par excellence. The accuracy of your predictions is almost 100%.'
+    },
+    {
+        name: 'Manu Gupta',
+        title: 'Founder, ManuAstro',
+        img: IMG.hero,
+        rating: 5,
+        review: 'Our vision is to make astrology logical, accessible, and globally respected by combining ancient wisdom with modern logic.'
+    },
 ]
 
 const SERVICES = [
@@ -473,12 +502,12 @@ export default function Home() {
                                     "{t.review}"
                                 </p>
                                 <div className="flex items-center gap-3 mt-auto">
-                                    <div style={{ width: '40px', height: '40px', borderRadius: '50%', border: '2px solid var(--color-gold)', background: 'var(--color-bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-saffron)', fontWeight: 700, fontSize: '1rem' }}>
-                                        {t.initials}
+                                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', border: '2px solid var(--color-gold)', overflow: 'hidden', background: 'var(--color-bg-secondary)', flexShrink: 0 }}>
+                                        <img src={t.img} alt={t.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.currentTarget.style.display = 'none' }} />
                                     </div>
                                     <div>
                                         <h4 className="font-serif font-bold text-sm" style={{ color: 'var(--color-earth)', margin: 0 }}>{t.name}</h4>
-                                        <p className="font-sans text-[0.7rem] text-muted uppercase tracking-widest">{t.city}</p>
+                                        <p className="font-sans text-[0.65rem] text-muted uppercase tracking-widest line-clamp-1">{t.title || 'Client'}</p>
                                     </div>
                                 </div>
                             </div>

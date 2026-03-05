@@ -66,7 +66,7 @@ export default function BlogDetail() {
       }}>
         {/* Background image */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src={blog.image_url || 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=1400'} alt="blog hero"
+          <img src={blog.image_url || 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311'} alt="blog hero"
             style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
           <div style={{
             position: 'absolute', inset: 0,

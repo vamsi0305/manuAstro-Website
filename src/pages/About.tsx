@@ -3,12 +3,27 @@ import { ShieldCheck, Heart, Users, Brain, Star } from 'lucide-react'
 import SEOHead from '@/components/SEOHead'
 
 
-const founderImage = "https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311&width=900"
+const founderImage = "https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311"
 
 const testimonials = [
-  { name: "Dr. Anjali R.", location: "Bengaluru", comment: "Manu Ji's reading didn't just tell me my future; it gave me the clarity to build it. His scientific explanation is mind-blowing." },
-  { name: "Rajesh Khanna", location: "Delhi", comment: "The Vaastu remedies suggested for my office showed results within weeks. Truly logical and effective guidance." },
-  { name: "Sarah Jenkins", location: "London", comment: "I bought a 5 Mukhi Rudraksha, and the quality is exceptional. The energy shift in my meditation is palpable." }
+  {
+    name: "Padamshree Sakshi Malik",
+    location: "International Wrestler, Gold Winner",
+    comment: "Sir aapse baat karke bhout positive feel hota hai… aap bhout acha motivate bhi karte ho.. or aapke btaaye huye uppaye se muje bhout fayda hua hai or professional life or personal life me bhi bhout good changes hue hain.",
+    img: "https://manuastro.com/cdn/shop/files/sakshi-malik.webp?v=1760455941"
+  },
+  {
+    name: "Satyawart Kadian",
+    location: "International Wrestler, India",
+    comment: "Bhout jayda positive hua hu sir mai.. or aapse milne k baad aapke uppaye kr baad muje esa lagta hai ki abhi sare kaam ache hi honge.. or mai life me or bhout achieve kar sakta hu.",
+    img: "https://manuastro.com/cdn/shop/files/satyawart-kadian.webp?v=1760456114"
+  },
+  {
+    name: "Devendra Singh",
+    location: "Under Secretary, Govt. of India",
+    comment: "I appreciate your work and your experience in the field of Astrology, Vastu and allied subjects. Your advice and clarity of subject to your clients is of par excellence. The accuracy of your predictions is almost 100%.",
+    img: "https://manuastro.com/cdn/shop/files/devendra-singh.webp?v=1760456542"
+  }
 ]
 
 export default function About() {
@@ -24,7 +39,7 @@ export default function About() {
         }}>
           <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
             <img
-              src='https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1400&auto=format&fit=crop'
+              src='https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311'
               alt='about'
               style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.12 }}
             />
@@ -79,18 +94,13 @@ export default function About() {
                   color: 'var(--color-text-secondary)', lineHeight: 1.8,
                   marginBottom: '1rem', fontSize: '1rem'
                 }}>
-                  Founded by Er. Manu Gupta, an IIM Ahmedabad alumnus,
-                  ManuAstro was born out of a vision to simplify complex
-                  astrological concepts for the modern world without losing
-                  the essence of traditional Vedic sciences.
+                  With over 18 years of experience in Astrology, Vaastu, and other occult sciences, Er. Manu Gupta combines ancient wisdom with modern logic to help people make life-changing decisions. An alumnus of IIM Ahmedabad, Manu Ji's unique approach bridges science and spirituality.
                 </p>
                 <p className='font-sans' style={{
                   color: 'var(--color-text-secondary)', lineHeight: 1.8,
                   marginBottom: '2rem', fontSize: '1rem'
                 }}>
-                  Er. Manu Gupta combines his technical background with
-                  deep-rooted spiritual knowledge to provide solutions that
-                  are both practical and transformative.
+                  He has been a guest lecturer at various colleges and corporates, featured on Shraddha TV Channel, and has written for Signature Monthly Magazine. Recognized under Startup India, MANUASTRO LLP is his vision to make astrology logical, accessible, and globally respected.
                 </p>
                 {/* Badges row */}
                 <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
@@ -224,24 +234,25 @@ export default function About() {
                   {/* Author */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <div style={{
-                      width: '40px', height: '40px', borderRadius: '50%',
-                      background: 'var(--color-bg-secondary)',
+                      width: '48px', height: '48px', borderRadius: '50%',
+                      overflow: 'hidden',
                       border: '2px solid var(--color-gold)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: 'var(--color-saffron)', fontWeight: 700, fontSize: '1rem'
+                      background: 'var(--color-bg-secondary)',
+                      flexShrink: 0
                     }}>
-                      {t.name[0]}
+                      <img src={(t as any).img} alt={t.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.currentTarget.style.display = 'none' }} />
                     </div>
                     <div>
                       <p style={{
                         fontWeight: 600, color: 'var(--color-earth)',
-                        margin: 0, fontSize: '0.95rem'
+                        margin: 0, fontSize: '0.9rem'
                       }}>
                         {t.name}
                       </p>
                       <p style={{
                         color: 'var(--color-text-muted)',
-                        fontSize: '0.8rem', margin: 0
+                        fontSize: '0.75rem', margin: 0,
+                        lineHeight: 1.2
                       }}>
                         {t.location}
                       </p>

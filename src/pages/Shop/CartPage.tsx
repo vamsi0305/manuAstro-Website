@@ -91,7 +91,7 @@ export default function CartPage() {
                         <td className="px-8 py-6">
                           <div className="flex gap-6 items-center">
                             <div className="w-20 h-20 rounded-2xl overflow-hidden bg-[#faf2e2] flex-shrink-0 border border-[var(--color-gold)]/10 p-1">
-                              <img src={item.product?.image || 'https://images.unsplash.com/photo-1609743522653-52354461eb27?w=200'} className="w-full h-full object-cover rounded-xl" />
+                              <img src={item.product?.image || 'https://manuastro.com/cdn/shop/files/16_FACE_1.jpg?v=1770990686'} className="w-full h-full object-cover rounded-xl" />
                             </div>
                             <div>
                               <Link to={`/shop/${item.product?.slug}`} className="font-serif font-bold text-[var(--color-earth)] hover:text-[var(--color-saffron)] transition-colors block mb-2 text-lg" style={{ textDecoration: 'none' }}>{item.product?.name}</Link>

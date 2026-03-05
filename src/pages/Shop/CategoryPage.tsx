@@ -44,7 +44,7 @@ export default function CategoryPage() {
             {/* ════ HERO ════ */}
             <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
                 <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-                    <img src="https://images.unsplash.com/photo-1605647540924-852290f6b0d5?w=1400&auto=format&fit=crop" alt={categoryTitle} className="w-full h-full object-cover opacity-10" />
+                    <img src="https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311" alt={categoryTitle} className="w-full h-full object-cover opacity-10" />
                     <div style={{ position: 'absolute', inset: 0, background: 'var(--color-bg)', opacity: 0.8 }} />
                 </div>
 
@@ -198,7 +198,7 @@ export default function CategoryPage() {
                                         {filteredProducts.map((p: any, idx: number) => {
                                             const productWithImageFallback = {
                                                 ...p,
-                                                thumbnail_url: p.thumbnail_url || p.image || 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=300&fit=crop'
+                                                thumbnail_url: p.thumbnail_url || p.image || 'https://manuastro.com/cdn/shop/files/16_FACE_1.jpg?v=1770990686'
                                             }
                                             return <ProductCard key={p.id || p._id || idx} product={productWithImageFallback} />
                                         })}

@@ -15,7 +15,7 @@ const MOCK_BLOGS = [
     cat: 'Rudraksha',
     date: 'Feb 15, 2026',
     time: '5 min read',
-    image: 'https://images.unsplash.com/photo-1609743522653-52354461eb27?w=600',
+    image: 'https://manuastro.com/cdn/shop/files/14_FACE_1.jpg?v=1770990639',
     excerpt: 'The 1 Mukhi Rudraksha is governed by Lord Shiva himself. Learn why it is the most sought-after bead for spiritual awakening.'
   },
   {
@@ -25,7 +25,7 @@ const MOCK_BLOGS = [
     cat: 'Vaastu',
     date: 'Feb 12, 2026',
     time: '8 min read',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600',
+    image: 'https://manuastro.com/cdn/shop/files/Vaastu_Consultation_New_500x500_jpg.jpg?v=1770036851',
     excerpt: 'Your living room is the face of your home. Small changes in furniture placement can drastically improve positive energy flow.'
   },
   {
@@ -35,7 +35,7 @@ const MOCK_BLOGS = [
     cat: 'Astrology',
     date: 'Feb 10, 2026',
     time: '6 min read',
-    image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600',
+    image: 'https://manuastro.com/cdn/shop/files/Vedic_Astrology_New_500x500_jpg.jpg?v=1770036692',
     excerpt: 'Mercury retrograde can disrupt communication. Here are 5 tips to navigate professional commitments during this phase.'
   }
 ]
@@ -67,7 +67,7 @@ export default function BlogList() {
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=1400&auto=format&fit=crop" alt="Vedic Insights" className="w-full h-full object-cover opacity-15" />
+          <img src="https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311" alt="Vedic Insights" className="w-full h-full object-cover opacity-15" />
           <div style={{ position: 'absolute', inset: 0, background: 'var(--color-bg)', opacity: 0.75 }} />
         </div>
 

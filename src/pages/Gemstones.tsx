@@ -9,14 +9,14 @@ const GEM_CATEGORIES = [
 ]
 
 const MOCK_GEMS = [
-    { id: 'g1', name: 'Premium Natural Ruby (Manik)', slug: 'natural-ruby', price: 25000, comparePrice: 30000, planet: 'Sun', weight: '5.25 Ratti', rating: 5, badge: 'Rules: Sun', image: 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?w=400&h=300&fit=crop' },
-    { id: 'g2', name: 'Zambian Emerald (Panna)', slug: 'zambian-emerald', price: 18000, comparePrice: 22000, planet: 'Mercury', weight: '4.50 Ratti', rating: 5, badge: 'Rules: Mercury', image: 'https://images.unsplash.com/photo-1611955167811-4711904bb9f8?w=400&h=300&fit=crop' },
-    { id: 'g3', name: 'Ceylon Yellow Sapphire', slug: 'yellow-sapphire', price: 45000, comparePrice: 55000, planet: 'Jupiter', weight: '6.15 Ratti', rating: 5, badge: 'Rules: Jupiter', image: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=400&h=300&fit=crop' },
-    { id: 'g4', name: 'Natural Blue Sapphire (Neelam)', slug: 'blue-sapphire', price: 65000, comparePrice: 80000, planet: 'Saturn', weight: '5.50 Ratti', rating: 5, badge: 'Rules: Saturn', image: 'https://images.unsplash.com/photo-1615655406736-b37887a36a2b?w=400&h=300&fit=crop' },
-    { id: 'g5', name: 'South Sea Pearl (Moti)', slug: 'south-sea-pearl', price: 8500, comparePrice: 10000, planet: 'Moon', weight: '7.25 Ratti', rating: 4, badge: 'Rules: Moon', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=300&fit=crop' },
-    { id: 'g6', name: 'Red Coral (Moonga) Italian', slug: 'red-coral', price: 12000, comparePrice: 15000, planet: 'Mars', weight: '8.50 Ratti', rating: 5, badge: 'Rules: Mars', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=300&fit=crop' },
-    { id: 'g7', name: 'Ceylon Hessonite (Gomed)', slug: 'hessonite-gomed', price: 9500, comparePrice: 12000, planet: 'Rahu', weight: '6.75 Ratti', rating: 4, badge: 'Rules: Rahu', image: 'https://images.unsplash.com/photo-1596516109370-29001ec8ec36?w=400&h=300&fit=crop' },
-    { id: 'g8', name: 'Cat\'s Eye (Lehsunia)', slug: 'cats-eye', price: 11000, comparePrice: 14000, planet: 'Ketu', weight: '5.85 Ratti', rating: 5, badge: 'Rules: Ketu', image: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=400&h=300&fit=crop' }
+    { id: 'g1', name: 'Premium Natural Ruby (Manik)', slug: 'natural-ruby', price: 25000, comparePrice: 30000, planet: 'Sun', weight: '5.25 Ratti', rating: 5, badge: 'Rules: Sun', image: 'https://manuastro.com/cdn/shop/files/SuryaYantra.jpg?v=1765298842' },
+    { id: 'g2', name: 'Zambian Emerald (Panna)', slug: 'zambian-emerald', price: 18000, comparePrice: 22000, planet: 'Mercury', weight: '4.50 Ratti', rating: 5, badge: 'Rules: Mercury', image: 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311' },
+    { id: 'g3', name: 'Ceylon Yellow Sapphire', slug: 'yellow-sapphire', price: 45000, comparePrice: 55000, planet: 'Jupiter', weight: '6.15 Ratti', rating: 5, badge: 'Rules: Jupiter', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFFESykq2QgeorQS5AqkfFRuV9XmS89EG60g&s' },
+    { id: 'g4', name: 'Natural Blue Sapphire (Neelam)', slug: 'blue-sapphire', price: 65000, comparePrice: 80000, planet: 'Saturn', weight: '5.50 Ratti', rating: 5, badge: 'Rules: Saturn', image: 'https://manuastro.com/cdn/shop/files/ShaniYantra.jpg?v=1765298776' },
+    { id: 'g5', name: 'South Sea Pearl (Moti)', slug: 'south-sea-pearl', price: 8500, comparePrice: 10000, planet: 'Moon', weight: '7.25 Ratti', rating: 4, badge: 'Rules: Moon', image: 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311' },
+    { id: 'g6', name: 'Red Coral (Moonga) Italian', slug: 'red-coral', price: 12000, comparePrice: 15000, planet: 'Mars', weight: '8.50 Ratti', rating: 5, badge: 'Rules: Mars', image: 'https://manuastro.com/cdn/shop/files/16_FACE_1.jpg?v=1770990686' },
+    { id: 'g7', name: 'Ceylon Hessonite (Gomed)', slug: 'hessonite-gomed', price: 9500, comparePrice: 12000, planet: 'Rahu', weight: '6.75 Ratti', rating: 4, badge: 'Rules: Rahu', image: 'https://manuastro.com/cdn/shop/files/shriRahuyantra.jpg?v=1765297876' },
+    { id: 'g8', name: 'Cat\'s Eye (Lehsunia)', slug: 'cats-eye', price: 11000, comparePrice: 14000, planet: 'Ketu', weight: '5.85 Ratti', rating: 5, badge: 'Rules: Ketu', image: 'https://manuastro.com/cdn/shop/files/16_FACE_1.jpg?v=1770990686' }
 ]
 
 const rise = (delay = 0) => ({
@@ -35,7 +35,7 @@ export default function Gemstones() {
             {/* ════ HERO ════ */}
             <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
                 <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1400&auto=format&fit=crop" alt="Precious Gemstones" className="w-full h-full object-cover opacity-15" />
+                    <img src="https://manuastro.com/cdn/shop/files/Vedic_Astrology_New_500x500_jpg.jpg?v=1770036692" alt="Precious Gemstones" className="w-full h-full object-cover opacity-15" />
                     <div style={{ position: 'absolute', inset: 0, background: 'var(--color-bg)', opacity: 0.75 }} />
                 </div>
 

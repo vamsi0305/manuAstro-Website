@@ -41,7 +41,7 @@ export default function Contact() {
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=1400&auto=format&fit=crop" alt="Get in Touch" className="w-full h-full object-cover opacity-15" />
+          <img src="https://manuastro.com/cdn/shop/files/Personal_Consultation_New_500x500_jpg.jpg?v=1770036746" alt="Get in Touch" className="w-full h-full object-cover opacity-15" />
           <div style={{ position: 'absolute', inset: 0, background: 'var(--color-bg)', opacity: 0.75 }} />
         </div>
 
@@ -126,7 +126,7 @@ export default function Contact() {
                     type="tel" required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-5 py-4 rounded-xl border border-[var(--color-gold)]/10 bg-white focus:ring-2 focus:ring-[var(--color-saffron)]/10 outline-none text-[var(--color-text-primary)] transition-all" placeholder="+91 XXXXX XXXXX"
+                    className="w-full px-5 py-4 rounded-xl border border-[var(--color-gold)]/10 bg-white focus:ring-2 focus:ring-[var(--color-saffron)]/10 outline-none text-[var(--color-text-primary)] transition-all" placeholder="9999999999 (No spaces)"
                   />
                 </div>
                 <div className="space-y-2">

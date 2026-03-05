@@ -17,7 +17,7 @@ export default function FaceReading() {
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1400&auto=format&fit=crop" alt="Face Reading" className="w-full h-full object-cover opacity-15" />
+          <img src="https://manuastro.com/cdn/shop/files/Face_Reading_Numerology_New_500x500_jpg.jpg?v=1770038794" alt="Face Reading" className="w-full h-full object-cover opacity-15" />
           <div style={{ position: 'absolute', inset: 0, background: 'var(--color-bg)', opacity: 0.75 }} />
         </div>
 

@@ -32,7 +32,7 @@ export default function ShopPage() {
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src="https://images.unsplash.com/photo-1605647540924-852290f6b0d5?w=1400&auto=format&fit=crop" alt="Sacred Shop" className="w-full h-full object-cover opacity-10" />
+          <img src="https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311" alt="Sacred Shop" className="w-full h-full object-cover opacity-10" />
           <div style={{ position: 'absolute', inset: 0, background: 'var(--color-bg)', opacity: 0.8 }} />
         </div>
 

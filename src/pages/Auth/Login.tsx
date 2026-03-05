@@ -18,11 +18,21 @@ export default function Login() {
     e.preventDefault()
     setLoading(true)
     try {
-      const response = await authService.login({ email, password })
+      const response = await authService.login({
+        email: email.trim().toLowerCase(),
+        password
+      })
       loginProgress(response.user, response.access_token, response.access_token)
       toast.success('Pranam! Welcome back.')
       navigate('/dashboard')
     } catch (err: any) {
+      if (err.response?.status === 401) {
+        toast.error('Invalid email or password')
+      } else if (err.response?.status === 422) {
+        toast.error('Please check your email and password format')
+      } else {
+        toast.error('Login failed. Please try again.')
+      }
     } finally {
       setLoading(false)
     }

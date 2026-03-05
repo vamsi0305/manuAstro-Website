@@ -98,7 +98,7 @@ export default function ProductCard({ product }: ProductProps) {
                         }}
                         loading="lazy"
                         onError={(e) => {
-                            e.currentTarget.src = product.fallback_url || 'https://images.unsplash.com/photo-1604423043492-41b6d3e9eff3?w=400&h=300&fit=crop';
+                            e.currentTarget.src = product.fallback_url || 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311';
                         }}
                     />
                     {/* Planet badge top-left */}

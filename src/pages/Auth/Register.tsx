@@ -26,11 +26,19 @@ export default function Register() {
     }
     setLoading(true)
     try {
-      const response = await authService.register(formData)
+      const payload = {
+        full_name: formData.name,
+        email: formData.email.trim().toLowerCase(),
+        phone: formData.phone,
+        password: formData.password
+      }
+      const response = await authService.register(payload)
       login(response.user, response.access_token, response.access_token)
       toast.success('Welcome to the ManuAstro Family!')
       navigate('/dashboard')
     } catch (err: any) {
+      const message = err.response?.data?.detail || 'Registration failed. Please try again.'
+      toast.error(typeof message === 'string' ? message : 'Invalid registration data')
     } finally {
       setLoading(false)
     }

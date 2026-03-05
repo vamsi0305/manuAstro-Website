@@ -224,7 +224,7 @@ export default function CheckoutPage() {
                 {cart?.items?.map((item: any) => (
                   <div key={item.id} className="flex gap-6 items-center mb-6 pb-6 border-b border-[var(--color-gold)]/10 last:border-0 last:mb-0 last:pb-0">
                     <div className="w-20 h-20 rounded-2xl overflow-hidden bg-[#faf2e2] flex-shrink-0 border border-[var(--color-gold)]/10 p-1">
-                      <img src={item.product?.thumbnail_url || 'https://images.unsplash.com/photo-1609743522653-52354461eb27?w=200'} className="w-full h-full object-cover rounded-xl" />
+                      <img src={item.product?.thumbnail_url || 'https://manuastro.com/cdn/shop/files/16_FACE_1.jpg?v=1770990686'} className="w-full h-full object-cover rounded-xl" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-serif font-bold text-[var(--color-earth)] truncate text-lg mb-1">{item.product?.name}</p>

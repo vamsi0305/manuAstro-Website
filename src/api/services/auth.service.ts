@@ -7,8 +7,15 @@ export const authService = {
         return response.data
     },
 
-    register: async (data: RegisterRequest) => {
-        const response = await api.post<AuthResponse>('/auth/register', data)
+    register: async (data: any) => {
+        // payload matches UserCreate schema in backend
+        const payload = {
+            full_name: data.full_name || data.name,
+            email: data.email,
+            password: data.password,
+            phone: data.phone
+        }
+        const response = await api.post<AuthResponse>('/auth/register', payload)
         return response.data
     },
 

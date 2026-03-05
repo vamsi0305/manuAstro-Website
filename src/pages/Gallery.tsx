@@ -7,18 +7,18 @@ import SEOHead from '@/components/SEOHead'
 const GALLERY_CATS = ['Events', 'Customers', 'Rudraksha', 'Yantras', 'Sannidhiya', 'Consultations']
 
 const MOCK_IMAGES = [
-  { id: 1, cat: 'Consultations', url: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=400&fit=crop', title: 'Vedic Consultation' },
-  { id: 2, cat: 'Rudraksha', url: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&h=400&fit=crop', title: 'Gemstones & Crystals' },
-  { id: 3, cat: 'Rudraksha', url: 'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=600&h=400&fit=crop', title: 'Sacred Rudraksha' },
-  { id: 4, cat: 'Events', url: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=600&h=400&fit=crop', title: 'Spiritual Space' },
-  { id: 5, cat: 'Yantras', url: 'https://images.unsplash.com/photo-1604423043492-41b6d3e9eff3?w=600&h=400&fit=crop', title: 'Sacred Geometry' },
-  { id: 6, cat: 'Consultations', url: 'https://images.unsplash.com/photo-1532968961801-574cb4237b27?w=600&h=400&fit=crop', title: 'Astrology Charts' },
-  { id: 7, cat: 'Consultations', url: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600&h=400&fit=crop', title: 'Palm Reading' },
-  { id: 8, cat: 'Sannidhiya', url: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop', title: 'Meditation' },
-  { id: 9, cat: 'Events', url: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=400&fit=crop', title: 'Ritual Candles' },
-  { id: 10, cat: 'Customers', url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop', title: 'Sacred Herbs' },
-  { id: 11, cat: 'Events', url: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=600&h=400&fit=crop', title: 'Cosmos' },
-  { id: 12, cat: 'Sannidhiya', url: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&h=400&fit=crop', title: 'Puja Incense' }
+  { id: 1, cat: 'Consultations', url: 'https://manuastro.com/cdn/shop/files/Personal_Consultation_New_500x500_jpg.jpg?v=1770036746', title: 'Vedic Consultation' },
+  { id: 2, cat: 'Rudraksha', url: 'https://cdn.shopify.com/s/files/1/0634/2521/6555/files/14_FACE_1.jpg?v=1770990639', title: 'Sacred 14 Mukhi' },
+  { id: 3, cat: 'Rudraksha', url: 'https://cdn.shopify.com/s/files/1/0634/2521/6555/files/13_FACE_1.jpg?v=1770990713', title: 'Nepali Rudraksha' },
+  { id: 4, cat: 'Events', url: 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311', title: 'Vedic Workshop' },
+  { id: 5, cat: 'Yantras', url: 'https://manuastro.com/cdn/shop/files/shriRahuyantra.jpg?v=1765297876', title: 'Sacred Rahu Yantra' },
+  { id: 6, cat: 'Consultations', url: 'https://manuastro.com/cdn/shop/files/Vedic_Astrology_New_500x500_jpg.jpg?v=1770036692', title: 'Astrology Charts' },
+  { id: 7, cat: 'Consultations', url: 'https://manuastro.com/cdn/shop/files/Palm_Reading_New_500x500_jpg.jpg?v=1770036747', title: 'Palm Reading' },
+  { id: 8, cat: 'Sannidhiya', url: 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311', title: 'Spiritual Guidance' },
+  { id: 9, cat: 'Events', url: 'https://manuastro.com/cdn/shop/files/16_FACE_1.jpg?v=1770990686', title: 'Rudraksha Energization' },
+  { id: 10, cat: 'Customers', url: 'https://manuastro.com/cdn/shop/files/sakshi-malik.webp?v=1760455941', title: 'Satisfied Clients' },
+  { id: 11, cat: 'Events', url: 'https://manuastro.com/cdn/shop/files/SuryaYantra.jpg?v=1765298842', title: 'Sacred Rituals' },
+  { id: 12, cat: 'Sannidhiya', url: 'https://manuastro.com/cdn/shop/files/ShaniYantra.jpg?v=1765298776', title: 'Yantra Deepa' }
 ]
 
 export default function Gallery() {
@@ -42,7 +42,7 @@ export default function Gallery() {
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=1400&auto=format&fit=crop" alt="Visual Journey" className="w-full h-full object-cover opacity-15" />
+          <img src="https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311" alt="Visual Journey" className="w-full h-full object-cover opacity-15" />
           <div style={{ position: 'absolute', inset: 0, background: 'var(--color-bg)', opacity: 0.75 }} />
         </div>
 
@@ -146,7 +146,7 @@ export default function Gallery() {
                   className="group-hover:scale-105"
                   loading="lazy"
                   onError={(e) => {
-                    e.currentTarget.src = 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop';
+                    e.currentTarget.src = 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311';
                   }}
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

@@ -4,18 +4,18 @@ import { Calendar, Star, Sparkles } from 'lucide-react'
 import SEOHead from '@/components/SEOHead'
 
 const ZODIAC_SIGNS = [
-  { key: 'aries', name: 'Aries', emoji: '♈', image: 'https://picsum.photos/seed/aries/120/120', dates: 'Mar 21 - Apr 19' },
-  { key: 'taurus', name: 'Taurus', emoji: '♉', image: 'https://picsum.photos/seed/taurus/120/120', dates: 'Apr 20 - May 20' },
-  { key: 'gemini', name: 'Gemini', emoji: '♊', image: 'https://picsum.photos/seed/gemini/120/120', dates: 'May 21 - Jun 20' },
-  { key: 'cancer', name: 'Cancer', emoji: '♋', image: 'https://picsum.photos/seed/cancer/120/120', dates: 'Jun 21 - Jul 22' },
-  { key: 'leo', name: 'Leo', emoji: '♌', image: 'https://picsum.photos/seed/leo/120/120', dates: 'Jul 23 - Aug 22' },
-  { key: 'virgo', name: 'Virgo', emoji: '♍', image: 'https://picsum.photos/seed/virgo/120/120', dates: 'Aug 23 - Sep 22' },
-  { key: 'libra', name: 'Libra', emoji: '♎', image: 'https://picsum.photos/seed/libra/120/120', dates: 'Sep 23 - Oct 22' },
-  { key: 'scorpio', name: 'Scorpio', emoji: '♏', image: 'https://picsum.photos/seed/scorpio/120/120', dates: 'Oct 23 - Nov 21' },
-  { key: 'sagittarius', name: 'Sagittarius', emoji: '♐', image: 'https://picsum.photos/seed/sagittarius/120/120', dates: 'Nov 22 - Dec 21' },
-  { key: 'capricorn', name: 'Capricorn', emoji: '♑', image: 'https://picsum.photos/seed/capricorn/120/120', dates: 'Dec 22 - Jan 19' },
-  { key: 'aquarius', name: 'Aquarius', emoji: '♒', image: 'https://picsum.photos/seed/aquarius/120/120', dates: 'Jan 20 - Feb 18' },
-  { key: 'pisces', name: 'Pisces', emoji: '♓', image: 'https://picsum.photos/seed/pisces/120/120', dates: 'Feb 19 - Mar 20' },
+  { key: 'aries', name: 'Aries', emoji: '♈', image: 'https://manuastro.com/cdn/shop/files/neon-zodiac-sign-aries-astrological-horoscope_99433-4418.jpg?v=1768412948&width=1920', dates: 'Mar 21 - Apr 19' },
+  { key: 'taurus', name: 'Taurus', emoji: '♉', image: 'https://manuastro.com/cdn/shop/files/futuristic-style-illustration-taurus-zodiac-sign_128711-29605.jpg?v=1768413453&width=1920', dates: 'Apr 20 - May 20' },
+  { key: 'gemini', name: 'Gemini', emoji: '♊', image: 'https://manuastro.com/cdn/shop/files/zodiac-constellation-gemini-engraving-style-vector-retro-graphic-illustration-astrological-sign-twins_258190-3392.jpg?v=1768413882&width=1920', dates: 'May 21 - Jun 20' },
+  { key: 'cancer', name: 'Cancer', emoji: '♋', image: 'https://manuastro.com/cdn/shop/files/zodiac-sign-cancer-astrological-circle-with-zodiac-constellations-horoscope-blue-white_484720-3922.jpg?v=1768415044&width=1920', dates: 'Jun 21 - Jul 22' },
+  { key: 'leo', name: 'Leo', emoji: '♌', image: 'https://manuastro.com/cdn/shop/files/blue-lion-with-star-word-lion-it_1081342-39072.jpg?v=1768416384&width=1920', dates: 'Jul 23 - Aug 22' },
+  { key: 'virgo', name: 'Virgo', emoji: '♍', image: 'https://manuastro.com/cdn/shop/files/virgo-constellation-zodiac-sign-background-cosmic-universe-blue-white-design_484720-4143.jpg?v=1768416717&width=1920', dates: 'Aug 23 - Sep 22' },
+  { key: 'libra', name: 'Libra', emoji: '♎', image: 'https://manuastro.com/cdn/shop/files/libra-astrological-sign-zodiac-horoscope-night-sky-with-sparkling-stars-illustration_484720-3864.jpg?v=1768490286&width=1920', dates: 'Sep 23 - Oct 22' },
+  { key: 'scorpio', name: 'Scorpio', emoji: '♏', image: 'https://manuastro.com/cdn/shop/files/scorpio-zodiac-sign-circle_41793-1073.jpg?v=1768490375&width=1920', dates: 'Oct 23 - Nov 21' },
+  { key: 'sagittarius', name: 'Sagittarius', emoji: '♐', image: 'https://manuastro.com/cdn/shop/files/sagittarius-zodiac-sign-circle_41793-1072.jpg?v=1768490856&width=1920', dates: 'Nov 22 - Dec 21' },
+  { key: 'capricorn', name: 'Capricorn', emoji: '♑', image: 'https://manuastro.com/cdn/shop/files/goat-with-stars_23-2147503078.jpg?v=1768490874&width=1920', dates: 'Dec 22 - Jan 19' },
+  { key: 'aquarius', name: 'Aquarius', emoji: '♒', image: 'https://manuastro.com/cdn/shop/files/neon-zodiac-sign-aquarius-astrological-horoscope_99433-4428.jpg?v=1768490906&width=1920', dates: 'Jan 20 - Feb 18' },
+  { key: 'pisces', name: 'Pisces', emoji: '♓', image: 'https://manuastro.com/cdn/shop/files/pisces-zodiac-sign-circle_41793-1071.jpg?v=1768490879&width=1920', dates: 'Feb 19 - Mar 20' },
 ]
 
 const HOROSCOPE_DATA: Record<string, Record<string, string>> = {
@@ -71,7 +71,7 @@ export default function Horoscope() {
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src="https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=1400&auto=format&fit=crop" alt="Cosmic Guidance" className="w-full h-full object-cover opacity-15" />
+          <img src="https://manuastro.com/cdn/shop/files/Vedic_Astrology_New_500x500_jpg.jpg?v=1770036692" alt="Cosmic Guidance" className="w-full h-full object-cover opacity-15" />
           <div style={{ position: 'absolute', inset: 0, background: 'var(--color-bg)', opacity: 0.75 }} />
         </div>
 

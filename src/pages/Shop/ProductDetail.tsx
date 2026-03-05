@@ -211,7 +211,7 @@ export default function ProductDetail() {
 
             <div className="grid md:grid-cols-4 gap-8 mb-20">
               {[1, 2, 4, 5].map(id => (
-                <ProductCard key={id} product={{ id: String(id), name: 'Related Product ' + id, slug: 'related-' + id, price: 1000 + (id * 500), compare_price: 2000, rating: 5, thumbnail_url: 'https://images.unsplash.com/photo-1609743522653-52354461eb27?w=600' } as any} />
+                <ProductCard key={id} product={{ id: String(id), name: 'Related Product ' + id, slug: 'related-' + id, price: 1000 + (id * 500), compare_price: 2000, rating: 5, thumbnail_url: 'https://manuastro.com/cdn/shop/files/16_FACE_1.jpg?v=1770990686' } as any} />
               ))}
             </div>
           </div>
