@@ -10,20 +10,20 @@ const MUKHI_TABS = [
 ]
 
 const rudrakshaImages: Record<number, string> = {
-    1: 'https://images.unsplash.com/photo-1609743522653-52354461eb27?w=600&auto=format&fit=crop',
-    2: 'https://images.unsplash.com/photo-1618085219724-c59ba48e08cd?w=600&auto=format&fit=crop',
-    3: 'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=600&auto=format&fit=crop',
-    4: 'https://images.unsplash.com/photo-1567447420680-0c1cb2e699c0?w=600&auto=format&fit=crop', // fallback to 5
-    5: 'https://images.unsplash.com/photo-1567447420680-0c1cb2e699c0?w=600&auto=format&fit=crop',
-    6: 'https://images.unsplash.com/photo-1567447420680-0c1cb2e699c0?w=600&auto=format&fit=crop', // fallback to 5
-    7: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=600&auto=format&fit=crop',
-    8: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=600&auto=format&fit=crop', // fallback to 7
-    9: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=600&auto=format&fit=crop', // fallback to 7
-    10: 'https://images.unsplash.com/photo-1551122102-6e52f3f5ce3b?w=600&auto=format&fit=crop', // fallback to 11
-    11: 'https://images.unsplash.com/photo-1551122102-6e52f3f5ce3b?w=600&auto=format&fit=crop',
-    12: 'https://images.unsplash.com/photo-1551122102-6e52f3f5ce3b?w=600&auto=format&fit=crop', // fallback to 11
-    13: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop', // fallback to 14
-    14: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop',
+    1: 'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=400&h=300&fit=crop',
+    2: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+    3: 'https://images.unsplash.com/photo-1596516109370-29001ec8ec36?w=400&h=300&fit=crop',
+    4: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=400&h=300&fit=crop',
+    5: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=300&fit=crop',
+    6: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=400&h=300&fit=crop',
+    7: 'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=400&h=300&fit=crop&v=2',
+    8: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=300&fit=crop',
+    9: 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?w=400&h=300&fit=crop',
+    10: 'https://images.unsplash.com/photo-1611955167811-4711904bb9f8?w=400&h=300&fit=crop',
+    11: 'https://images.unsplash.com/photo-1596516109370-29001ec8ec36?w=400&h=300&fit=crop&v=2',
+    12: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=400&h=300&fit=crop&v=2',
+    13: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=300&fit=crop&v=3',
+    14: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=400&h=300&fit=crop&v=3',
 }
 
 const MOCK_RUDRAKSHA = Array.from({ length: 14 }, (_, i) => ({
@@ -149,11 +149,12 @@ export default function RudrakshaList() {
                                             width: '100%',
                                             height: '220px',
                                             objectFit: 'cover',
+                                            display: 'block',
                                             borderRadius: '1rem 1rem 0 0'
                                         }}
                                         loading="lazy"
                                         onError={(e) => {
-                                            e.currentTarget.src = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=300&fit=crop';
+                                            e.currentTarget.src = 'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=400&h=300&fit=crop';
                                         }}
                                     />
                                     {/* Planet badge top-left */}
