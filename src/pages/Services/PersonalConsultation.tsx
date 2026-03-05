@@ -208,15 +208,39 @@ export default function PersonalConsultation() {
       </section>
 
       {/* CTA */}
-      <section className="section text-center">
+      <section className="section" style={{ background: 'var(--color-bg)' }}>
         <div className="container">
-          <motion.div {...rise()} className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-serif mb-10">Ready to Get Started?</h2>
-            <div className="flex justify-center gap-6">
-              <a href="https://calendly.com/manuastro2022/30min" className="btn-primary">Book Now</a>
-              <a href="/contact" className="btn-outline">Ask a Question</a>
+          <div className="card" style={{
+            maxWidth: '700px',
+            margin: '0 auto',
+            padding: '3rem 2rem',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '1rem'
+          }}>
+            <h2 className="font-serif" style={{
+              fontSize: '2rem',
+              color: 'var(--color-earth)',
+              marginBottom: '0.5rem'
+            }}>Ready to Get Started?</h2>
+
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', justifyContent: 'center', marginTop: '0.5rem' }}>
+              <button
+                onClick={() => window.open('https://calendly.com/manuastro2022/30min', '_blank')}
+                className="btn-primary"
+              >
+                Book Now
+              </button>
+              <button
+                onClick={() => window.location.href = '/contact'}
+                className="btn-outline"
+              >
+                Ask a Question
+              </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

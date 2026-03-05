@@ -209,22 +209,38 @@ export default function PalmReading() {
       </section>
 
       {/* Booking CTA */}
-      <section className="section bg-[var(--color-saffron)] text-center">
+      <section className="section" style={{ background: 'var(--color-bg)' }}>
         <div className="container">
-          <motion.div {...rise()}>
-            <h2 className="text-3xl font-serif mb-8 text-[var(--color-bg)]">Discover What Your Hands Reveal</h2>
-            <p className="text-[var(--color-bg)]/80 max-w-xl mx-auto mb-10">
-              Join thousands who have found clarity and direction through our expert palmistry sessions.
-            </p>
-            <a
-              href="https://calendly.com/manuastro2022/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold"
+          <div className="card" style={{
+            maxWidth: '700px',
+            margin: '0 auto',
+            padding: '3rem 2rem',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '1rem'
+          }}>
+            <h2 className="font-serif" style={{
+              fontSize: '2rem',
+              color: 'var(--color-earth)',
+              marginBottom: '0.5rem'
+            }}>Discover What Your Hands Reveal</h2>
+            <p style={{
+              color: 'var(--color-text-secondary)',
+              fontSize: '1rem',
+              lineHeight: 1.7,
+              maxWidth: '500px',
+              margin: '0 auto'
+            }}>Join thousands who have found clarity and direction through our expert palmistry sessions.</p>
+            <button
+              onClick={() => window.open('https://calendly.com/manuastro2022/30min', '_blank')}
+              className="btn-primary"
+              style={{ marginTop: '0.5rem' }}
             >
               Book Your Reading
-            </a>
-          </motion.div>
+            </button>
+          </div>
         </div>
       </section>
     </div>

@@ -51,8 +51,8 @@ const SHOP_MORE_MENU = [
 ]
 
 const GALLERY_MENU = [
-    { label: 'Sannidhiya', slug: '/gallery/sannidhiya' },
-    { label: 'Consultations', slug: '/gallery/consultations' },
+    { label: 'Sannidhiya', slug: '/gallery?type=sannidhiya' },
+    { label: 'Consultations', slug: '/services/personal-consultation' },
 ]
 
 type DropdownKey = 'services' | 'rudraksha' | 'yantra' | 'shopmore' | 'gallery' | null
@@ -241,11 +241,11 @@ export default function Navbar() {
                             </button>
                         )}
 
-                        <Link to="/wishlist" className="p-2 rounded-lg hover:bg-orange-50 transition-colors hidden sm:flex" style={{ color: '#3a2010' }}>
+                        <button onClick={() => navigate('/wishlist')} className="p-2 rounded-lg hover:bg-orange-50 transition-colors hidden sm:flex" style={{ color: '#3a2010' }}>
                             <Heart size={18} />
-                        </Link>
+                        </button>
 
-                        <Link to="/cart" className="relative p-2 rounded-lg hover:bg-orange-50 transition-colors" style={{ color: '#3a2010' }}>
+                        <button onClick={() => navigate('/cart')} className="relative p-2 rounded-lg hover:bg-orange-50 transition-colors" style={{ color: '#3a2010' }}>
                             <ShoppingCart size={18} />
                             {cartCount > 0 && (
                                 <span className="absolute -top-0.5 -right-0.5 w-4 h-4 flex items-center justify-center text-[9px] font-bold text-white rounded-full"
@@ -253,7 +253,7 @@ export default function Navbar() {
                                     {cartCount > 9 ? '9+' : cartCount}
                                 </span>
                             )}
-                        </Link>
+                        </button>
 
                         {isAuthenticated ? (
                             <Link to="/dashboard"

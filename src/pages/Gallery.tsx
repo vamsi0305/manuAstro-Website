@@ -6,10 +6,18 @@ import { X, ZoomIn } from 'lucide-react'
 const GALLERY_CATS = ['Events', 'Customers', 'Rudraksha', 'Yantras', 'Sannidhiya', 'Consultations']
 
 const MOCK_IMAGES = [
-  { id: 1, cat: 'Events', url: 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311&width=900', title: 'IIM Ahmedabad Event' },
-  { id: 2, cat: 'Customers', url: 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311&width=900', title: 'Happy Client Session' },
-  { id: 3, cat: 'Consultations', url: 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311&width=900', title: 'One on One Reading' },
-  { id: 4, cat: 'Sannidhiya', url: 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311&width=900', title: 'Sannidhiya Meet' }
+  { id: 1, cat: 'Consultations', url: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=400&fit=crop', title: 'Vedic Consultation' },
+  { id: 2, cat: 'Rudraksha', url: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&h=400&fit=crop', title: 'Gemstones & Crystals' },
+  { id: 3, cat: 'Rudraksha', url: 'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=600&h=400&fit=crop', title: 'Sacred Rudraksha' },
+  { id: 4, cat: 'Events', url: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=600&h=400&fit=crop', title: 'Spiritual Space' },
+  { id: 5, cat: 'Yantras', url: 'https://images.unsplash.com/photo-1604423043492-41b6d3e9eff3?w=600&h=400&fit=crop', title: 'Sacred Geometry' },
+  { id: 6, cat: 'Consultations', url: 'https://images.unsplash.com/photo-1532968961801-574cb4237b27?w=600&h=400&fit=crop', title: 'Astrology Charts' },
+  { id: 7, cat: 'Consultations', url: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600&h=400&fit=crop', title: 'Palm Reading' },
+  { id: 8, cat: 'Sannidhiya', url: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop', title: 'Meditation' },
+  { id: 9, cat: 'Events', url: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=400&fit=crop', title: 'Ritual Candles' },
+  { id: 10, cat: 'Customers', url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop', title: 'Sacred Herbs' },
+  { id: 11, cat: 'Events', url: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=600&h=400&fit=crop', title: 'Cosmos' },
+  { id: 12, cat: 'Sannidhiya', url: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&h=400&fit=crop', title: 'Puja Incense' }
 ]
 
 export default function Gallery() {
@@ -96,11 +104,12 @@ export default function Gallery() {
         {/* Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+          gridAutoRows: 'dense',
           gap: '1.5rem',
           marginBottom: '5rem'
         }}>
-          {MOCK_IMAGES.filter(img => activeTab === 'All' || img.cat === activeTab || activeTab === 'Events').map((img, i) => (
+          {MOCK_IMAGES.filter(img => activeTab === 'All' || img.cat === activeTab || activeTab === 'Events').map((img) => (
             <motion.div
               key={img.id}
               layout
@@ -108,16 +117,43 @@ export default function Gallery() {
               animate={{ opacity: 1, scale: 1 }}
               whileHover={{ y: -5 }}
               onClick={() => setSelectedImg(img)}
-              className="card overflow-hidden h-72 relative group cursor-pointer"
-              style={{ padding: 0 }}
+              className="card group cursor-pointer"
+              style={{
+                padding: '0.75rem',
+                borderRadius: '1.25rem',
+                display: 'block'
+              }}
             >
-              <img src={img.url} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
-              <div className="absolute inset-0 bg-[var(--color-earth)]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <ZoomIn className="text-white" size={32} />
+              <div style={{
+                borderRadius: '1rem',
+                overflow: 'hidden',
+                aspectRatio: '4/3',
+                cursor: 'pointer',
+                position: 'relative'
+              }}>
+                <img
+                  src={img.url}
+                  alt={img.title}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                    transition: 'transform 0.3s ease'
+                  }}
+                  className="group-hover:scale-105"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop';
+                  }}
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <ZoomIn className="text-white" size={32} />
+                </div>
               </div>
-              <div className="absolute bottom-4 left-4 right-4 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#faf2e2] mb-1">{img.cat}</p>
-                <h4 className="text-sm font-serif text-white">{img.title}</h4>
+              <div style={{ padding: '1rem 0.5rem 0.25rem', textAlign: 'center' }}>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-saffron)] mb-1">{img.cat}</p>
+                <h4 className="text-sm font-serif text-[var(--color-earth)]">{img.title}</h4>
               </div>
             </motion.div>
           ))}

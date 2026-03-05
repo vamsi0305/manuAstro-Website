@@ -9,14 +9,14 @@ const YANTRA_TABS = [
 ]
 
 const MOCK_YANTRAS = [
-    { id: 'y1', name: 'Shree Yantra Copper', slug: 'shree-yantra-copper', type: 'Copper Platted', price: 950 },
-    { id: 'y2', name: 'Kuber Yantra Pendent', slug: 'kuber-yantra-pendent', type: 'Pyra Silver', price: 750 },
-    { id: 'y3', name: 'Premium Maha Laxmi Yantra', slug: 'maha-laxmi-premium', type: 'Export Premium', price: 2500 },
-    { id: 'y4', name: '3D Meru Shree Yantra (Large)', slug: 'meru-shree-3d', type: 'Meru Shree 3D', price: 5500 },
-    { id: 'y5', name: 'Vastu Dosh Nivaran Yantra', slug: 'vastu-dosh-yantra', type: 'Copper Platted', price: 1100 },
-    { id: 'y6', name: 'Saraswati Yantra Premium', slug: 'saraswati-yantra', type: 'Export Premium', price: 2200 },
-    { id: 'y7', name: 'Hanuman Chalisa Yantra', slug: 'hanuman-yantra', type: 'Pyra Silver', price: 850 },
-    { id: 'y8', name: 'Silver Ganesha Yantra', slug: 'ganesha-silver', type: 'Pyra Silver', price: 1250 }
+    { id: 'y1', name: 'Shree Yantra Copper', slug: 'shree-yantra-copper', type: 'Copper Platted', price: 950, image: 'https://images.unsplash.com/photo-1604423043492-41b6d3e9eff3?w=400&h=300&fit=crop' },
+    { id: 'y2', name: 'Kuber Yantra Pendent', slug: 'kuber-yantra-pendent', type: 'Pyra Silver', price: 750, image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=300&fit=crop' },
+    { id: 'y3', name: 'Premium Maha Laxmi Yantra', slug: 'maha-laxmi-premium', type: 'Export Premium', price: 2500, image: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=400&h=300&fit=crop' },
+    { id: 'y4', name: '3D Meru Shree Yantra (Large)', slug: 'meru-shree-3d', type: 'Meru Shree 3D', price: 5500, image: 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?w=400&h=300&fit=crop' },
+    { id: 'y5', name: 'Vastu Dosh Nivaran Yantra', slug: 'vastu-dosh-yantra', type: 'Copper Platted', price: 1100, image: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=400&h=300&fit=crop' },
+    { id: 'y6', name: 'Saraswati Yantra Premium', slug: 'saraswati-yantra', type: 'Export Premium', price: 2200, image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=300&fit=crop' },
+    { id: 'y7', name: 'Hanuman Chalisa Yantra', slug: 'hanuman-yantra', type: 'Pyra Silver', price: 850, image: 'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=400&h=300&fit=crop' },
+    { id: 'y8', name: 'Silver Ganesha Yantra', slug: 'ganesha-silver', type: 'Pyra Silver', price: 1250, image: 'https://images.unsplash.com/photo-1596516109370-29001ec8ec36?w=400&h=300&fit=crop' }
 ]
 
 export default function YantraList() {
@@ -105,7 +105,7 @@ export default function YantraList() {
                     marginBottom: '6rem'
                 }}>
                     {MOCK_YANTRAS.filter(y => activeTab === 'All' || y.type === activeTab).map(y => (
-                        <ProductCard key={y.id} product={{ ...y, thumbnail_url: 'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=400', rating: 5 } as any} />
+                        <ProductCard key={y.id} product={{ ...y, thumbnail_url: y.image, fallback_url: 'https://images.unsplash.com/photo-1604423043492-41b6d3e9eff3?w=400&h=300&fit=crop', rating: 5 } as any} />
                     ))}
                 </div>
 

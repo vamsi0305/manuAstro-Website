@@ -3,18 +3,18 @@ import { motion } from 'framer-motion'
 import { Calendar, Star, Sparkles } from 'lucide-react'
 
 const ZODIAC_SIGNS = [
-  { name: 'Aries', symbol: '♈', date: 'Mar 21 - Apr 19' },
-  { name: 'Taurus', symbol: '♉', date: 'Apr 20 - May 20' },
-  { name: 'Gemini', symbol: '♊', date: 'May 21 - Jun 20' },
-  { name: 'Cancer', symbol: '♋', date: 'Jun 21 - Jul 22' },
-  { name: 'Leo', symbol: '♌', date: 'Jul 23 - Aug 22' },
-  { name: 'Virgo', symbol: '♍', date: 'Aug 23 - Sep 22' },
-  { name: 'Libra', symbol: '♎', date: 'Sep 23 - Oct 22' },
-  { name: 'Scorpio', symbol: '♏', date: 'Oct 23 - Nov 21' },
-  { name: 'Sagittarius', symbol: '♐', date: 'Nov 22 - Dec 21' },
-  { name: 'Capricorn', symbol: '♑', date: 'Dec 22 - Jan 19' },
-  { name: 'Aquarius', symbol: '♒', date: 'Jan 20 - Feb 18' },
-  { name: 'Pisces', symbol: '♓', date: 'Feb 19 - Mar 20' }
+  { key: 'aries', name: 'Aries', emoji: '♈', image: 'https://picsum.photos/seed/aries/120/120', dates: 'Mar 21 - Apr 19' },
+  { key: 'taurus', name: 'Taurus', emoji: '♉', image: 'https://picsum.photos/seed/taurus/120/120', dates: 'Apr 20 - May 20' },
+  { key: 'gemini', name: 'Gemini', emoji: '♊', image: 'https://picsum.photos/seed/gemini/120/120', dates: 'May 21 - Jun 20' },
+  { key: 'cancer', name: 'Cancer', emoji: '♋', image: 'https://picsum.photos/seed/cancer/120/120', dates: 'Jun 21 - Jul 22' },
+  { key: 'leo', name: 'Leo', emoji: '♌', image: 'https://picsum.photos/seed/leo/120/120', dates: 'Jul 23 - Aug 22' },
+  { key: 'virgo', name: 'Virgo', emoji: '♍', image: 'https://picsum.photos/seed/virgo/120/120', dates: 'Aug 23 - Sep 22' },
+  { key: 'libra', name: 'Libra', emoji: '♎', image: 'https://picsum.photos/seed/libra/120/120', dates: 'Sep 23 - Oct 22' },
+  { key: 'scorpio', name: 'Scorpio', emoji: '♏', image: 'https://picsum.photos/seed/scorpio/120/120', dates: 'Oct 23 - Nov 21' },
+  { key: 'sagittarius', name: 'Sagittarius', emoji: '♐', image: 'https://picsum.photos/seed/sagittarius/120/120', dates: 'Nov 22 - Dec 21' },
+  { key: 'capricorn', name: 'Capricorn', emoji: '♑', image: 'https://picsum.photos/seed/capricorn/120/120', dates: 'Dec 22 - Jan 19' },
+  { key: 'aquarius', name: 'Aquarius', emoji: '♒', image: 'https://picsum.photos/seed/aquarius/120/120', dates: 'Jan 20 - Feb 18' },
+  { key: 'pisces', name: 'Pisces', emoji: '♓', image: 'https://picsum.photos/seed/pisces/120/120', dates: 'Feb 19 - Mar 20' },
 ]
 
 const HOROSCOPE_DATA: Record<string, Record<string, string>> = {
@@ -90,17 +90,41 @@ export default function Horoscope() {
 
       <div className="divider-ornamental">*</div>
 
-      {/* Tabs - Fix 10 */}
-      <div className="container mt-12 mb-12 flex justify-center">
-        <div className="flex items-center gap-2 p-1.5 bg-white rounded-2xl shadow-xl border border-[var(--color-gold)]/10">
+      {/* Tabs */}
+      <div className="container">
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '0.75rem',
+          justifyContent: 'center',
+          padding: '0.5rem 0',
+          marginBottom: '3rem',
+          marginTop: '1rem',
+        }}>
           {['Today', 'This Week', 'This Month'].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-8 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${activeTab === tab
-                ? 'bg-[var(--color-saffron)] text-white'
-                : 'text-[var(--color-text-muted)] hover:text-[var(--color-earth)] hover:bg-[var(--color-gold)]/10'
-                }`}
+              style={{
+                padding: '0.5rem 1.5rem',
+                borderRadius: '2rem',
+                fontSize: '0.75rem',
+                fontFamily: 'var(--font-accent)',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                border: activeTab === tab
+                  ? '2px solid var(--color-saffron)'
+                  : '2px solid var(--color-border)',
+                background: activeTab === tab
+                  ? 'var(--color-saffron)'
+                  : 'transparent',
+                color: activeTab === tab
+                  ? 'white'
+                  : 'var(--color-text-secondary)',
+              }}
             >
               {tab}
             </button>
@@ -114,9 +138,9 @@ export default function Horoscope() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {ZODIAC_SIGNS.map((sign, i) => (
               <motion.div
-                key={sign.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                key={sign.key}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.03 }}
                 className="card p-8 group transition-all bg-white text-center"
                 style={{
@@ -125,19 +149,29 @@ export default function Horoscope() {
                 }}
               >
                 <div style={{
-                  width: '56px', height: '56px', borderRadius: '50%',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '50%',
+                  overflow: 'hidden',
                   border: '2px solid var(--color-gold)',
-                  background: 'var(--color-bg-secondary)',
-                  color: 'var(--color-saffron)',
-                  fontSize: '1.75rem', marginBottom: '1rem'
+                  margin: '0 auto 1rem',
+                  flexShrink: 0
                 }}>
-                  <span className="leading-none">{sign.symbol}</span>
+                  <img
+                    src={sign.image}
+                    alt={sign.name}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block'
+                    }}
+                  />
                 </div>
 
                 <div className="mb-4">
                   <h3 className="font-serif" style={{ fontSize: '1.25rem', color: 'var(--color-earth)', marginBottom: '0.25rem' }}>{sign.name}</h3>
-                  <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">{sign.date}</span>
+                  <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">{sign.dates}</span>
                 </div>
 
                 <div className="divider-ornamental text-[10px] opacity-20 mb-4 text-[var(--color-gold)]" style={{ margin: '1rem 0' }}>✦</div>

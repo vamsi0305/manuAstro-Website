@@ -208,13 +208,38 @@ export default function CorporatePrograms() {
       </section>
 
       {/* CTA */}
-      <section className="section text-center">
+      <section className="section" style={{ background: 'var(--color-bg)' }}>
         <div className="container">
-          <motion.div {...rise()} className="max-w-2xl mx-auto">
-            <h2 className="text-4xl font-serif mb-8">Empower Your Business Today</h2>
-            <p className="text-muted mb-10">Connect with us for a custom-tailored program that meets your organization's unique requirements.</p>
-            <a href="/contact" className="btn-primary">Enquire Now</a>
-          </motion.div>
+          <div className="card" style={{
+            maxWidth: '700px',
+            margin: '0 auto',
+            padding: '3rem 2rem',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '1rem'
+          }}>
+            <h2 className="font-serif" style={{
+              fontSize: '2rem',
+              color: 'var(--color-earth)',
+              marginBottom: '0.5rem'
+            }}>Empower Your Business Today</h2>
+            <p style={{
+              color: 'var(--color-text-secondary)',
+              fontSize: '1rem',
+              lineHeight: 1.7,
+              maxWidth: '500px',
+              margin: '0 auto'
+            }}>Connect with us for a custom-tailored program that meets your organization's unique requirements.</p>
+            <button
+              onClick={() => window.location.href = '/contact'}
+              className="btn-primary"
+              style={{ marginTop: '0.5rem' }}
+            >
+              Enquire Now
+            </button>
+          </div>
         </div>
       </section>
     </div>

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ArrowRight, ChevronRight, Star } from 'lucide-react'
+import { ArrowRight, ChevronRight, Star, ShieldCheck, Truck, FlaskConical, BadgeCheck, Users, Clock, Package } from 'lucide-react'
 import { useCartStore } from '@/stores/cartStore'
 
 /* ─── Real manuastro.com Shopify CDN images ──────────────────────────────── */
@@ -202,16 +202,24 @@ export default function Home() {
                 <div className="container">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
-                            { icon: '🛡️', title: 'Secure Payment', desc: 'UPI · Cards · Net Banking' },
-                            { icon: '📦', title: 'Free Shipping', desc: 'On orders above ₹999' },
-                            { icon: '🔬', title: 'Lab Certified', desc: 'X-Ray & IRL certified beads' },
-                            { icon: '↩️', title: 'Money-Back', desc: '100% no-questions guarantee' },
+                            { icon: <ShieldCheck size={26} color="var(--color-saffron)" />, title: 'Secure Payment', desc: 'UPI · Cards · Net Banking' },
+                            { icon: <Truck size={26} color="var(--color-saffron)" />, title: 'Free Shipping', desc: 'On orders above ₹999' },
+                            { icon: <FlaskConical size={26} color="var(--color-saffron)" />, title: 'Lab Certified', desc: 'X-Ray & IRL certified beads' },
+                            { icon: <BadgeCheck size={26} color="var(--color-saffron)" />, title: 'Money-Back', desc: '100% no-questions guarantee' },
                         ].map(t => (
                             <div key={t.title} className="card" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem', textAlign: 'left', flexDirection: 'row' }}>
-                                <span style={{ fontSize: '2rem' }}>{t.icon}</span>
+                                <div style={{
+                                    width: '56px', height: '56px', borderRadius: '50%',
+                                    border: '2px solid var(--color-gold)',
+                                    background: 'var(--color-bg-card)',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    flexShrink: 0
+                                }}>
+                                    {t.icon}
+                                </div>
                                 <div>
-                                    <h4 className="font-serif" style={{ color: 'var(--color-earth)', margin: 0 }}>{t.title}</h4>
-                                    <p className="font-sans" style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem', margin: 0 }}>{t.desc}</p>
+                                    <div style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-earth)', fontWeight: 600 }}>{t.title}</div>
+                                    <div style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>{t.desc}</div>
                                 </div>
                             </div>
                         ))}
@@ -294,15 +302,45 @@ export default function Home() {
                 <div className="container">
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                         {[
-                            { num: '10,000+', label: 'Happy Clients', icon: '🙏' },
-                            { num: '15+', label: 'Years of Practice', icon: '📅' },
-                            { num: '300+', label: 'Rudraksha Products', icon: '✨' },
-                            { num: '4.9 ★', label: 'Average Rating', icon: '⭐' },
+                            { num: '10,000+', label: 'HAPPY CLIENTS', icon: <Users size={28} color="var(--color-saffron)" /> },
+                            { num: '15+', label: 'YEARS OF PRACTICE', icon: <Clock size={28} color="var(--color-saffron)" /> },
+                            { num: '300+', label: 'RUDRAKSHA PRODUCTS', icon: <Package size={28} color="var(--color-saffron)" /> },
+                            { num: '4.9 ★', label: 'AVERAGE RATING', icon: <Star size={28} color="var(--color-saffron)" /> },
                         ].map((s, i) => (
                             <motion.div key={s.label} {...rise(i * 0.08)}>
-                                <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>{s.icon}</div>
-                                <div className="font-serif" style={{ fontSize: '2.5rem', color: 'var(--color-saffron)', lineHeight: 1 }}>{s.num}</div>
-                                <div className="font-sans" style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: '0.75rem' }}>{s.label}</div>
+                                <div style={{
+                                    textAlign: 'center',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center'
+                                }}>
+                                    <div style={{
+                                        width: '64px',
+                                        height: '64px',
+                                        borderRadius: '50%',
+                                        border: '2px solid var(--color-gold)',
+                                        background: 'var(--color-bg-card)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        margin: '0 auto 1rem'
+                                    }}>
+                                        {s.icon}
+                                    </div>
+                                    <div style={{
+                                        fontSize: '2rem',
+                                        fontFamily: 'var(--font-serif)',
+                                        color: 'var(--color-saffron)',
+                                        fontWeight: 700
+                                    }}>{s.num}</div>
+                                    <div style={{
+                                        fontFamily: 'var(--font-accent)',
+                                        fontSize: '0.75rem',
+                                        letterSpacing: '0.1em',
+                                        color: 'var(--color-text-secondary)',
+                                        marginTop: '0.25rem'
+                                    }}>{s.label}</div>
+                                </div>
                             </motion.div>
                         ))}
                     </div>

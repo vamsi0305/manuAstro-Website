@@ -136,33 +136,38 @@ export default function FaceReading() {
       <div className="divider-ornamental my-12">✦</div>
 
       {/* Combined Session - Fix 10 */}
-      <section className="section">
+      <section className="section" style={{ background: 'var(--color-bg)' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <div className="card" style={{
+            maxWidth: '700px',
+            margin: '0 auto',
+            padding: '3rem 2rem',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '1rem'
+          }}>
             <h2 className="font-serif" style={{
-              fontSize: '2.5rem', color: 'var(--color-earth)', marginBottom: '1rem'
-            }}>
-              Combined Analysis Session
-            </h2>
-            <div style={{
-              width: '50px', height: '3px',
-              background: 'var(--color-gold)', margin: '0 auto'
-            }} />
-          </div>
-
-          <div className="max-w-3xl mx-auto card p-12 text-center" style={{ borderTop: '4px solid var(--color-saffron)' }}>
-            <Sparkles className="w-12 h-12 text-gold mx-auto mb-6" />
-            <p className="font-sans" style={{ color: 'var(--color-text-secondary)', fontSize: '1.1rem', lineHeight: 1.75, marginBottom: '2rem', fontStyle: 'italic' }}>
-              "A single session that covers your face reading, hand analysis, and numerological vibration for complete clarity."
-            </p>
-            <a
-              href="https://calendly.com/manuastro2022/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold"
+              fontSize: '2rem',
+              color: 'var(--color-earth)',
+              marginBottom: '0.5rem'
+            }}>Combined Analysis Session</h2>
+            <p style={{
+              color: 'var(--color-text-secondary)',
+              fontSize: '1rem',
+              lineHeight: 1.7,
+              maxWidth: '500px',
+              fontStyle: 'italic',
+              margin: '0 auto'
+            }}>"A single session that covers your face reading, hand analysis, and numerological vibration for complete clarity."</p>
+            <button
+              onClick={() => window.open('https://calendly.com/manuastro2022/30min', '_blank')}
+              className="btn-primary"
+              style={{ marginTop: '0.5rem' }}
             >
               Book Combined Session
-            </a>
+            </button>
           </div>
         </div>
       </section>

@@ -210,22 +210,38 @@ export default function VedicAstrology() {
       </section>
 
       {/* Footer CTA */}
-      <section className="section bg-[var(--color-earth)] text-center">
+      <section className="section" style={{ background: 'var(--color-bg)' }}>
         <div className="container">
-          <motion.div {...rise()}>
-            <h2 className="text-3xl font-serif mb-8 text-[var(--color-bg)]">Awaken Your True Potential</h2>
-            <p className="text-[var(--color-bg)]/80 max-w-xl mx-auto mb-10">
-              Don't leave your life to chance. Harness the power of the stars to navigate your future with confidence.
-            </p>
-            <a
-              href="https://calendly.com/manuastro2022/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold"
+          <div className="card" style={{
+            maxWidth: '700px',
+            margin: '0 auto',
+            padding: '3rem 2rem',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '1rem'
+          }}>
+            <h2 className="font-serif" style={{
+              fontSize: '2rem',
+              color: 'var(--color-earth)',
+              marginBottom: '0.5rem'
+            }}>Awaken Your True Potential</h2>
+            <p style={{
+              color: 'var(--color-text-secondary)',
+              fontSize: '1rem',
+              lineHeight: 1.7,
+              maxWidth: '500px',
+              margin: '0 auto'
+            }}>Don't leave your life to chance. Harness the power of the stars to navigate your future with confidence.</p>
+            <button
+              onClick={() => window.open('https://calendly.com/manuastro2022/30min', '_blank')}
+              className="btn-primary"
+              style={{ marginTop: '0.5rem' }}
             >
               Book Your 30-Min Session
-            </a>
-          </motion.div>
+            </button>
+          </div>
         </div>
       </section>
     </div>

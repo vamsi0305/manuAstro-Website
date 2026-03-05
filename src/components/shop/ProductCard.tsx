@@ -12,8 +12,10 @@ interface ProductProps {
         price: number
         compare_price?: number
         thumbnail_url?: string
+        fallback_url?: string
         rating?: number
         badge?: string
+        planet?: string
     }
 }
 
@@ -47,27 +49,64 @@ export default function ProductCard({ product }: ProductProps) {
             className="card group overflow-hidden"
         >
             <Link to={`/shop/${product.slug}`} className="block">
-                <div className="product-img-wrap h-64 relative overflow-hidden bg-[#faf2e2]">
+                <div style={{
+                    borderRadius: '1rem 1rem 0 0',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    height: '220px',
+                    background: 'var(--color-bg-secondary)'
+                }}>
                     <img
-                        src={product.thumbnail_url || 'https://images.unsplash.com/photo-1609743522653-52354461eb27?w=600'}
+                        src={product.thumbnail_url}
                         alt={product.name}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        style={{
+                            width: '100%',
+                            height: '220px',
+                            objectFit: 'cover',
+                            display: 'block',
+                            borderRadius: '1rem 1rem 0 0'
+                        }}
+                        loading="lazy"
+                        onError={(e) => {
+                            e.currentTarget.src = product.fallback_url || 'https://images.unsplash.com/photo-1604423043492-41b6d3e9eff3?w=400&h=300&fit=crop';
+                        }}
                     />
-
-                    <button
-                        onClick={handleWishlist}
-                        className={`absolute top-4 right-4 p-2 rounded-full transition-colors z-10 ${isInWishlist ? 'bg-[var(--color-saffron)] text-white shadow-lg' : 'bg-white/80 text-[var(--color-text-muted)] hover:bg-white hover:text-[var(--color-saffron)] shadow-sm'
-                            }`}
-                    >
-                        <Heart size={18} fill={isInWishlist ? "currentColor" : "none"} />
-                    </button>
-
-                    {product.badge && (
-                        <div className="absolute top-4 left-4 z-10">
-                            <span className="badge-saffron">{product.badge}</span>
-                        </div>
+                    {/* Planet badge top-left */}
+                    {product.planet && (
+                        <span style={{
+                            position: 'absolute', top: '0.75rem', left: '0.75rem',
+                            background: 'var(--color-saffron)', color: 'white',
+                            fontSize: '0.7rem', fontWeight: 600,
+                            padding: '0.2rem 0.6rem', borderRadius: '1rem',
+                            fontFamily: 'var(--font-accent)', letterSpacing: '0.05em'
+                        }}>
+                            {product.planet}
+                        </span>
                     )}
-
+                    {/* Badge top-left (fallback for general badges) */}
+                    {!product.planet && product.badge && (
+                        <span style={{
+                            position: 'absolute', top: '0.75rem', left: '0.75rem',
+                            background: 'var(--color-saffron)', color: 'white',
+                            fontSize: '0.7rem', fontWeight: 600,
+                            padding: '0.2rem 0.6rem', borderRadius: '1rem',
+                            fontFamily: 'var(--font-accent)', letterSpacing: '0.05em'
+                        }}>
+                            {product.badge}
+                        </span>
+                    )}
+                    {/* Wishlist heart top-right */}
+                    <button onClick={handleWishlist} style={{
+                        position: 'absolute', top: '0.75rem', right: '0.75rem',
+                        width: '32px', height: '32px', borderRadius: '50%',
+                        background: 'rgba(255,249,242,0.9)',
+                        border: '1px solid var(--color-border)',
+                        display: 'flex', alignItems: 'center',
+                        justifyContent: 'center', cursor: 'pointer',
+                        color: isInWishlist ? 'var(--color-saffron)' : 'var(--color-text-muted)'
+                    }}>
+                        <Heart size={16} fill={isInWishlist ? "currentColor" : "none"} />
+                    </button>
                     <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
             </Link>
