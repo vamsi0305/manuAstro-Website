@@ -1,7 +1,8 @@
-﻿import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Send, MessageCircle, ChevronDown } from 'lucide-react'
-import { useState } from 'react'
+﻿import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Mail, Phone, MapPin, Send, MessageCircle, ChevronDown, CheckCircle, AlertCircle } from 'lucide-react'
 import SEOHead from '@/components/SEOHead'
+import api from '@/api/axios'
 
 const FAQS = [
   { q: 'How do I book a consultation?', a: 'You can book directly through our integrated Calendly link found on the "Personal Consultation" page.' },
@@ -12,6 +13,27 @@ const FAQS = [
 
 export default function Contact() {
   const [openFaq, setOpenFaq] = useState<number | null>(0)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  })
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus('loading')
+    try {
+      await api.post('/contact', formData)
+      setStatus('success')
+      setFormData({ name: '', email: '', phone: '', message: '' })
+    } catch (err: any) {
+      setStatus('error')
+      setErrorMsg(err.response?.data?.detail || 'Something went wrong. Please try again.')
+    }
+  }
 
   return (
     <div className="bg-[#fdf7ed]">
@@ -47,27 +69,81 @@ export default function Contact() {
               <h2 className="font-serif" style={{ fontSize: '2.5rem', color: 'var(--color-earth)', marginBottom: '2rem' }}>
                 Send an Enquiry
               </h2>
-              <form className="space-y-6">
+
+              <AnimatePresence>
+                {status === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-8 p-6 bg-green-50 rounded-2xl border border-green-100 flex items-center gap-4 text-green-800"
+                  >
+                    <CheckCircle className="text-green-500" />
+                    <div>
+                      <p className="font-bold">Message Sent Successfully!</p>
+                      <p className="text-sm">Thank you for reaching out. We will get back to you shortly.</p>
+                    </div>
+                  </motion.div>
+                )}
+                {status === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-8 p-6 bg-red-50 rounded-2xl border border-red-100 flex items-center gap-4 text-red-800"
+                  >
+                    <AlertCircle className="text-red-500" />
+                    <div>
+                      <p className="font-bold">Delivery Failed</p>
+                      <p className="text-sm">{errorMsg}</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">Your Name</label>
-                    <input type="text" className="w-full px-5 py-4 rounded-xl border border-[var(--color-gold)]/10 bg-white focus:ring-2 focus:ring-[var(--color-saffron)]/10 outline-none text-[var(--color-text-primary)] transition-all" placeholder="Enter your full name" />
+                    <input
+                      type="text" required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full px-5 py-4 rounded-xl border border-[var(--color-gold)]/10 bg-white focus:ring-2 focus:ring-[var(--color-saffron)]/10 outline-none text-[var(--color-text-primary)] transition-all" placeholder="Enter your full name"
+                    />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">Email Address</label>
-                    <input type="email" className="w-full px-5 py-4 rounded-xl border border-[var(--color-gold)]/10 bg-white focus:ring-2 focus:ring-[var(--color-saffron)]/10 outline-none text-[var(--color-text-primary)] transition-all" placeholder="Enter your email" />
+                    <input
+                      type="email" required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full px-5 py-4 rounded-xl border border-[var(--color-gold)]/10 bg-white focus:ring-2 focus:ring-[var(--color-saffron)]/10 outline-none text-[var(--color-text-primary)] transition-all" placeholder="Enter your email"
+                    />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">Phone Number</label>
-                  <input type="tel" className="w-full px-5 py-4 rounded-xl border border-[var(--color-gold)]/10 bg-white focus:ring-2 focus:ring-[var(--color-saffron)]/10 outline-none text-[var(--color-text-primary)] transition-all" placeholder="+91 XXXXX XXXXX" />
+                  <input
+                    type="tel" required
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full px-5 py-4 rounded-xl border border-[var(--color-gold)]/10 bg-white focus:ring-2 focus:ring-[var(--color-saffron)]/10 outline-none text-[var(--color-text-primary)] transition-all" placeholder="+91 XXXXX XXXXX"
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">Message</label>
-                  <textarea rows={5} className="w-full px-5 py-4 rounded-xl border border-[var(--color-gold)]/10 bg-white focus:ring-2 focus:ring-[var(--color-saffron)]/10 outline-none text-[var(--color-text-primary)] transition-all" placeholder="How can we help you today?" />
+                  <textarea
+                    rows={5} required
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full px-5 py-4 rounded-xl border border-[var(--color-gold)]/10 bg-white focus:ring-2 focus:ring-[var(--color-saffron)]/10 outline-none text-[var(--color-text-primary)] transition-all" placeholder="How can we help you today?"
+                  />
                 </div>
-                <button type="submit" className="btn-primary w-full justify-center py-5 text-lg">
-                  Send Message <Send size={18} className="ml-2" />
+                <button
+                  type="submit"
+                  disabled={status === 'loading'}
+                  className="btn-primary w-full justify-center py-5 text-lg"
+                >
+                  {status === 'loading' ? 'Sending...' : 'Send Message'} <Send size={18} className="ml-2" />
                 </button>
               </form>
             </div>

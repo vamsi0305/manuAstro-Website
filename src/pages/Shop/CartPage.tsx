@@ -1,12 +1,55 @@
-﻿import { Link } from 'react-router-dom'
-import { ShoppingBag, Trash2, ArrowRight, Minus, Plus } from 'lucide-react'
-import { useCartStore } from '@/stores/cartStore'
+﻿import { useState, useEffect } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import { ShoppingBag, Trash2, Minus, Plus, ArrowRight } from 'lucide-react'
 import SEOHead from '@/components/SEOHead'
+import api from '@/api/axios'
 
 export default function CartPage() {
-  const { items, removeItem, updateQuantity, total, discount, subtotal } = useCartStore()
+  const [cartData, setCartData] = useState({ items: [], total: 0 })
+  const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
 
-  if (items.length === 0) {
+  useEffect(() => {
+    const loadCart = async () => {
+      try {
+        const { data } = await api.get('/cart')
+        setCartData(data)
+      } catch (err) {
+        console.error('Cart load failed', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadCart()
+  }, [])
+
+  const handleUpdateQuantity = async (itemId: number, quantity: number) => {
+    try {
+      await api.put(`/cart/items/${itemId}`, { quantity })
+      const { data } = await api.get('/cart')
+      setCartData(data)
+    } catch (err) {
+      console.error('Update failed', err)
+    }
+  }
+
+  const handleRemoveItem = async (itemId: number) => {
+    try {
+      await api.delete(`/cart/items/${itemId}`)
+      const { data } = await api.get('/cart')
+      setCartData(data)
+    } catch (err) {
+      console.error('Remove failed', err)
+    }
+  }
+
+  if (loading) return (
+    <div className="min-h-[60vh] flex flex-center flex-col text-center bg-[#fdf7ed] py-20">
+      <h2 className="text-2xl font-serif text-earth mb-4">Loading Sacred Cart...</h2>
+    </div>
+  )
+
+  if (cartData.items.length === 0) {
     return (
       <div className="min-h-[60vh] flex flex-center flex-col text-center bg-[#fdf7ed] py-20">
         <div className="w-24 h-24 bg-[#faf2e2] rounded-full flex items-center justify-center text-gold mx-auto mb-8">
@@ -43,17 +86,17 @@ export default function CartPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[var(--color-gold)]/10">
-                    {items.map(item => (
+                    {cartData.items.map((item: any) => (
                       <tr key={item.id} className="group hover:bg-[var(--color-bg-secondary)]/50 transition-colors">
                         <td className="px-8 py-6">
                           <div className="flex gap-6 items-center">
                             <div className="w-20 h-20 rounded-2xl overflow-hidden bg-[#faf2e2] flex-shrink-0 border border-[var(--color-gold)]/10 p-1">
-                              <img src={item.product?.thumbnail_url || 'https://images.unsplash.com/photo-1609743522653-52354461eb27?w=200'} className="w-full h-full object-cover rounded-xl" />
+                              <img src={item.product?.image || 'https://images.unsplash.com/photo-1609743522653-52354461eb27?w=200'} className="w-full h-full object-cover rounded-xl" />
                             </div>
                             <div>
                               <Link to={`/shop/${item.product?.slug}`} className="font-serif font-bold text-[var(--color-earth)] hover:text-[var(--color-saffron)] transition-colors block mb-2 text-lg" style={{ textDecoration: 'none' }}>{item.product?.name}</Link>
                               <button
-                                onClick={() => removeItem(item.product_id)}
+                                onClick={() => handleRemoveItem(item.id)}
                                 className="text-[10px] font-bold text-[var(--color-saffron)] uppercase flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity"
                               >
                                 <Trash2 size={12} /> Remove Item
@@ -61,15 +104,15 @@ export default function CartPage() {
                             </div>
                           </div>
                         </td>
-                        <td className="px-8 py-6 text-[var(--color-earth)] font-bold">₹{item.price?.toLocaleString()}</td>
+                        <td className="px-8 py-6 text-[var(--color-earth)] font-bold">₹{item.product?.price?.toLocaleString()}</td>
                         <td className="px-8 py-6">
                           <div className="flex items-center bg-[#faf2e2] rounded-xl w-fit p-1 border border-[var(--color-gold)]/10">
-                            <button onClick={() => updateQuantity(item.product_id, Math.max(1, item.quantity - 1))} className="w-8 h-8 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-saffron)] transition-colors"><Minus size={14} /></button>
+                            <button onClick={() => handleUpdateQuantity(item.id, Math.max(1, item.quantity - 1))} className="w-8 h-8 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-saffron)] transition-colors"><Minus size={14} /></button>
                             <span className="w-10 text-center text-sm font-bold text-[var(--color-earth)]">{item.quantity}</span>
-                            <button onClick={() => updateQuantity(item.product_id, item.quantity + 1)} className="w-8 h-8 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-saffron)] transition-colors"><Plus size={14} /></button>
+                            <button onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)} className="w-8 h-8 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-saffron)] transition-colors"><Plus size={14} /></button>
                           </div>
                         </td>
-                        <td className="px-8 py-6 text-right text-[var(--color-earth)] font-bold text-lg">₹{(item.price * item.quantity).toLocaleString()}</td>
+                        <td className="px-8 py-6 text-right text-[var(--color-earth)] font-bold text-lg">₹{(item.product?.price * item.quantity).toLocaleString()}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -89,11 +132,11 @@ export default function CartPage() {
             <div className="space-y-4 mb-8">
               <div className="flex justify-between text-[var(--color-text-secondary)] font-sans">
                 <span className="text-xs font-bold uppercase tracking-widest">Subtotal</span>
-                <span className="font-bold">₹{subtotal().toLocaleString()}</span>
+                <span className="font-bold">₹{cartData.total.toLocaleString()}</span>
               </div>
               <div className="flex justify-between text-[var(--color-saffron)] font-sans">
                 <span className="text-xs font-bold uppercase tracking-widest">Discount</span>
-                <span className="font-bold">-₹{discount.toLocaleString()}</span>
+                <span className="font-bold">-₹0</span>
               </div>
               <div className="flex justify-between text-[var(--color-text-muted)] font-sans items-center">
                 <span className="text-xs font-bold uppercase tracking-widest">Shipping</span>
@@ -101,7 +144,7 @@ export default function CartPage() {
               </div>
               <div className="border-t border-[var(--color-gold)]/10 pt-5 mt-5 flex justify-between items-baseline">
                 <span className="font-serif text-[var(--color-earth)] text-xl">Total</span>
-                <span className="font-bold text-[var(--color-gold)] text-3xl">₹{total().toLocaleString()}</span>
+                <span className="font-bold text-[var(--color-gold)] text-3xl">₹{cartData.total.toLocaleString()}</span>
               </div>
             </div>
 

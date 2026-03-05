@@ -1,15 +1,19 @@
-﻿import { useState } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useCartStore } from '@/stores/cartStore'
-import { CreditCard, Wallet, Truck, ChevronRight } from 'lucide-react'
+import { CreditCard, Wallet, Truck, ChevronRight, Tag, X } from 'lucide-react'
 import { orderService } from '@/api/services/order.service'
+import api from '@/api/axios'
 import toast from 'react-hot-toast'
 import SEOHead from '@/components/SEOHead'
 
 export default function CheckoutPage() {
-  const { items, total, clearCart, subtotal } = useCartStore()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
+  const [cart, setCart] = useState<any>(null)
+  const [couponCode, setCouponCode] = useState('')
+  const [couponLoading, setCouponLoading] = useState(false)
+  const [appliedCoupon, setAppliedCoupon] = useState<any>(null)
+
   const [shippingData, setShippingData] = useState({
     fullName: '',
     phone: '',
@@ -19,20 +23,60 @@ export default function CheckoutPage() {
     pincode: ''
   })
 
+  useEffect(() => {
+    const loadCart = async () => {
+      try {
+        const { data } = await api.get('/cart')
+        setCart(data)
+      } catch (err) {
+        toast.error('Could not load your cart.')
+      }
+    }
+    loadCart()
+  }, [])
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode) return
+    setCouponLoading(true)
+    try {
+      const { data } = await api.post('/coupons/validate', { code: couponCode })
+      setAppliedCoupon(data)
+      toast.success(`Coupon "${data.code}" applied!`)
+    } catch (err: any) {
+      toast.error(err.response?.data?.detail || 'Invalid coupon code')
+    } finally {
+      setCouponLoading(false)
+    }
+  }
+
+  const calculateFinalTotal = () => {
+    if (!cart) return 0
+    let total = cart.total
+    if (appliedCoupon) {
+      if (appliedCoupon.type === 'percentage') {
+        total = total * (1 - appliedCoupon.value / 100)
+      } else {
+        total = Math.max(0, total - appliedCoupon.value)
+      }
+    }
+    return total
+  }
+
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!cart?.items?.length) return
     setLoading(true)
     try {
       await orderService.create({
-        items: items.map(i => ({ product_id: parseInt(i.product_id), quantity: i.quantity })),
+        items: cart.items.map((i: any) => ({ product_id: i.product_id, quantity: i.quantity })),
         shipping_address: shippingData,
-        payment_method: 'UPI/Bank Transfer'
+        payment_method: 'UPI/Bank Transfer',
+        coupon_code: appliedCoupon?.code
       })
       toast.success('Pranam! Your sacred order has been placed.')
-      clearCart()
       navigate('/dashboard/orders')
     } catch (err: any) {
-      // Error handled by interceptor
+      toast.error('Failed to place order. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -159,7 +203,7 @@ export default function CheckoutPage() {
 
             <button
               type="submit"
-              disabled={loading || items.length === 0}
+              disabled={loading || !cart?.items?.length}
               className="btn-primary w-full py-6 text-sm font-bold uppercase tracking-widest justify-center shadow-3xl hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 transition-all"
             >
               {loading ? (
@@ -177,8 +221,8 @@ export default function CheckoutPage() {
               <h3 className="font-serif text-[var(--color-earth)] mb-10" style={{ fontSize: '2rem' }}>Your Journey</h3>
 
               <div className="space-y-6 mb-10 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-                {items.map(item => (
-                  <div key={item.product_id} className="flex gap-6 items-center mb-6 pb-6 border-b border-[var(--color-gold)]/10 last:border-0 last:mb-0 last:pb-0">
+                {cart?.items?.map((item: any) => (
+                  <div key={item.id} className="flex gap-6 items-center mb-6 pb-6 border-b border-[var(--color-gold)]/10 last:border-0 last:mb-0 last:pb-0">
                     <div className="w-20 h-20 rounded-2xl overflow-hidden bg-[#faf2e2] flex-shrink-0 border border-[var(--color-gold)]/10 p-1">
                       <img src={item.product?.thumbnail_url || 'https://images.unsplash.com/photo-1609743522653-52354461eb27?w=200'} className="w-full h-full object-cover rounded-xl" />
                     </div>
@@ -192,13 +236,53 @@ export default function CheckoutPage() {
               </div>
 
               <div className="space-y-5 py-8 border-t-2 border-[var(--color-gold)]/10">
+                <div className="flex flex-col gap-4 mb-6">
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="Coupon Code"
+                      value={couponCode}
+                      onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                      className="flex-1 px-4 py-2 rounded-xl border border-[var(--color-gold)]/20 outline-none text-sm"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleApplyCoupon}
+                      disabled={couponLoading || !couponCode}
+                      className="btn-gold px-4 py-2 text-xs"
+                    >
+                      {couponLoading ? '...' : 'Apply'}
+                    </button>
+                  </div>
+                  {appliedCoupon && (
+                    <div className="flex justify-between items-center bg-green-50 px-3 py-2 rounded-lg border border-green-100">
+                      <div className="flex items-center gap-2 text-green-700 text-xs font-bold">
+                        <Tag size={12} /> {appliedCoupon.code}
+                      </div>
+                      <button onClick={() => setAppliedCoupon(null)} className="text-red-400 hover:text-red-600">
+                        <X size={14} />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex justify-between items-center text-[var(--color-text-secondary)] font-sans">
+                  <span className="text-[10px] font-bold uppercase tracking-widest">Subtotal</span>
+                  <span className="font-bold">₹{cart?.total?.toLocaleString() || 0}</span>
+                </div>
+                {appliedCoupon && (
+                  <div className="flex justify-between items-center text-green-600 font-sans">
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Discount</span>
+                    <span className="font-bold">-₹{(cart.total - calculateFinalTotal()).toLocaleString()}</span>
+                  </div>
+                )}
                 <div className="flex justify-between items-center text-[var(--color-text-secondary)] font-sans">
                   <span className="text-[10px] font-bold uppercase tracking-widest">Shipping</span>
                   <span className="text-forest font-bold bg-forest/10 px-3 py-1 rounded-full text-[9px] uppercase tracking-widest">Complimentary</span>
                 </div>
-                <div className="flex justify-between items-baseline">
+                <div className="flex justify-between items-baseline pt-4 border-t border-[var(--color-gold)]/10">
                   <span className="font-serif text-[var(--color-earth)] text-2xl">Total</span>
-                  <span className="text-4xl font-bold text-[var(--color-saffron)]">₹{total().toLocaleString()}</span>
+                  <span className="text-4xl font-bold text-[var(--color-saffron)]">₹{calculateFinalTotal().toLocaleString()}</span>
                 </div>
               </div>
 

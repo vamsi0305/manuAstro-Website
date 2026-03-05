@@ -1,8 +1,8 @@
-﻿import { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+﻿import { useState, useEffect } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Star, ShieldCheck, Truck, RefreshCcw, ChevronRight, Heart, ShoppingCart } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { useCartStore } from '@/stores/cartStore'
+import api from '@/api/axios'
 import ProductCard from '@/components/shop/ProductCard'
 import SEOHead from '@/components/SEOHead'
 import { Helmet } from 'react-helmet-async'
@@ -14,13 +14,50 @@ export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>()
   const [qty, setQty] = useState(1)
   const [activeImg, setActiveImg] = useState(0)
-  const addItem = useCartStore(s => s.addItem)
+  const navigate = useNavigate()
+  const [isWishlisted, setIsWishlisted] = useState(false)
+  const [adding, setAdding] = useState(false)
 
   const { data: product, isLoading, error } = useQuery({
     queryKey: ['product', slug],
     queryFn: () => productService.getBySlug(slug!),
     enabled: !!slug
   })
+
+  useEffect(() => {
+    if (product && product.category?.name && !['Gemstones', 'Rudraksha', 'Yantra'].includes(product.category.name)) {
+      api.get(`/wishlist/check/${product.id}`)
+        .then(({ data }) => setIsWishlisted(data.is_wishlisted))
+        .catch(() => { })
+    }
+  }, [product])
+
+  const handleAddToCart = async () => {
+    if (!product) return
+    setAdding(true)
+    try {
+      await api.post('/cart/items', { product_id: product.id, quantity: qty })
+    } catch (err: any) {
+      if (err.response?.status === 401) navigate('/login')
+    } finally {
+      setAdding(false)
+    }
+  }
+
+  const handleWishlistToggle = async () => {
+    if (!product) return
+    try {
+      if (isWishlisted) {
+        await api.delete(`/wishlist/${product.id}`)
+        setIsWishlisted(false)
+      } else {
+        await api.post('/wishlist', { product_id: product.id })
+        setIsWishlisted(true)
+      }
+    } catch (err: any) {
+      if (err.response?.status === 401) navigate('/login')
+    }
+  }
 
   if (isLoading) return (
     <div className="section min-h-screen flex items-center justify-center">
@@ -131,13 +168,16 @@ export default function ProductDetail() {
                   <button onClick={() => setQty(qty + 1)} className="w-10 h-10 flex items-center justify-center font-bold text-[var(--color-text-muted)] hover:text-[var(--color-saffron)] text-xl transition-colors">+</button>
                 </div>
                 <button
-                  onClick={() => addItem({ ...product as any, quantity: qty })}
+                  onClick={handleAddToCart}
+                  disabled={adding}
                   className="btn-primary flex-1 py-4 text-sm font-bold uppercase tracking-widest shadow-xl"
                 >
-                  <ShoppingCart size={18} className="mr-2" /> Add to Cart
+                  <ShoppingCart size={18} className="mr-2" /> {adding ? 'Adding...' : 'Add to Cart'}
                 </button>
-                <button className="w-14 h-14 rounded-2xl bg-white border border-[var(--color-gold)]/20 text-[var(--color-text-muted)] hover:text-[var(--color-saffron)] hover:border-[var(--color-saffron)] transition-all flex items-center justify-center shadow-sm">
-                  <Heart size={24} />
+                <button
+                  onClick={handleWishlistToggle}
+                  className={`w-14 h-14 rounded-2xl bg-white border transition-all flex items-center justify-center shadow-sm ${isWishlisted ? 'border-[var(--color-saffron)] text-[var(--color-saffron)]' : 'border-[var(--color-gold)]/20 text-[var(--color-text-muted)]'}`}>
+                  <Heart size={24} fill={isWishlisted ? "currentColor" : "none"} />
                 </button>
               </div>
 

@@ -1,20 +1,24 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { Heart } from 'lucide-react';
-
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Heart } from 'lucide-react'
+import api from '@/api/axios'
 import SEOHead from '@/components/SEOHead'
-import { useWishlistStore } from '@/stores/wishlistStore';
-import { useCartStore } from '@/stores/cartStore';
-import type { Product } from '@/types';
 
-const WishlistCard = ({ product }: { product: any }) => {
-    const { removeItem: removeFromWishlist } = useWishlistStore();
-    const { addItem: addToCart } = useCartStore();
+const WishlistCard = ({ product, onRemove }: { product: any, onRemove: (id: number) => void }) => {
+    const handleAddToCart = async () => {
+        try {
+            await api.post('/cart/items', { product_id: product.id, quantity: 1 })
+            onRemove(product.id)
+        } catch (err) {
+            console.error('Add to cart failed', err)
+        }
+    }
 
     return (
         <div className="card" style={{ padding: '0', overflow: 'hidden', position: 'relative' }}>
             {/* Remove from wishlist button */}
             <button
-                onClick={() => removeFromWishlist(product.id)}
+                onClick={() => onRemove(product.id)}
                 style={{
                     position: 'absolute',
                     top: '0.75rem',
@@ -70,7 +74,7 @@ const WishlistCard = ({ product }: { product: any }) => {
                         fontWeight: 700
                     }}>₹{product.price?.toLocaleString('en-IN')}</span>
                     <button
-                        onClick={() => { addToCart(product as Product); removeFromWishlist(product.id); }}
+                        onClick={handleAddToCart}
                         className="btn-primary"
                         style={{ padding: '0.4rem 0.875rem', fontSize: '0.8rem' }}>
                         Add to Cart
@@ -82,8 +86,33 @@ const WishlistCard = ({ product }: { product: any }) => {
 };
 
 export default function Wishlist() {
-    const { items: wishlistItems, clearWishlist } = useWishlistStore();
-    const count = wishlistItems.length;
+    const [wishlistItems, setWishlistItems] = useState<any[]>([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const loadWishlist = async () => {
+            try {
+                const { data } = await api.get('/wishlist')
+                setWishlistItems(data)
+            } catch (err) {
+                console.error('Wishlist load failed', err)
+            } finally {
+                setLoading(false)
+            }
+        }
+        loadWishlist()
+    }, [])
+
+    const handleRemove = async (productId: number) => {
+        try {
+            await api.delete(`/wishlist/${productId}`)
+            setWishlistItems(prev => prev.filter(item => item.product_id !== productId))
+        } catch (err) {
+            console.error('Remove failed', err)
+        }
+    }
+
+    const count = wishlistItems.length
 
     return (
         <div className="bg-[#fdf7ed] min-h-screen">
@@ -170,29 +199,16 @@ export default function Wishlist() {
                                 color: 'var(--color-text-muted)',
                                 fontSize: '0.9rem'
                             }}>{count} {count === 1 ? 'item' : 'items'} saved</span>
-                            <button
-                                onClick={clearWishlist}
-                                style={{
-                                    background: 'transparent',
-                                    border: '1px solid var(--color-border)',
-                                    borderRadius: '2rem',
-                                    padding: '0.4rem 1rem',
-                                    color: 'var(--color-text-muted)',
-                                    fontSize: '0.8rem',
-                                    fontFamily: 'var(--font-accent)',
-                                    letterSpacing: '0.08em',
-                                    cursor: 'pointer'
-                                }}
-                                className="hover:bg-gold/10 hover:text-earth transition-colors"
-                            >
-                                CLEAR ALL
-                            </button>
                         </div>
 
                         {/* Products grid */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: '1.5rem' }}>
-                            {wishlistItems.map(product => (
-                                <WishlistCard key={product.id} product={product} />
+                            {wishlistItems.map((item: any) => (
+                                <WishlistCard
+                                    key={item.id}
+                                    product={{ ...item.product, id: item.product_id }}
+                                    onRemove={handleRemove}
+                                />
                             ))}
                         </div>
                     </div>

@@ -1,14 +1,47 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { LayoutDashboard, ShoppingCart, Users, Calendar, TrendingUp, Package, MessageSquare, Bell } from 'lucide-react'
+import { LayoutDashboard, ShoppingCart, Users, Calendar, TrendingUp, Package, MessageSquare, Bell, Loader2 } from 'lucide-react'
 import SEOHead from '@/components/SEOHead'
-
-const ADMIN_STATS = [
-    { label: 'Monthly Revenue', val: '₹4,52,000', change: '+12%', icon: <TrendingUp size={20} />, color: 'text-forest' },
-    { label: 'New Customers', val: '124', change: '+18%', icon: <Users size={20} />, color: 'text-saffron' },
-    { label: 'Pending Bookings', val: '18', change: '-4', icon: <Calendar size={20} />, color: 'text-gold' }
-]
+import api from '@/api/axios'
+import toast from 'react-hot-toast'
 
 export default function AdminDashboard() {
+    const [stats, setStats] = useState<any>(null)
+    const [orders, setOrders] = useState<any[]>([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const loadAdminData = async () => {
+            try {
+                const [statsRes, ordersRes] = await Promise.all([
+                    api.get('/admin/stats'),
+                    api.get('/admin/orders')
+                ])
+                setStats(statsRes.data)
+                setOrders(ordersRes.data)
+            } catch (err) {
+                toast.error('Failed to load administrative data.')
+            } finally {
+                setLoading(false)
+            }
+        }
+        loadAdminData()
+    }, [])
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center bg-[#fdf7ed] gap-4">
+                <Loader2 className="w-12 h-12 text-saffron animate-spin" />
+                <p className="font-serif text-earth">Consulting the Records...</p>
+            </div>
+        )
+    }
+
+    const ADMIN_STATS = [
+        { label: 'Total Revenue', val: `₹${stats?.total_revenue?.toLocaleString() || '0'}`, change: 'Live', icon: <TrendingUp size={20} />, color: 'text-forest' },
+        { label: 'Total Customers', val: stats?.total_users || '0', change: 'Live', icon: <Users size={20} />, color: 'text-saffron' },
+        { label: 'Pending Bookings', val: stats?.pending_bookings || '0', change: 'Alert', icon: <Calendar size={20} />, color: 'text-gold' }
+    ]
     return (
         <div className="bg-[#fdf7ed] min-h-screen pt-24 pb-20">
             <SEOHead title="Admin Dashboard" description="ManuAstro Internal Administration Panel." />
@@ -68,19 +101,28 @@ export default function AdminDashboard() {
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gold/5">
-                                        {[1, 2, 3].map(item => (
-                                            <tr key={item} className="text-sm">
+                                        {orders.slice(0, 5).map(order => (
+                                            <tr key={order.id} className="text-sm">
                                                 <td className="px-8 py-6">
-                                                    <p className="font-bold text-earth">Client Name {item}</p>
-                                                    <p className="text-[10px] text-muted">2 mins ago</p>
+                                                    <p className="font-bold text-earth">{order.user_email || `ORD-${order.id}`}</p>
+                                                    <p className="text-[10px] text-muted">{new Date(order.created_at).toLocaleString()}</p>
                                                 </td>
-                                                <td className="px-8 py-6 font-medium text-muted">Rudraksha Bead {item}</td>
-                                                <td className="px-8 py-6 text-right font-bold text-forest">Verified</td>
+                                                <td className="px-8 py-6 font-medium text-muted">
+                                                    {order.items?.length} {order.items?.length === 1 ? 'Item' : 'Items'}
+                                                </td>
+                                                <td className="px-8 py-6 text-right font-bold text-forest uppercase">
+                                                    {order.status}
+                                                </td>
                                                 <td className="px-8 py-6 text-center">
-                                                    <button className="text-xs font-bold text-saffron uppercase hover:underline">Process</button>
+                                                    <button className="text-xs font-bold text-saffron uppercase hover:underline">Manage</button>
                                                 </td>
                                             </tr>
                                         ))}
+                                        {orders.length === 0 && (
+                                            <tr>
+                                                <td colSpan={4} className="px-8 py-12 text-center text-muted italic">No orders found.</td>
+                                            </tr>
+                                        )}
                                     </tbody>
                                 </table>
                             </div>

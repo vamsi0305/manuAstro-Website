@@ -1,8 +1,9 @@
-﻿import { useState } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Search, Calendar, Clock, ChevronRight } from 'lucide-react'
 import SEOHead from '@/components/SEOHead'
+import api from '@/api/axios'
 
 const BLOG_CATS = ['All', 'Astrology', 'Rudraksha', 'Vaastu', 'Numerology', 'Lifestyle']
 
@@ -40,7 +41,25 @@ const MOCK_BLOGS = [
 ]
 
 export default function BlogList() {
+  const [blogs, setBlogs] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('All')
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const { data } = await api.get('/blogs')
+        setBlogs(data)
+      } catch (err) {
+        console.error('Failed to fetch blogs', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchBlogs()
+  }, [])
+
+  const filteredBlogs = blogs.filter(b => activeTab === 'All' || b.category === activeTab)
 
   return (
     <div className="bg-[#fdf7ed] pb-16">
@@ -120,7 +139,9 @@ export default function BlogList() {
           gap: '1.5rem',
           paddingBottom: '6rem'
         }}>
-          {MOCK_BLOGS.filter(b => activeTab === 'All' || b.cat === activeTab).map((blog, i) => (
+          {loading ? (
+            <div className="col-span-full text-center py-20 font-serif text-earth animate-pulse">Consulting the ancient scrolls...</div>
+          ) : filteredBlogs.map((blog, i) => (
             <motion.div
               key={blog.id}
               initial={{ opacity: 0, y: 30 }}
@@ -155,8 +176,8 @@ export default function BlogList() {
 
               <div className="p-5 flex-1 flex flex-col">
                 <div className="flex items-center gap-4 text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-3">
-                  <span className="flex items-center gap-1 font-sans">{blog.date}</span>
-                  <span className="flex items-center gap-1 font-sans">{blog.time}</span>
+                  <span className="flex items-center gap-1 font-sans">{new Date(blog.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                  <span className="flex items-center gap-1 font-sans">{blog.read_time || '5 min'} read</span>
                 </div>
 
                 <h2 className="text-lg font-serif text-[var(--color-earth)] mb-3 leading-tight">
@@ -178,8 +199,8 @@ export default function BlogList() {
           ))}
         </div>
 
-        {/* Pagination */}
-        {MOCK_BLOGS.length > 0 && (
+        {/* Pagination placeholder */}
+        {blogs.length > 3 && (
           <div className="mt-20 flex justify-center gap-3">
             <button className="w-10 h-10 rounded-xl bg-[var(--color-earth)] text-white shadow-lg font-bold">1</button>
             <button className="w-10 h-10 rounded-xl border border-[var(--color-gold)]/10 text-[var(--color-text-muted)] hover:border-[var(--color-saffron)] font-bold transition-all">2</button>
