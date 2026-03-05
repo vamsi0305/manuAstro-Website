@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/authStore'
 // Lazy-loaded pages
 const Home = lazy(() => import('@/pages/Home'))
 const ShopPage = lazy(() => import('@/pages/Shop/ShopPage'))
+const CategoryPage = lazy(() => import('@/pages/Shop/CategoryPage'))
 const ProductDetail = lazy(() => import('@/pages/Shop/ProductDetail'))
 const CartPage = lazy(() => import('@/pages/Shop/CartPage'))
 const CheckoutPage = lazy(() => import('@/pages/Shop/CheckoutPage'))
@@ -18,7 +19,12 @@ const Pricing = lazy(() => import('@/pages/Pricing'))
 const Login = lazy(() => import('@/pages/Auth/Login'))
 const Register = lazy(() => import('@/pages/Auth/Register'))
 const UserDashboard = lazy(() => import('@/pages/Dashboard/UserDashboard'))
-const AdminDashboard = lazy(() => import('@/pages/Dashboard/Admin/AdminDashboard'))
+const AdminDashboard = lazy(() => import('@/pages/Dashboard/AdminDashboard'))
+
+// Asset Pages
+const Gemstones = lazy(() => import('@/pages/Gemstones'))
+const RudrakshaList = lazy(() => import('@/pages/Rudraksha/RudrakshaList'))
+const YantraList = lazy(() => import('@/pages/Yantra/YantraList'))
 
 // Service pages
 const VedicAstrology = lazy(() => import('@/pages/Services/VedicAstrology'))
@@ -35,8 +41,8 @@ const Shipping = lazy(() => import('@/pages/policies/Shipping'))
 const Refund = lazy(() => import('@/pages/policies/Refund'))
 
 const Loading = () => (
-    <div className="min-h-screen flex items-center justify-center">
-        <div className="w-10 h-10 border-2 border-transparent border-t-[#6C3FC7] border-r-[#00D4FF] rounded-full animate-spin" />
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg)]">
+        <div className="w-10 h-10 border-2 border-[var(--color-gold)]/20 border-t-[var(--color-saffron)] rounded-full animate-spin" />
     </div>
 )
 
@@ -71,7 +77,11 @@ export const routes: RouteObject[] = [
         ],
     },
     { path: '/shop', element: <S><ShopPage /></S> },
+    { path: '/shop/category/:category', element: <S><CategoryPage /></S> },
     { path: '/shop/:slug', element: <S><ProductDetail /></S> },
+    { path: '/gemstones', element: <S><Gemstones /></S> },
+    { path: '/rudraksha', element: <S><RudrakshaList /></S> },
+    { path: '/yantra', element: <S><YantraList /></S> },
     { path: '/cart', element: <S><CartPage /></S> },
     {
         path: '/checkout',

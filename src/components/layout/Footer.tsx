@@ -2,9 +2,29 @@ import { Link } from 'react-router-dom'
 import { Phone, Mail, MapPin, Instagram, Facebook, Youtube } from 'lucide-react'
 
 const LINKS = {
-    explore: [{ l: 'Home', '/': '/' }, { l: 'Shop', to: '/shop' }, { l: 'Horoscope', to: '/horoscope' }, { l: 'Blog', to: '/blog' }, { l: 'About Us', to: '/about' }, { l: 'Contact', to: '/contact' }],
-    services: [{ l: 'Vedic Astrology', to: '/services/vedic-astrology' }, { l: 'Palm Reading', to: '/services/palm-reading' }, { l: 'Face Reading', to: '/services/face-reading' }, { l: 'Vaastu Shastra', to: '/services/vaastu' }, { l: 'Corporate Programs', to: '/services/corporate-programs' }, { l: 'Consultation', to: '/services/personal-consultation' }],
-    legal: [{ l: 'Privacy Policy', to: '/privacy' }, { l: 'Terms & Conditions', to: '/terms' }, { l: 'Refund Policy', to: '/refund' }, { l: 'Shipping Policy', to: '/shipping' }],
+    explore: [
+        { l: 'Home', to: '/' },
+        { l: 'Shop', to: '/shop' },
+        { l: 'Horoscope', to: '/horoscope' },
+        { l: 'Blog', to: '/blog' },
+        { l: 'Gallery', to: '/gallery' },
+        { l: 'About Us', to: '/about' },
+        { l: 'Contact', to: '/contact' }
+    ],
+    services: [
+        { l: 'Vedic Astrology', to: '/services/vedic-astrology' },
+        { l: 'Palm Reading', to: '/services/palm-reading' },
+        { l: 'Face Reading', to: '/services/face-reading' },
+        { l: 'Vaastu Shastra', to: '/services/vaastu' },
+        { l: 'Corporate Programs', to: '/services/corporate-programs' },
+        { l: 'Consultation', to: '/services/personal-consultation' }
+    ],
+    legal: [
+        { l: 'Privacy Policy', to: '/privacy' },
+        { l: 'Terms & Conditions', to: '/terms' },
+        { l: 'Refund Policy', to: '/refund' },
+        { l: 'Shipping Policy', to: '/shipping' }
+    ],
 }
 
 export default function Footer() {
@@ -88,9 +108,9 @@ export default function Footer() {
                         <p className="text-[11px] font-bold uppercase tracking-[0.18em] mb-3" style={{ color: '#c9972a', ...F }}>Contact</p>
                         <div className="flex flex-col gap-3 mb-5">
                             {[
-                                { icon: <Phone size={13} />, text: '+91 99999 99999' },
-                                { icon: <Mail size={13} />, text: 'info@manuastro.com' },
-                                { icon: <MapPin size={13} />, text: 'Hyderabad, Telangana, India' },
+                                { icon: <Phone size={13} />, text: '+91 97424 00000' },
+                                { icon: <Mail size={13} />, text: 'support@manuastro.com' },
+                                { icon: <MapPin size={13} />, text: 'HSR Layout, Bengaluru, India' },
                             ].map(c => (
                                 <div key={String(c.text)} className="flex items-start gap-2.5">
                                     <span className="flex-shrink-0 mt-0.5" style={{ color: '#c74500' }}>{c.icon}</span>

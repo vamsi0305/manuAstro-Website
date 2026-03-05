@@ -28,24 +28,24 @@ export default function CartSidebar() {
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="fixed right-0 top-0 h-full w-full max-w-md z-[61] flex flex-col"
-                        style={{ background: '#12122A', borderLeft: '1px solid rgba(108,63,199,0.3)' }}
+                        className="fixed right-0 top-0 h-full w-full max-w-md z-[61] flex flex-col shadow-2xl"
+                        style={{ background: 'var(--color-bg-card)', borderLeft: '1px solid var(--color-border)' }}
                         id="cart-sidebar"
                     >
                         {/* Header */}
-                        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border)] bg-[var(--color-bg)]">
                             <div className="flex items-center gap-2">
-                                <ShoppingBag className="w-5 h-5 text-[#6C3FC7]" />
-                                <h2 className="text-lg font-semibold" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                                <ShoppingBag className="w-5 h-5 text-[var(--color-saffron)]" />
+                                <h2 className="text-lg font-serif font-semibold text-[var(--color-earth)]">
                                     Your Cart
                                     {items.length > 0 && (
-                                        <span className="ml-2 text-sm text-[#00D4FF]">({items.length})</span>
+                                        <span className="ml-2 text-sm text-[var(--color-gold)]">({items.length})</span>
                                     )}
                                 </h2>
                             </div>
                             <button
                                 onClick={closeCart}
-                                className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                                className="p-2 rounded-full hover:bg-[var(--color-bg-secondary)] transition-colors text-[var(--color-text-primary)]"
                                 id="cart-close-btn"
                             >
                                 <X className="w-5 h-5" />
@@ -54,18 +54,18 @@ export default function CartSidebar() {
 
                         {/* Items */}
                         {items.length === 0 ? (
-                            <div className="flex-1 flex flex-col items-center justify-center gap-4 px-6">
-                                <ShoppingBag className="w-16 h-16 text-white/20" />
-                                <p className="text-center" style={{ color: 'rgba(232,232,255,0.5)' }}>
+                            <div className="flex-1 flex flex-col items-center justify-center gap-4 px-6 bg-[var(--color-bg-card)]">
+                                <ShoppingBag className="w-16 h-16 text-[var(--color-text-muted)] opacity-20" />
+                                <p className="text-center text-[var(--color-text-muted)]">
                                     Your cart is empty
                                 </p>
-                                <button onClick={closeCart} className="btn-neon text-sm py-2 px-6">
+                                <button onClick={closeCart} className="btn-gold text-sm py-2 px-6">
                                     Continue Shopping
                                 </button>
                             </div>
                         ) : (
                             <>
-                                <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
+                                <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 bg-[var(--color-bg-card)]">
                                     {items.map((item) => (
                                         <motion.div
                                             key={item.id}
@@ -73,36 +73,36 @@ export default function CartSidebar() {
                                             initial={{ opacity: 0, x: 20 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             exit={{ opacity: 0, x: 20 }}
-                                            className="glass flex gap-3 p-3"
+                                            className="card flex gap-3 p-3 bg-white"
                                         >
                                             <div
-                                                className="w-16 h-16 rounded-lg flex-shrink-0 bg-white/10"
+                                                className="w-16 h-16 rounded-lg flex-shrink-0 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)]"
                                                 style={{
-                                                    backgroundImage: item.product.images?.[0]?.url
-                                                        ? `url(${item.product.images[0].url})`
+                                                    backgroundImage: item.product.images?.[0]
+                                                        ? `url(${item.product.images[0]})`
                                                         : undefined,
                                                     backgroundSize: 'cover',
                                                     backgroundPosition: 'center',
                                                 }}
                                             />
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-sm font-medium truncate" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                                                <p className="text-sm font-medium text-[var(--color-text-primary)] truncate font-serif">
                                                     {item.product.name}
                                                 </p>
-                                                <p className="text-[#FFB800] text-sm font-bold mt-0.5">
+                                                <p className="text-[var(--color-gold)] text-sm font-bold mt-0.5">
                                                     {formatPrice(item.price)}
                                                 </p>
                                                 <div className="flex items-center gap-2 mt-2">
                                                     <button
                                                         onClick={() => updateQuantity(item.product_id, item.quantity - 1)}
-                                                        className="w-6 h-6 rounded border border-white/20 flex items-center justify-center text-xs hover:border-cyan-400 transition-colors"
+                                                        className="w-6 h-6 rounded border border-[var(--color-border)] flex items-center justify-center text-xs text-[var(--color-text-primary)] hover:border-[var(--color-saffron)] transition-colors"
                                                     >
                                                         −
                                                     </button>
-                                                    <span className="text-sm w-6 text-center">{item.quantity}</span>
+                                                    <span className="text-sm w-6 text-center text-[var(--color-text-primary)]">{item.quantity}</span>
                                                     <button
                                                         onClick={() => updateQuantity(item.product_id, item.quantity + 1)}
-                                                        className="w-6 h-6 rounded border border-white/20 flex items-center justify-center text-xs hover:border-cyan-400 transition-colors"
+                                                        className="w-6 h-6 rounded border border-[var(--color-border)] flex items-center justify-center text-xs text-[var(--color-text-primary)] hover:border-[var(--color-saffron)] transition-colors"
                                                     >
                                                         +
                                                     </button>
@@ -110,7 +110,7 @@ export default function CartSidebar() {
                                             </div>
                                             <button
                                                 onClick={() => removeItem(item.product_id)}
-                                                className="p-1.5 text-red-400/60 hover:text-red-400 transition-colors self-start"
+                                                className="p-1.5 text-[var(--color-saffron)]/60 hover:text-[var(--color-saffron)] transition-colors self-start"
                                             >
                                                 <Trash2 className="w-4 h-4" />
                                             </button>
@@ -119,27 +119,27 @@ export default function CartSidebar() {
                                 </div>
 
                                 {/* Summary */}
-                                <div className="px-6 py-4 border-t border-white/10 space-y-3">
+                                <div className="px-6 py-4 border-t border-[var(--color-border)] space-y-3 bg-[var(--color-bg)]">
                                     {couponCode && (
                                         <div className="flex justify-between text-sm">
-                                            <span style={{ color: 'rgba(232,232,255,0.6)' }}>
-                                                Coupon <span className="text-[#00D4FF]">{couponCode}</span>
+                                            <span className="text-[var(--color-text-muted)]">
+                                                Coupon <span className="text-[var(--color-saffron)]">{couponCode}</span>
                                             </span>
-                                            <span className="text-green-400">−{formatPrice(discount)}</span>
+                                            <span className="text-forest">−{formatPrice(discount)}</span>
                                         </div>
                                     )}
                                     <div className="flex justify-between text-sm">
-                                        <span style={{ color: 'rgba(232,232,255,0.6)' }}>Subtotal</span>
-                                        <span>{formatPrice(subtotal())}</span>
+                                        <span className="text-[var(--color-text-muted)]">Subtotal</span>
+                                        <span className="text-[var(--color-text-primary)]">{formatPrice(subtotal())}</span>
                                     </div>
                                     <div className="flex justify-between font-semibold">
-                                        <span>Total</span>
-                                        <span className="text-[#FFB800]">{formatPrice(total())}</span>
+                                        <span className="text-[var(--color-text-primary)]">Total</span>
+                                        <span className="text-[var(--color-gold)] font-bold text-lg">{formatPrice(total())}</span>
                                     </div>
                                     <Link
                                         to="/checkout"
                                         onClick={closeCart}
-                                        className="btn-neon w-full text-center block py-3"
+                                        className="btn-primary w-full text-center block py-3"
                                         id="cart-checkout-btn"
                                     >
                                         Proceed to Checkout

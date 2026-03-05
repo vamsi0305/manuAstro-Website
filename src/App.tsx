@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter, useRoutes } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { Toaster } from 'react-hot-toast'
 import { routes } from '@/routes'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -33,15 +32,16 @@ export default function App() {
           <Footer />
           <CartSidebar />
         </div>
-        <ToastContainer
+        <Toaster
           position="top-right"
-          autoClose={3000}
-          theme="light"
-          toastStyle={{
-            background: '#fffcf5',
-            border: '1px solid #e8d5b4',
-            color: '#3a1f0d',
-            fontFamily: 'DM Sans, sans-serif',
+          toastOptions={{
+            duration: 3000,
+            style: {
+              background: '#fffcf5',
+              border: '1px solid #e8d5b4',
+              color: '#3a1f0d',
+              fontFamily: 'DM Sans, sans-serif',
+            },
           }}
         />
       </BrowserRouter>

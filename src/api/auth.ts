@@ -1,12 +1,12 @@
 import apiClient from './axios'
-import type { ApiResponse, AuthTokens, LoginData, RegisterData, User } from '@/types'
+import type { ApiResponse, LoginData, RegisterData, User } from '@/types'
 
 export const authApi = {
     register: (data: RegisterData) =>
-        apiClient.post<ApiResponse<{ user: User; tokens: AuthTokens }>>('/auth/register', data),
+        apiClient.post<ApiResponse<{ user: User; access_token: string; refresh_token: string }>>('/auth/register', data),
 
     login: (data: LoginData) =>
-        apiClient.post<ApiResponse<{ user: User; tokens: AuthTokens }>>('/auth/login', data),
+        apiClient.post<ApiResponse<{ user: User; access_token: string; refresh_token: string }>>('/auth/login', data),
 
     refresh: (refreshToken: string) =>
         apiClient.post<ApiResponse<{ access_token: string }>>('/auth/refresh', {

@@ -15,43 +15,39 @@ const SERVICES_MENU = [
 ]
 
 const RUDRAKSHA_MENU = [
-    { label: '1 Face Rudraksha', slug: '/collections/1-face-rudraksha' },
-    { label: '2 Face Rudraksha', slug: '/collections/2-face-rudraksha' },
-    { label: '3 Face Rudraksha', slug: '/collections/3-face-rudraksha' },
-    { label: '4 Face Rudraksha', slug: '/collections/4-face-rudraksha' },
-    { label: '5 Face Rudraksha', slug: '/collections/5-face-rudraksha' },
-    { label: '6 Face Rudraksha', slug: '/collections/6-face-rudraksha' },
-    { label: '7 Face Rudraksha', slug: '/collections/7-face-rudraksha' },
-    { label: '8 Face Rudraksha', slug: '/collections/8-face-rudraksha' },
-    { label: '9 Face Rudraksha', slug: '/collections/9-face-rudraksha' },
-    { label: '10 Face Rudraksha', slug: '/collections/10-face-rudraksha' },
-    { label: '11 Face Rudraksha', slug: '/collections/11-face-rudraksha' },
-    { label: '12 Face Rudraksha', slug: '/collections/12-face-rudraksha' },
-    { label: '13 Face Rudraksha', slug: '/collections/13-face-rudraksha' },
-    { label: '14 Face Rudraksha', slug: '/collections/14-face-rudraksha' },
-    { label: '15 Face Rudraksha', slug: '/collections/15-face-rudraksha' },
-    { label: '16 Face Rudraksha', slug: '/collections/16-face-rudraksha' },
-    { label: 'Gauri Shankar Rudraksha', slug: '/collections/gauri-shankar-rudraksha' },
-    { label: 'Gauri Shankar Ganesh Rudraksha', slug: '/collections/gauri-shankar-ganesh-rudraksha' },
-    { label: 'Garbh Gauri Rudraksha', slug: '/collections/garbh-gauri-rudraksha' },
-    { label: 'Garbh Gauri Ganesh Rudraksha', slug: '/collections/garbh-gauri-ganesh-rudraksha' },
+    { label: '1 Face Rudraksha', slug: '/rudraksha?mukhi=1 Mukhi' },
+    { label: '2 Face Rudraksha', slug: '/rudraksha?mukhi=2 Mukhi' },
+    { label: '3 Face Rudraksha', slug: '/rudraksha?mukhi=3 Mukhi' },
+    { label: '4 Face Rudraksha', slug: '/rudraksha?mukhi=4 Mukhi' },
+    { label: '5 Face Rudraksha', slug: '/rudraksha?mukhi=5 Mukhi' },
+    { label: '6 Face Rudraksha', slug: '/rudraksha?mukhi=6 Mukhi' },
+    { label: '7 Face Rudraksha', slug: '/rudraksha?mukhi=7 Mukhi' },
+    { label: '8 Face Rudraksha', slug: '/rudraksha?mukhi=8 Mukhi' },
+    { label: '9 Face Rudraksha', slug: '/rudraksha?mukhi=9 Mukhi' },
+    { label: '10 Face Rudraksha', slug: '/rudraksha?mukhi=10 Mukhi' },
+    { label: '11 Face Rudraksha', slug: '/rudraksha?mukhi=11 Mukhi' },
+    { label: '12 Face Rudraksha', slug: '/rudraksha?mukhi=12 Mukhi' },
+    { label: '13 Face Rudraksha', slug: '/rudraksha?mukhi=13 Mukhi' },
+    { label: '14 Face Rudraksha', slug: '/rudraksha?mukhi=14 Mukhi' },
+    { label: 'Gauri Shankar Rudraksha', slug: '/rudraksha?mukhi=Gauri Shankar' },
+    { label: 'Garbh Gauri Rudraksha', slug: '/rudraksha?mukhi=Garbha Gauri' },
 ]
 
 const YANTRA_MENU = [
-    { label: 'Copper Platted Yantra', slug: '/collections/copper-platted-yantra' },
-    { label: 'Export Premium Yantra', slug: '/collections/export-premium-yantra' },
-    { label: 'Meru Shree Yantra (3D)', slug: '/collections/meru-shree-yantra' },
-    { label: 'Pyra Silver Pendants', slug: '/collections/pyra-silver-pendants' },
+    { label: 'Copper Platted Yantra', slug: '/yantra?type=Copper Platted' },
+    { label: 'Export Premium Yantra', slug: '/yantra?type=Export Premium' },
+    { label: 'Meru Shree Yantra (3D)', slug: '/yantra?type=Meru Shree 3D' },
+    { label: 'Pyra Silver Pendants', slug: '/yantra?type=Pyra Silver' },
 ]
 
 const SHOP_MORE_MENU = [
-    { label: 'Vastu Products', slug: '/collections/vastu' },
-    { label: 'Dosh Nivaran Kit', slug: '/collections/dosh-nivaran-kit' },
-    { label: 'Feng Shui Remedies', slug: '/collections/feng-shui-remedies' },
-    { label: 'Pooja Samagri', slug: '/collections/pooja-samagri' },
-    { label: 'Idols', slug: '/collections/idols' },
-    { label: 'Shaligram', slug: '/collections/shaligram' },
-    { label: 'Shivling', slug: '/collections/shivling' },
+    { label: 'Vastu Products', slug: '/shop/category/vastu-products' },
+    { label: 'Dosh Nivaran Kit', slug: '/shop/category/dosh-nivaran' },
+    { label: 'Feng Shui Remedies', slug: '/shop/category/feng-shui' },
+    { label: 'Pooja Samagri', slug: '/shop/category/pooja-samagri' },
+    { label: 'Idols', slug: '/shop/category/idols' },
+    { label: 'Shaligram', slug: '/shop/category/shaligram' },
+    { label: 'Shivling', slug: '/shop/category/shivling' },
 ]
 
 const GALLERY_MENU = [
@@ -194,7 +190,7 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        <NavLink to="/collections/gemstones" style={linkStyle} className="px-3.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Gemstones</NavLink>
+                        <NavLink to="/gemstones" style={linkStyle} className="px-3.5 py-1.5 rounded-lg hover:text-[#c74500] hover:bg-orange-50 transition-all text-[13.5px] whitespace-nowrap">Gemstones</NavLink>
 
                         {/* Yantra */}
                         <div className="relative">
@@ -288,7 +284,7 @@ export default function Navbar() {
                     <div className="max-w-screen-xl mx-auto px-5 py-4 flex flex-col gap-1">
                         <NavLink to="/" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">Home</NavLink>
                         <NavLink to="/horoscope" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">Horoscope 2026</NavLink>
-                        <NavLink to="/collections/gemstones" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">Gemstones</NavLink>
+                        <NavLink to="/gemstones" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">Gemstones</NavLink>
                         <NavLink to="/about" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">About Us</NavLink>
                         <NavLink to="/blog" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">Blogs</NavLink>
                         <NavLink to="/contact" onClick={() => setMenuOpen(false)} style={linkStyle} className="py-2.5 px-3 rounded-lg hover:bg-orange-50">Contact Us</NavLink>

@@ -120,16 +120,6 @@ const BLOG = [
 ]
 
 /* ─── Shared styles ──────────────────────────────────────────────────────── */
-const W = 'w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-10'
-
-const card: React.CSSProperties = {
-    background: '#fff',
-    borderRadius: '12px',
-    boxShadow: '0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.04)',
-    overflow: 'hidden',
-    transition: 'box-shadow 0.2s, transform 0.2s',
-}
-
 const rise = (delay = 0) => ({
     initial: { opacity: 0, y: 18 },
     whileInView: { opacity: 1, y: 0 },
@@ -139,28 +129,9 @@ const rise = (delay = 0) => ({
 
 function StarRow({ n }: { n: number }) {
     return (
-        <span style={{ color: '#c9972a', fontSize: '12px', letterSpacing: '1px' }}>
+        <span style={{ color: 'var(--color-gold)', fontSize: '12px', letterSpacing: '1px' }}>
             {'★'.repeat(n)}{'☆'.repeat(5 - n)}
         </span>
-    )
-}
-
-function SectionLabel({ eyebrow, title, sub }: { eyebrow: string; title: string; sub?: string }) {
-    return (
-        <motion.div {...rise()} style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#c9972a', marginBottom: '8px' }}>
-                {eyebrow}
-            </p>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, color: '#1e0f06', fontFamily: 'Playfair Display, serif', lineHeight: 1.25, marginBottom: '10px' }}>
-                {title}
-            </h2>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: sub ? '12px' : 0 }}>
-                <div style={{ height: '1px', width: '32px', background: 'linear-gradient(90deg, transparent, #c9972a)' }} />
-                <span style={{ color: '#c9972a', fontSize: '12px' }}>✦</span>
-                <div style={{ height: '1px', width: '32px', background: 'linear-gradient(90deg, #c9972a, transparent)' }} />
-            </div>
-            {sub && <p style={{ fontSize: '14px', color: '#7a5030', maxWidth: '460px', margin: '0 auto', lineHeight: 1.6 }}>{sub}</p>}
-        </motion.div>
     )
 }
 
@@ -172,79 +143,75 @@ export default function Home() {
         <div style={{ background: '#fdfbf7', fontFamily: 'DM Sans, sans-serif' }}>
 
             {/* ════ HERO ════ */}
-            <section style={{ background: 'linear-gradient(150deg, #fef8ec 0%, #fdfbf7 55%, #fff7f0 100%)', borderBottom: '1px solid #f0e4cc' }}>
-                <div className={W} style={{ paddingTop: '56px', paddingBottom: '56px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center' }}>
-
+            <section style={{
+                position: 'relative', width: '100%', minHeight: '520px',
+                display: 'flex', alignItems: 'center',
+                background: 'var(--color-bg)', padding: '5rem 0', overflow: 'hidden'
+            }}>
+                {/* Low-opacity background image */}
+                <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+                    <img src={IMG.hero} alt="hero"
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
+                    <div style={{
+                        position: 'absolute', inset: 0,
+                        background: 'var(--color-bg)', opacity: 0.78
+                    }} />
+                </div>
+                {/* Content */}
+                <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         {/* LEFT */}
                         <motion.div initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.55 }}>
-                            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '5px 14px', borderRadius: '100px', background: 'rgba(199,69,0,0.07)', border: '1px solid rgba(199,69,0,0.15)', marginBottom: '22px' }}>
-                                <span style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.06em', color: '#c74500', textTransform: 'uppercase' }}>
-                                    🕉 &nbsp;Best Online Astrology Consultation
-                                </span>
-                            </div>
-
-                            <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 800, lineHeight: 1.1, color: '#1e0f06', fontFamily: 'Playfair Display, serif', margin: '0 0 18px' }}>
-                                A Modern Astrologer with a<br />
-                                <span style={{ color: '#c74500' }}>Scientific Mindset & Spiritual Soul</span>
+                            <span className="badge-saffron" style={{ marginBottom: '1rem', display: 'inline-block' }}>
+                                🕉 BEST ONLINE ASTROLOGY CONSULTATION
+                            </span>
+                            <h1 className="font-serif" style={{ fontSize: '3.2rem', color: 'var(--color-earth)', lineHeight: 1.1, marginBottom: '1.5rem' }}>
+                                A Modern Astrologer with a <span style={{ color: 'var(--color-saffron)' }}>Scientific Mindset & Spiritual Soul</span>
                             </h1>
-
-                            <p style={{ fontSize: '15px', lineHeight: 1.65, color: '#5c3618', marginBottom: '10px', maxWidth: '440px' }}>
-                                <strong>Er. Manu Gupta</strong> — IIM Ahmedabad Alumnus, Founder & CEO, MANUASTRO® LLP
+                            <p className="font-sans" style={{ fontSize: '1.1rem', color: 'var(--color-text-secondary)', lineHeight: 1.75, marginBottom: '2rem' }}>
+                                <strong>Er. Manu Gupta</strong> — IIM Ahmedabad Alumnus, Founder & CEO, MANUASTRO® LLP. Accurate Kundli readings, birth chart analysis, numerology & Vaastu guidance.
                             </p>
-                            <p style={{ fontSize: '14px', lineHeight: 1.65, color: '#5c3618', marginBottom: '28px', maxWidth: '440px' }}>
-                                Accurate Kundli readings, birth chart analysis, numerology & Vaastu guidance. Trusted Vedic astrologer with 15+ years of experience guiding thousands globally.
-                            </p>
-
-                            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
-                                <a href="https://calendly.com/manuastro2022/30min" target="_blank" rel="noopener noreferrer"
-                                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #c74500, #e07818)', color: '#fff', padding: '12px 26px', borderRadius: '8px', fontSize: '14px', fontWeight: 600, textDecoration: 'none', boxShadow: '0 3px 14px rgba(199,69,0,0.28)' }}>
-                                    Book Your Consultation Now <ArrowRight size={15} />
+                            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '2rem' }}>
+                                <a href="https://calendly.com/manuastro2022/30min" target="_blank" rel="noopener noreferrer" className="btn-primary">
+                                    Book Your Consultation Now <ArrowRight size={18} />
                                 </a>
-                                <Link to="/shop"
-                                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'transparent', color: '#c74500', border: '1.5px solid #c74500', padding: '11px 22px', borderRadius: '8px', fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>
-                                    <Star size={14} /> Shop Rudraksha
+                                <Link to="/shop" className="btn-gold">
+                                    <Star size={18} /> Shop Rudraksha
                                 </Link>
                             </div>
-
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                                {['✔ 100% Natural Nepali Rudraksha', '✔ Lab Certified', '✔ IIM Ahmedabad Alumnus', '✔ 15+ Yrs Experience', '✔ Global Consultations'].map(t => (
-                                    <span key={t} style={{ fontSize: '12px', fontWeight: 500, color: '#5c3618', background: '#fdf1e2', borderRadius: '100px', padding: '4px 11px', border: '1px solid #f0dabb' }}>
-                                        {t}
-                                    </span>
+                                {['✔ 100% Natural Nepali Rudraksha', '✔ Lab Certified', '✔ IIM Ahmedabad Alumnus', '✔ Global Consultations'].map(t => (
+                                    <span key={t} className="badge-gold">{t}</span>
                                 ))}
                             </div>
                         </motion.div>
-
                         {/* RIGHT */}
-                        <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.55, delay: 0.1 }}
-                            style={{ position: 'relative' }}>
-                            <img src={IMG.hero} alt="Vedic Astrology Consultation"
-                                style={{ width: '100%', height: '440px', objectFit: 'cover', borderRadius: '16px', boxShadow: '0 16px 60px rgba(80,40,10,0.16)', display: 'block' }} />
-                            <div style={{ position: 'absolute', bottom: '-16px', left: '-16px', background: '#fff', borderRadius: '10px', padding: '12px 18px', boxShadow: '0 4px 20px rgba(0,0,0,0.10)' }}>
-                                <p style={{ fontSize: '22px', fontWeight: 900, color: '#c74500', fontFamily: 'Playfair Display, serif', lineHeight: 1 }}>4.9 ★</p>
-                                <p style={{ fontSize: '11px', color: '#a06030', marginTop: '2px' }}>Thousands of happy clients</p>
+                        <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.55, delay: 0.1 }}>
+                            <div style={{ borderRadius: '1.5rem', overflow: 'hidden', border: '3px solid var(--color-gold)', background: 'var(--color-bg-secondary)', padding: '10px' }}>
+                                <img src={IMG.hero} alt="Er. Manu Gupta" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '1rem' }} />
                             </div>
                         </motion.div>
                     </div>
                 </div>
             </section>
 
+            <div className="divider-ornamental">*</div>
+
             {/* ════ TRUST BAR ════ */}
-            <section style={{ background: '#fff', borderBottom: '1px solid #f0e4cc' }}>
-                <div className={W} style={{ paddingTop: '22px', paddingBottom: '22px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
+            <section className="section-sm" style={{ background: 'var(--color-bg-secondary)' }}>
+                <div className="container">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
-                            { emoji: '🛡️', title: 'Secure Payment', desc: 'UPI · Cards · Net Banking' },
-                            { emoji: '📦', title: 'Free Shipping', desc: 'On orders above ₹999' },
-                            { emoji: '🔬', title: 'Lab Certified', desc: 'X-Ray & IRL certified beads' },
-                            { emoji: '↩️', title: 'Money-Back', desc: '100% no-questions guarantee' },
+                            { icon: '🛡️', title: 'Secure Payment', desc: 'UPI · Cards · Net Banking' },
+                            { icon: '📦', title: 'Free Shipping', desc: 'On orders above ₹999' },
+                            { icon: '🔬', title: 'Lab Certified', desc: 'X-Ray & IRL certified beads' },
+                            { icon: '↩️', title: 'Money-Back', desc: '100% no-questions guarantee' },
                         ].map(t => (
-                            <div key={t.title} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 12px', borderRadius: '8px', background: '#fdfbf7' }}>
-                                <span style={{ fontSize: '22px', flexShrink: 0 }}>{t.emoji}</span>
+                            <div key={t.title} className="card" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem', textAlign: 'left', flexDirection: 'row' }}>
+                                <span style={{ fontSize: '2rem' }}>{t.icon}</span>
                                 <div>
-                                    <p style={{ fontSize: '13px', fontWeight: 600, color: '#1e0f06', margin: 0 }}>{t.title}</p>
-                                    <p style={{ fontSize: '11px', color: '#9a6840', margin: 0, marginTop: '1px' }}>{t.desc}</p>
+                                    <h4 className="font-serif" style={{ color: 'var(--color-earth)', margin: 0 }}>{t.title}</h4>
+                                    <p className="font-sans" style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem', margin: 0 }}>{t.desc}</p>
                                 </div>
                             </div>
                         ))}
@@ -252,127 +219,146 @@ export default function Home() {
                 </div>
             </section>
 
+            <div className="divider-ornamental">*</div>
+
             {/* ════ SERVICES ════ */}
-            <section style={{ paddingTop: '60px', paddingBottom: '60px' }}>
-                <div className={W}>
-                    <SectionLabel eyebrow="Services Offered" title="Vedic Sciences We Practice" sub="Authentic guidance rooted in classical texts by Er. Manu Gupta, IIM Ahmedabad Alumnus" />
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '16px' }}>
+            <section className="section">
+                <div className="container">
+                    <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                        <span className="badge-saffron" style={{ marginBottom: '1rem', display: 'inline-block' }}>SERVICES OFFERED</span>
+                        <h2 className="font-serif" style={{ fontSize: '2.5rem', color: 'var(--color-earth)', marginBottom: '1rem' }}>Vedic Sciences We Practice</h2>
+                        <div style={{ width: '50px', height: '3px', background: 'var(--color-gold)', margin: '0 auto' }} />
+                        <p className="font-sans" style={{ color: 'var(--color-text-secondary)', marginTop: '1.5rem', maxWidth: '640px', margin: '1.5rem auto 0', lineHeight: 1.7 }}>
+                            Authentic guidance rooted in classical texts by Er. Manu Gupta, IIM Ahmedabad Alumnus
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {SERVICES.map((s, i) => (
                             <motion.div key={s.slug} {...rise(i * 0.07)}>
-                                <Link to={`/services/${s.slug}`}
-                                    style={{ display: 'flex', flexDirection: 'column', gap: '0', padding: '0', background: '#fdfbf7', borderRadius: '12px', textDecoration: 'none', transition: 'all 0.2s', overflow: 'hidden', border: '1px solid rgba(201,151,42,0.1)' }}
-                                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = '0 10px 30px rgba(199,69,0,0.12)'; el.style.transform = 'translateY(-5px)' }}
-                                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'none'; el.style.transform = 'translateY(0)' }}>
-                                    <div style={{ width: '100%', height: '240px', overflow: 'hidden' }}>
-                                        <img src={s.img} alt={s.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                    </div>
-                                    <div style={{ padding: '20px', textAlign: 'center' }}>
-                                        <h3 style={{ fontSize: '16px', fontWeight: 600, color: '#1e0f06', margin: '0 0 12px', fontFamily: 'Playfair Display, serif' }}>{s.title}</h3>
-                                        <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: '#4a1408', color: '#fff', fontSize: '10px', fontWeight: 700, padding: '8px 20px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                                            Learn More →
-                                        </div>
+                                <Link
+                                    to={`/services/${s.slug}`}
+                                    style={{
+                                        display: 'block',
+                                        borderRadius: '1.25rem',
+                                        overflow: 'hidden',
+                                        position: 'relative',
+                                        cursor: 'pointer',
+                                        boxShadow: '0 4px 20px rgba(58,31,13,0.12)',
+                                        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                        border: '1.5px solid rgba(201,151,42,0.2)',
+                                    }}
+                                    onMouseEnter={e => {
+                                        (e.currentTarget as HTMLElement).style.transform = 'translateY(-6px)'
+                                            ; (e.currentTarget as HTMLElement).style.boxShadow = '0 16px 40px rgba(58,31,13,0.22)'
+                                    }}
+                                    onMouseLeave={e => {
+                                        (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+                                            ; (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 20px rgba(58,31,13,0.12)'
+                                    }}
+                                >
+                                    <img
+                                        src={s.img}
+                                        alt={s.title}
+                                        style={{ width: '100%', height: '260px', objectFit: 'cover', display: 'block' }}
+                                    />
+                                    <div style={{
+                                        position: 'absolute', bottom: 0, left: 0, right: 0,
+                                        padding: '2rem 1.25rem 1.25rem',
+                                        background: 'linear-gradient(to top, rgba(58,31,13,0.88) 0%, rgba(58,31,13,0.3) 60%, transparent 100%)',
+                                    }}>
+                                        <h3 className="font-serif" style={{
+                                            color: '#fff', fontSize: '1.25rem', margin: '0 0 0.5rem',
+                                            textAlign: 'center', textShadow: '0 2px 6px rgba(0,0,0,0.5)',
+                                        }}>{s.title}</h3>
+                                        <p className="font-sans" style={{
+                                            color: 'rgba(255,255,255,0.8)', fontSize: '0.8rem',
+                                            textAlign: 'center', margin: 0, lineHeight: 1.5,
+                                        }}>{s.desc}</p>
                                     </div>
                                 </Link>
                             </motion.div>
                         ))}
                     </div>
-                    <div style={{ textAlign: 'center', marginTop: '36px' }}>
-                        <a href="https://calendly.com/manuastro2022/30min" target="_blank" rel="noopener noreferrer"
-                            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 28px', background: 'linear-gradient(135deg,#c74500,#e07818)', color: '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 600, textDecoration: 'none', boxShadow: '0 3px 14px rgba(199,69,0,0.25)' }}>
-                            Book Your Consultation <ArrowRight size={14} />
+                    <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+                        <a href="https://calendly.com/manuastro2022/30min" target="_blank" rel="noopener noreferrer" className="btn-primary">
+                            Book Your Consultation <ArrowRight size={18} />
                         </a>
                     </div>
                 </div>
             </section>
 
+            <div className="divider-ornamental">*</div>
+
             {/* ════ STATS ════ */}
-            <section style={{ background: 'linear-gradient(135deg, #fdf4e0, #fef9f0)', borderTop: '1px solid #f0e4cc', borderBottom: '1px solid #f0e4cc', paddingTop: '48px', paddingBottom: '48px' }}>
-                <div className={W}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '24px', textAlign: 'center' }}>
+            <section className="section" style={{ background: 'var(--color-bg-secondary)' }}>
+                <div className="container">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                         {[
-                            { num: '10,000+', label: 'Happy Clients', emoji: '🙏' },
-                            { num: '15+', label: 'Years of Practice', emoji: '📅' },
-                            { num: '300+', label: 'Rudraksha Products', emoji: '✨' },
-                            { num: '4.9 ★', label: 'Average Rating', emoji: '⭐' },
+                            { num: '10,000+', label: 'Happy Clients', icon: '🙏' },
+                            { num: '15+', label: 'Years of Practice', icon: '📅' },
+                            { num: '300+', label: 'Rudraksha Products', icon: '✨' },
+                            { num: '4.9 ★', label: 'Average Rating', icon: '⭐' },
                         ].map((s, i) => (
                             <motion.div key={s.label} {...rise(i * 0.08)}>
-                                <div style={{ fontSize: '28px', marginBottom: '4px' }}>{s.emoji}</div>
-                                <div style={{ fontSize: '2.2rem', fontWeight: 900, color: '#c74500', fontFamily: 'Playfair Display, serif', lineHeight: 1 }}>{s.num}</div>
-                                <div style={{ fontSize: '12px', fontWeight: 500, color: '#9a6840', marginTop: '6px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{s.label}</div>
+                                <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>{s.icon}</div>
+                                <div className="font-serif" style={{ fontSize: '2.5rem', color: 'var(--color-saffron)', lineHeight: 1 }}>{s.num}</div>
+                                <div className="font-sans" style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: '0.75rem' }}>{s.label}</div>
                             </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
 
+            <div className="divider-ornamental">*</div>
+
             {/* ════ PRODUCTS ════ */}
-            <section style={{ paddingTop: '60px', paddingBottom: '60px' }}>
-                <div className={W}>
-                    <SectionLabel eyebrow="Latest Products" title="100% Natural Nepali Rudraksha" sub="Lab-certified, energised through Vedic rituals — each piece hand-selected from Nepal" />
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '18px' }}>
+            <section className="section">
+                <div className="container">
+                    <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                        <span className="badge-gold" style={{ marginBottom: '1rem', display: 'inline-block' }}>LATEST PRODUCTS</span>
+                        <h2 className="font-serif" style={{ fontSize: '2.5rem', color: 'var(--color-earth)', marginBottom: '1rem' }}>Authentic Nepali Rudraksha</h2>
+                        <div style={{ width: '50px', height: '3px', background: 'var(--color-gold)', margin: '0 auto' }} />
+                        <p className="font-sans" style={{ color: 'var(--color-text-secondary)', marginTop: '1.5rem', maxWidth: '640px', margin: '1.5rem auto 0', lineHeight: 1.7 }}>
+                            Lab-certified, energised through Vedic rituals — each piece hand-selected from Nepal
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {PRODUCTS.map((p, i) => (
-                            <motion.div key={p.id} {...rise((i % 4) * 0.07)} style={card}
-                                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 40px rgba(0,0,0,0.12)' }}
-                                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLElement).style.boxShadow = card.boxShadow as string }}>
-
-                                {/* Image */}
-                                <div style={{ position: 'relative', overflow: 'hidden', height: '200px', background: '#fdf3e3' }}>
-                                    <img src={p.img} alt={p.name}
-                                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.45s' }}
-                                        onMouseEnter={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.06)'}
-                                        onMouseLeave={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'} />
-                                    <span style={{ position: 'absolute', top: '10px', left: '10px', background: 'rgba(199,69,0,0.88)', color: '#fff', fontSize: '10px', fontWeight: 700, padding: '3px 8px', borderRadius: '4px' }}>
-                                        {p.badge}
-                                    </span>
-                                    <span style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(255,255,255,0.94)', color: '#1e0f06', fontSize: '11px', fontWeight: 600, padding: '3px 7px', borderRadius: '4px' }}>
-                                        ★ {p.rating}
-                                    </span>
+                            <motion.div key={p.id} {...rise((i % 4) * 0.07)} className="card group" style={{ padding: 0 }}>
+                                <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
+                                    <img src={p.img} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                    <div className="absolute top-4 left-4"><span className="badge-saffron">{p.badge}</span></div>
+                                    <div className="absolute top-4 right-4"><span className="badge-gold" style={{ background: 'rgba(255,255,255,0.9)' }}>★ {p.rating}</span></div>
                                 </div>
-
-                                {/* Body */}
-                                <div style={{ padding: '14px 14px 16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                    <span style={{ fontSize: '10px', fontWeight: 700, background: 'rgba(199,69,0,0.07)', color: '#c74500', padding: '2px 8px', borderRadius: '4px', alignSelf: 'flex-start', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                        {p.cat}
-                                    </span>
-                                    <h3 style={{ fontSize: '12.5px', fontWeight: 600, color: '#1e0f06', margin: 0, lineHeight: 1.35 }}>{p.name}</h3>
-                                    <StarRow n={Math.floor(p.rating)} />
-
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                                        <span style={{ fontSize: '15px', fontWeight: 800, color: '#1e0f06' }}>₹{p.price.toLocaleString('en-IN')}</span>
-                                        <span style={{ fontSize: '11px', textDecoration: 'line-through', color: '#c9a060' }}>₹{p.compare.toLocaleString('en-IN')}</span>
-                                        <span style={{ fontSize: '10px', fontWeight: 700, background: '#edf7ee', color: '#2d6a32', padding: '2px 6px', borderRadius: '4px', marginLeft: 'auto' }}>
+                                <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                    <span className="font-sans text-[0.65rem] font-bold text-saffron uppercase tracking-widest">{p.cat}</span>
+                                    <h3 className="font-serif" style={{ fontSize: '1.1rem', color: 'var(--color-earth)', minHeight: '2.8rem', lineHeight: 1.3 }}>{p.name}</h3>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                        <span className="font-bold font-serif" style={{ fontSize: '1.3rem', color: 'var(--color-gold)' }}>₹{p.price.toLocaleString()}</span>
+                                        <span className="text-sm line-through text-muted" style={{ opacity: 0.6 }}>₹{p.compare.toLocaleString()}</span>
+                                        <span className="text-[10px] font-bold bg-green-50 text-green-700 px-2 py-1 rounded ml-auto">
                                             {Math.round((1 - p.price / p.compare) * 100)}% OFF
                                         </span>
                                     </div>
-
-                                    <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
-                                        <button
-                                            onClick={() => addItem({ id: p.id, name: p.name, slug: p.slug, price: p.price, images: [], description: '', category_id: null, category: null, mukhi_count: null, material: null, weight: null, short_desc: '', is_active: true, is_featured: true, stock: 99, sort_order: i, created_at: '', compare_price: p.compare, reviews: [], average_rating: p.rating, review_count: p.reviews } as never)}
-                                            style={{ flex: 1, padding: '9px 0', background: 'linear-gradient(135deg,#c74500,#e07818)', color: '#fff', border: 'none', borderRadius: '7px', fontSize: '12px', fontWeight: 600, cursor: 'pointer' }}>
-                                            Add to Cart
-                                        </button>
-                                        <a href={`https://www.manuastro.com/products/${p.slug}`} target="_blank" rel="noopener noreferrer"
-                                            style={{ padding: '9px 12px', background: 'rgba(199,69,0,0.07)', color: '#c74500', borderRadius: '7px', fontSize: '12px', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap' }}>
-                                            View
-                                        </a>
+                                    <div className="flex gap-2 mt-2">
+                                        <button onClick={() => addItem(p as any)} className="btn-primary flex-1 text-xs py-2.5">Add to Cart</button>
+                                        <Link to={`/product/${p.slug}`} className="btn-outline px-3 py-2.5"><ArrowRight size={16} /></Link>
                                     </div>
                                 </div>
                             </motion.div>
                         ))}
                     </div>
-
-                    <div style={{ textAlign: 'center', marginTop: '36px' }}>
-                        <Link to="/collections/rudraksha"
-                            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 28px', border: '1.5px solid #c74500', color: '#c74500', borderRadius: '8px', fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>
-                            View All Rudraksha <ArrowRight size={14} />
-                        </Link>
+                    <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+                        <Link to="/shop" className="btn-gold">View Full Collection <ArrowRight size={18} /></Link>
                     </div>
                 </div>
             </section>
 
+            <div className="divider-ornamental">*</div>
+
             {/* ════ ABOUT / FOUNDER ════ */}
             <section style={{ background: '#fff', borderTop: '1px solid #f0e4cc', borderBottom: '1px solid #f0e4cc', paddingTop: '60px', paddingBottom: '60px' }}>
-                <div className={W}>
+                <div className="container">
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '52px', alignItems: 'center' }}>
 
                         <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
@@ -424,101 +410,126 @@ export default function Home() {
             </section>
 
             {/* ════ TESTIMONIALS ════ */}
-            <section style={{ paddingTop: '60px', paddingBottom: '60px' }}>
-                <div className={W}>
-                    <SectionLabel eyebrow="What Our Clients Say" title="Real Transformations" sub="Thousands of lives changed through authentic Vedic guidance" />
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '18px' }}>
+            <section className="section">
+                <div className="container">
+                    <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                        <span className="badge-saffron" style={{ marginBottom: '1rem', display: 'inline-block' }}>WHAT OUR CLIENTS SAY</span>
+                        <h2 className="font-serif" style={{ fontSize: '2.5rem', color: 'var(--color-earth)', marginBottom: '1rem' }}>Real Transformations</h2>
+                        <div style={{ width: '50px', height: '3px', background: 'var(--color-gold)', margin: '0 auto' }} />
+                        <p className="font-sans" style={{ color: 'var(--color-text-secondary)', marginTop: '1.5rem', maxWidth: '640px', margin: '1.5rem auto 0', lineHeight: 1.7 }}>
+                            Thousands of lives changed through authentic Vedic guidance
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {TESTIMONIALS.map((t, i) => (
-                            <motion.div key={t.name} {...rise(i * 0.07)} style={{ ...card, padding: '22px', display: 'flex', flexDirection: 'column', gap: '14px', overflow: 'visible' }}>
-                                <span style={{ fontSize: '28px', lineHeight: 1, color: t.color, opacity: 0.3 }}>"</span>
-                                <p style={{ fontSize: '13px', lineHeight: 1.7, color: '#5c3618', fontStyle: 'italic', flex: 1, margin: 0 }}>{t.review}</p>
-                                <div>
-                                    <StarRow n={t.rating} />
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
-                                        <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: `${t.color}15`, color: t.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700, flexShrink: 0 }}>
-                                            {t.initials}
-                                        </div>
-                                        <div>
-                                            <p style={{ fontSize: '13px', fontWeight: 600, color: '#1e0f06', margin: 0 }}>{t.name}</p>
-                                            <p style={{ fontSize: '11px', color: '#9a6840', margin: 0 }}>{t.city}</p>
-                                        </div>
+                            <div key={t.name} className="card" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                <div style={{ color: 'var(--color-gold)', fontSize: '1rem', marginBottom: '0.5rem', display: 'flex', gap: '2px' }}>
+                                    {[...Array(5)].map((_, idx) => <Star key={idx} size={14} fill="var(--color-gold)" />)}
+                                </div>
+                                <p className="font-sans" style={{ color: 'var(--color-text-secondary)', fontStyle: 'italic', fontSize: '0.9rem', lineHeight: 1.7, marginBottom: '1rem', flex: 1 }}>
+                                    "{t.review}"
+                                </p>
+                                <div className="flex items-center gap-3 mt-auto">
+                                    <div style={{ width: '40px', height: '40px', borderRadius: '50%', border: '2px solid var(--color-gold)', background: 'var(--color-bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-saffron)', fontWeight: 700, fontSize: '1rem' }}>
+                                        {t.initials}
+                                    </div>
+                                    <div>
+                                        <h4 className="font-serif font-bold text-sm" style={{ color: 'var(--color-earth)', margin: 0 }}>{t.name}</h4>
+                                        <p className="font-sans text-[0.7rem] text-muted uppercase tracking-widest">{t.city}</p>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
-                    <div style={{ textAlign: 'center', marginTop: '28px' }}>
-                        <a href="https://play.google.com/store/apps/details?id=com.manuastroapp&hl=en_GB" target="_blank" rel="noopener noreferrer"
-                            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 22px', border: '1.5px solid #c74500', color: '#c74500', borderRadius: '8px', fontSize: '13px', fontWeight: 600, textDecoration: 'none' }}>
+                    <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+                        <a href="https://play.google.com/store/apps/details?id=com.manuastroapp&hl=en_GB" target="_blank" rel="noopener noreferrer" className="btn-outline">
                             📱 Get the ManuAstro App
                         </a>
                     </div>
                 </div>
             </section>
 
+            <div className="divider-ornamental">*</div>
+
             {/* ════ BLOG ════ */}
-            <section style={{ background: '#fff', borderTop: '1px solid #f0e4cc', borderBottom: '1px solid #f0e4cc', paddingTop: '60px', paddingBottom: '60px' }}>
-                <div className={W}>
-                    <SectionLabel eyebrow="Latest Blogs" title="Vedic Insights & Guidance" sub="Ancient wisdom and celestial updates from Er. Manu Gupta" />
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '22px' }}>
+            <section className="section" style={{ background: 'var(--color-bg-secondary)' }}>
+                <div className="container">
+                    <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                        <span className="badge-gold" style={{ marginBottom: '1rem', display: 'inline-block' }}>LATEST BLOGS</span>
+                        <h2 className="font-serif" style={{ fontSize: '2.5rem', color: 'var(--color-earth)', marginBottom: '1rem' }}>Vedic Insights & Guidance</h2>
+                        <div style={{ width: '50px', height: '3px', background: 'var(--color-gold)', margin: '0 auto' }} />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {BLOG.map((post, i) => (
-                            <motion.div key={post.slug} {...rise(i * 0.09)} style={card}
-                                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 36px rgba(0,0,0,0.11)' }}
-                                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLElement).style.boxShadow = card.boxShadow as string }}>
-                                <div style={{ overflow: 'hidden', height: '180px' }}>
-                                    <img src={post.img} alt={post.title}
-                                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.45s' }}
-                                        onMouseEnter={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.06)'}
-                                        onMouseLeave={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'} />
-                                </div>
-                                <div style={{ padding: '18px 18px 20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                        <span style={{ fontSize: '10px', fontWeight: 700, background: 'rgba(199,69,0,0.07)', color: '#c74500', padding: '2px 8px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{post.cat}</span>
-                                        <span style={{ fontSize: '11px', color: '#9a6840' }}>{post.readTime} read</span>
+                            <motion.div key={post.slug} {...rise(i * 0.09)}>
+                                <Link
+                                    to={`/blog/${post.slug}`}
+                                    style={{
+                                        display: 'block',
+                                        borderRadius: '1.25rem',
+                                        overflow: 'hidden',
+                                        boxShadow: '0 4px 16px rgba(58,31,13,0.10)',
+                                        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                        border: '1.5px solid rgba(201,151,42,0.15)',
+                                        background: '#fff',
+                                    }}
+                                    onMouseEnter={e => {
+                                        (e.currentTarget as HTMLElement).style.transform = 'translateY(-5px)'
+                                            ; (e.currentTarget as HTMLElement).style.boxShadow = '0 14px 32px rgba(58,31,13,0.18)'
+                                    }}
+                                    onMouseLeave={e => {
+                                        (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+                                            ; (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 16px rgba(58,31,13,0.10)'
+                                    }}
+                                >
+                                    <div style={{ position: 'relative', height: '210px', overflow: 'hidden' }}>
+                                        <img src={post.img} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s ease' }}
+                                            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1.05)' }}
+                                            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)' }}
+                                        />
+                                        <div style={{ position: 'absolute', top: '0.75rem', left: '0.75rem' }}>
+                                            <span className="badge-saffron" style={{ fontSize: '0.65rem' }}>{post.cat}</span>
+                                        </div>
                                     </div>
-                                    <h3 style={{ fontSize: '13.5px', fontWeight: 600, color: '#1e0f06', margin: 0, lineHeight: 1.4 }}>{post.title}</h3>
-                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '10px', borderTop: '1px solid #f0e8d8', marginTop: 'auto' }}>
-                                        <span style={{ fontSize: '11px', color: '#c9a060' }}>{post.date}</span>
-                                        <a href={`https://www.manuastro.com/blogs/blogs/${post.slug}`} target="_blank" rel="noopener noreferrer"
-                                            style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontSize: '12px', fontWeight: 600, color: '#c74500', textDecoration: 'none' }}>
-                                            Read More <ChevronRight size={12} />
-                                        </a>
+                                    <div style={{ padding: '1.5rem' }}>
+                                        <h3 className="font-serif" style={{ fontSize: '1.15rem', color: 'var(--color-earth)', marginBottom: '1rem', minHeight: '3.2rem', lineHeight: 1.4 }}>{post.title}</h3>
+                                        <div className="flex items-center justify-between pt-4 border-t border-gold/10 mt-auto">
+                                            <span className="font-sans text-[0.7rem] text-muted">{post.date}</span>
+                                            <span className="text-saffron font-bold text-xs">Read More →</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
                             </motion.div>
                         ))}
                     </div>
-                    <div style={{ textAlign: 'center', marginTop: '36px' }}>
-                        <a href="https://www.manuastro.com/blogs/blogs" target="_blank" rel="noopener noreferrer"
-                            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 28px', border: '1.5px solid #c74500', color: '#c74500', borderRadius: '8px', fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>
-                            View All Blogs <ArrowRight size={14} />
-                        </a>
+                    <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+                        <Link to="/blog" className="btn-outline">View All Blogs <ArrowRight size={14} /></Link>
                     </div>
                 </div>
             </section>
 
+            <div className="divider-ornamental">*</div>
+
             {/* ════ CTA ════ */}
-            <section style={{ background: 'linear-gradient(135deg, #fdf4e0, #fef9f0)', borderTop: '1px solid #f0e4cc' }}>
-                <div className={W} style={{ paddingTop: '60px', paddingBottom: '60px' }}>
-                    <motion.div {...rise()} style={{ maxWidth: '560px', margin: '0 auto', textAlign: 'center' }}>
-                        <div style={{ fontSize: '40px', marginBottom: '16px' }}>🔮</div>
-                        <h2 style={{ fontSize: 'clamp(1.5rem,3vw,2rem)', fontWeight: 700, color: '#1e0f06', fontFamily: 'Playfair Display, serif', margin: '0 0 12px' }}>
+            <section className="section">
+                <div className="container">
+                    <div className="card text-center relative overflow-hidden" style={{ maxWidth: '800px', margin: '0 auto', padding: '4rem 2rem', background: 'var(--color-bg-secondary)' }}>
+                        <div style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>🔮</div>
+                        <h2 className="font-serif" style={{ fontSize: '2.5rem', color: 'var(--color-earth)', marginBottom: '1.5rem' }}>
                             Ready for Your Personalised Cosmic Guidance?
                         </h2>
-                        <p style={{ fontSize: '15px', lineHeight: 1.65, color: '#5c3618', marginBottom: '28px' }}>
+                        <p className="font-sans" style={{ fontSize: '1.1rem', color: 'var(--color-text-secondary)', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem', lineHeight: 1.7 }}>
                             Book a one-on-one consultation with Er. Manu Gupta — IIM Ahmedabad Alumnus, Vedic Astrologer with 15+ years guiding thousands globally.
                         </p>
-                        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                            <a href="https://calendly.com/manuastro2022/30min" target="_blank" rel="noopener noreferrer"
-                                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 30px', background: 'linear-gradient(135deg,#c74500,#e07818)', color: '#fff', borderRadius: '8px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', boxShadow: '0 4px 18px rgba(199,69,0,0.28)' }}>
-                                Book Consultation Now <ArrowRight size={15} />
+                        <div className="flex flex-wrap gap-4 justify-center">
+                            <a href="https://calendly.com/manuastro2022/30min" target="_blank" rel="noopener noreferrer" className="btn-primary px-10">
+                                Book Consultation Now <ArrowRight size={20} />
                             </a>
-                            <a href="https://www.manuastro.com/pages/pricing" target="_blank" rel="noopener noreferrer"
-                                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 26px', border: '1.5px solid #c74500', color: '#c74500', borderRadius: '8px', fontSize: '15px', fontWeight: 600, textDecoration: 'none' }}>
+                            <Link to="/pricing" className="btn-gold px-10">
                                 View Pricing Plans
-                            </a>
+                            </Link>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 

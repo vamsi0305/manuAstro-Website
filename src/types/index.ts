@@ -12,23 +12,26 @@ export interface User {
     created_at: string
 }
 
-export interface AuthTokens {
+export interface AuthResponse {
+    user: User
     access_token: string
     refresh_token: string
-    token_type: string
 }
 
-export interface LoginData {
+export interface LoginRequest {
     email: string
     password: string
 }
 
-export interface RegisterData {
+export interface RegisterRequest {
     name: string
     email: string
     password: string
     phone?: string
 }
+
+export interface LoginData extends LoginRequest { }
+export interface RegisterData extends RegisterRequest { }
 
 export interface Category {
     id: string
@@ -68,12 +71,13 @@ export interface Product {
     price: number
     compare_price?: number
     stock: number
-    category_id: string
+    category_id: number
     category?: Category
-    images: ProductImage[]
+    thumbnail_url?: string
+    images: string[]
     reviews?: Review[]
-    avg_rating?: number
-    review_count?: number
+    rating: number
+    reviews_count: number
     mukhi_count?: number
     material?: string
     weight?: number
