@@ -2,6 +2,7 @@
 import { useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ZoomIn } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 
 const GALLERY_CATS = ['Events', 'Customers', 'Rudraksha', 'Yantras', 'Sannidhiya', 'Consultations']
 
@@ -37,6 +38,7 @@ export default function Gallery() {
 
   return (
     <div className="bg-[#fdf7ed]">
+      <SEOHead title="Photo Gallery — Our Journey" description="A visual journey through our Vedic consultations, spiritual events, and our collection of sacred Rudraksha and Gemstones." />
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

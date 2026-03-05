@@ -1,5 +1,6 @@
 ﻿import { motion } from 'framer-motion'
 import { ArrowRight, Fingerprint, Eye, Sparkles, Sparkles as Stars } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 
 const rise = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
@@ -11,6 +12,8 @@ const rise = (delay = 0) => ({
 export default function PalmReading() {
   return (
     <div className="bg-[#fdf7ed]">
+      <SEOHead title="Palm Reading Services" description="Expert palmistry and hand analysis sessions. Discover your life path through the ancient science of palm reading." />
+
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

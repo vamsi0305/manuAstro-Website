@@ -1,6 +1,7 @@
 ﻿import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Calendar, Clock, User, Share2, Facebook, Twitter, MessageSquare, ChevronLeft } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 
 const MOCK_BLOG_DATA = {
   title: 'Importance of 1 Mukhi Rudraksha in 2026',
@@ -36,6 +37,7 @@ export default function BlogDetail() {
 
   return (
     <div className="bg-[#fdf7ed]">
+      <SEOHead title={MOCK_BLOG_DATA.title} description={MOCK_BLOG_DATA.content.substring(0, 150).replace(/<[^>]*>/g, '')} />
       {/* Standardized Hero Header - Fix 11 */}
       <section style={{
         position: 'relative', width: '100%', minHeight: '480px',

@@ -1,6 +1,8 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState } from 'react'
+
 import { SlidersHorizontal, ChevronDown } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 import ProductCard from '@/components/shop/ProductCard'
 import { useQuery } from '@tanstack/react-query'
 import { productService } from '@/api/services/product.service'
@@ -33,6 +35,7 @@ export default function CategoryPage() {
 
     return (
         <div className="bg-[#fdf7ed]">
+            <SEOHead title={`${categoryTitle} Collection`} description={`Explore our exclusive collection of ${categoryTitle}. Each item is lab-certified and energized for your spiritual journey.`} />
             {/* ════ HERO ════ */}
             <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
                 <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

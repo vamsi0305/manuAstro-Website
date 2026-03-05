@@ -1,5 +1,6 @@
 ﻿import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import SEOHead from '@/components/SEOHead'
 import { motion } from 'framer-motion'
 import { Mail, Lock, LogIn } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
@@ -36,6 +37,7 @@ export default function Login() {
       justifyContent: 'center',
       padding: '2rem'
     }}>
+      <SEOHead title="Login to your Account" description="Access your Vedic astrology dashboard, view orders, and manage your personal consultation sessions." />
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}

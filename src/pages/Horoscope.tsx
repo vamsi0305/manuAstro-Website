@@ -1,6 +1,7 @@
 ﻿import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Calendar, Star, Sparkles } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 
 const ZODIAC_SIGNS = [
   { key: 'aries', name: 'Aries', emoji: '♈', image: 'https://picsum.photos/seed/aries/120/120', dates: 'Mar 21 - Apr 19' },

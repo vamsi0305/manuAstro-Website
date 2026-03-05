@@ -41,6 +41,11 @@ const Terms = lazy(() => import('@/pages/policies/Terms'))
 const Shipping = lazy(() => import('@/pages/policies/Shipping'))
 const Refund = lazy(() => import('@/pages/policies/Refund'))
 
+// Legal pages (new)
+const PrivacyPolicy = lazy(() => import('@/pages/Legal/PrivacyPolicy'))
+const TermsOfService = lazy(() => import('@/pages/Legal/TermsOfService'))
+const RefundPolicy = lazy(() => import('@/pages/Legal/RefundPolicy'))
+
 const Loading = () => (
     <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg)]">
         <div className="w-10 h-10 border-2 border-[var(--color-gold)]/20 border-t-[var(--color-saffron)] rounded-full animate-spin" />
@@ -102,6 +107,10 @@ export const routes: RouteObject[] = [
     { path: '/terms', element: <S><Terms /></S> },
     { path: '/shipping', element: <S><Shipping /></S> },
     { path: '/refund', element: <S><Refund /></S> },
+    // New named legal routes
+    { path: '/privacy-policy', element: <S><PrivacyPolicy /></S> },
+    { path: '/terms-of-service', element: <S><TermsOfService /></S> },
+    { path: '/refund-policy', element: <S><RefundPolicy /></S> },
     {
         path: '/dashboard',
         element: <ProtectedRoute><S><UserDashboard /></S></ProtectedRoute>,

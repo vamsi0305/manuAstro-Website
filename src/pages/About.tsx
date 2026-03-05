@@ -1,5 +1,6 @@
 ﻿import { motion } from 'framer-motion'
 import { ShieldCheck, Heart, Users, Brain, Star } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 
 
 const founderImage = "https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311&width=900"
@@ -13,6 +14,7 @@ const testimonials = [
 export default function About() {
   return (
     <div className='page-wrapper'>
+      <SEOHead title="About Er. Manu Gupta" description="Learn about the journey of Er. Manu Gupta, an IIM Ahmedabad alumnus dedicated to helping people through Vedic sciences." />
       <main>
         {/* ■■ SECTION 1: HERO ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */}
         <section style={{

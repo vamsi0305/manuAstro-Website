@@ -1,5 +1,6 @@
 ﻿import { useState } from 'react'
 import { Search, SlidersHorizontal, ChevronDown } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 import ProductCard from '@/components/shop/ProductCard'
 import { useQuery } from '@tanstack/react-query'
 import { productService } from '@/api/services/product.service'
@@ -27,6 +28,7 @@ export default function ShopPage() {
 
   return (
     <div className="bg-[#fdf7ed]">
+      <SEOHead title="Shop Sacred Items" description="Explore our collection of lab-certified gemstones, energized rudraksha, and sacred yantras for spiritual growth and prosperity." />
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

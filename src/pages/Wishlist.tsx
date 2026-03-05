@@ -1,5 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
+
+import SEOHead from '@/components/SEOHead'
 import { useWishlistStore } from '@/stores/wishlistStore';
 import { useCartStore } from '@/stores/cartStore';
 import type { Product } from '@/types';
@@ -85,6 +87,7 @@ export default function Wishlist() {
 
     return (
         <div className="bg-[#fdf7ed] min-h-screen">
+            <SEOHead title="My Wishlist" description="View and manage your saved sacred items. Keep track of the gemstones, rudraksha, and yantras you resonate with." />
             {/* 1. Hero Section */}
             <section className="section" style={{ paddingBottom: '2rem' }}>
                 <div className="container">

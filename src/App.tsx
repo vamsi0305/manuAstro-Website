@@ -5,6 +5,7 @@ import { routes } from '@/routes'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import CartSidebar from '@/components/cart/CartSidebar'
+import CookieBanner from '@/components/CookieBanner'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,6 +45,7 @@ export default function App() {
             },
           }}
         />
+        <CookieBanner />
       </BrowserRouter>
     </QueryClientProvider>
   )

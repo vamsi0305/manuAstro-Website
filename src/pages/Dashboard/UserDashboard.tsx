@@ -2,8 +2,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { orderService } from '@/api/services/order.service'
 import { motion } from 'framer-motion'
-import { User as UserIcon, ShoppingBag, Calendar, Heart, Settings, LogOut, ChevronRight } from 'lucide-react'
+import { User as UserIcon, ShoppingBag, Calendar, Heart, Settings, LogOut, ChevronRight, Download } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { generateInvoice } from '@/utils/generateInvoice'
+import SEOHead from '@/components/SEOHead'
 
 export default function UserDashboard() {
   const user = useAuthStore(s => s.user)
@@ -18,6 +20,7 @@ export default function UserDashboard() {
 
   return (
     <div className="bg-[#fdf7ed] min-h-screen pt-24 pb-20">
+      <SEOHead title="My Dashboard" description="Manage your orders, bookings and profile on ManuAstro." />
       <div className="container">
         <div className="grid lg:grid-cols-[280px_1fr] gap-12 items-start">
 
@@ -96,6 +99,7 @@ export default function UserDashboard() {
                       <th className="px-8 py-4">Product</th>
                       <th className="px-8 py-4">Date</th>
                       <th className="px-8 py-4">Status</th>
+                      <th className="px-8 py-4">Action</th>
                       <th className="px-8 py-4 text-right">Amount</th>
                     </tr>
                   </thead>
@@ -110,7 +114,17 @@ export default function UserDashboard() {
                             {order.status}
                           </span>
                         </td>
+                        <td className="px-8 py-6">
+                          <button
+                            onClick={() => generateInvoice(order)}
+                            className="flex items-center gap-2 px-3 py-1 bg-saffron text-white rounded-full text-[10px] font-bold tracking-wider uppercase hover:shadow-lg transition-all"
+                          >
+                            <Download size={12} />
+                            Invoice
+                          </button>
+                        </td>
                         <td className="px-8 py-6 text-right text-earth font-bold">₹{order.total_inr.toLocaleString()}</td>
+
                       </tr>
                     ))}
                     {orders.length === 0 && (

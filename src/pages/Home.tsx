@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowRight, ChevronRight, Star, ShieldCheck, Truck, FlaskConical, BadgeCheck, Users, Clock, Package } from 'lucide-react'
 import { useCartStore } from '@/stores/cartStore'
+import SEOHead from '@/components/SEOHead'
 
 /* ─── Real manuastro.com Shopify CDN images ──────────────────────────────── */
 const CDN = 'https://cdn.shopify.com/s/files/1/0634/2521/6555/files'
@@ -141,6 +142,10 @@ export default function Home() {
 
     return (
         <div style={{ background: '#fdfbf7', fontFamily: 'DM Sans, sans-serif' }}>
+            <SEOHead
+                title="Home"
+                description="Expert Vedic astrology, gemstones, rudraksha and yantra by Er. Manu Gupta — IIM Ahmedabad alumnus with 15+ years of practice."
+            />
 
             {/* ════ HERO ════ */}
             <section style={{

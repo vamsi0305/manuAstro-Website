@@ -4,6 +4,8 @@ import { Star, ShieldCheck, Truck, RefreshCcw, ChevronRight, Heart, ShoppingCart
 import { motion } from 'framer-motion'
 import { useCartStore } from '@/stores/cartStore'
 import ProductCard from '@/components/shop/ProductCard'
+import SEOHead from '@/components/SEOHead'
+import { Helmet } from 'react-helmet-async'
 
 import { useQuery } from '@tanstack/react-query'
 import { productService } from '@/api/services/product.service'
@@ -34,6 +36,28 @@ export default function ProductDetail() {
 
   return (
     <div className="bg-[#fdf7ed]">
+      <SEOHead title={product.name} description={product.description} />
+      {product && (
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              "name": product.name,
+              "description": product.description,
+              "image": product.thumbnail_url,
+              "brand": { "@type": "Brand", "name": "ManuAstro" },
+              "offers": {
+                "@type": "Offer",
+                "price": product.price,
+                "priceCurrency": "INR",
+                "availability": "https://schema.org/InStock",
+                "seller": { "@type": "Organization", "name": "ManuAstro" }
+              }
+            })}
+          </script>
+        </Helmet>
+      )}
       {/* Breadcrumbs */}
       <nav className="bg-[#faf2e2] py-5 border-b border-[var(--color-gold)]/10">
         <div className="container flex items-center gap-2 text-[10px] font-bold text-[var(--color-text-muted)] tracking-widest uppercase">

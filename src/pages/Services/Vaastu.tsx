@@ -1,5 +1,6 @@
 ﻿import { motion } from 'framer-motion'
 import { ArrowRight, Home, Building2, Map, Shield } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 
 const rise = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
@@ -11,6 +12,8 @@ const rise = (delay = 0) => ({
 export default function Vaastu() {
   return (
     <div className="bg-[#fdf7ed]">
+      <SEOHead title="Vaastu Consultation" description="Harmonize your living and working space with Vedic Vastu Shastra principles for prosperity and peace." />
+
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

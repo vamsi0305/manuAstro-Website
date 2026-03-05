@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { LayoutDashboard, ShoppingCart, Users, Calendar, TrendingUp, Package, MessageSquare, Bell } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 
 const ADMIN_STATS = [
     { label: 'Monthly Revenue', val: '₹4,52,000', change: '+12%', icon: <TrendingUp size={20} />, color: 'text-forest' },
@@ -10,6 +11,7 @@ const ADMIN_STATS = [
 export default function AdminDashboard() {
     return (
         <div className="bg-[#fdf7ed] min-h-screen pt-24 pb-20">
+            <SEOHead title="Admin Dashboard" description="ManuAstro Internal Administration Panel." />
             <div className="container">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">

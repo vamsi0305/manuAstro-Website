@@ -1,5 +1,6 @@
 ﻿import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import SEOHead from '@/components/SEOHead'
 import { motion } from 'framer-motion'
 import { Mail, Lock, User, Phone, CheckCircle } from 'lucide-react'
 import { authService } from '@/api/services/auth.service'
@@ -44,6 +45,7 @@ export default function Register() {
       justifyContent: 'center',
       padding: '2rem'
     }}>
+      <SEOHead title="Create your Account" description="Join ManuAstro to get personalized horoscopes, book expert consultations, and purchase authentic sacred items." />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

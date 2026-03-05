@@ -1,8 +1,10 @@
 ﻿import { motion } from 'framer-motion'
+import SEOHead from '@/components/SEOHead'
 
 export default function Shipping() {
   return (
     <div className="bg-[#fdf7ed] min-h-screen pt-32 pb-20">
+      <SEOHead title="Shipping Policy" description="Details about our secure, eco-friendly shipping methods for domestic and international orders." />
       <div className="container max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

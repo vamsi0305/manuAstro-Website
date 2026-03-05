@@ -6,22 +6,15 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1'
 
 const api = axios.create({
     baseURL: API_URL,
+    withCredentials: true,  // sends HttpOnly cookies automatically
     headers: {
         'Content-Type': 'application/json',
     },
 })
 
-// Request interceptor for adding auth token
-api.interceptors.request.use(
-    (config) => {
-        const token = useAuthStore.getState().accessToken
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`
-        }
-        return config
-    },
-    (error) => Promise.reject(error)
-)
+// NOTE: Authorization Bearer header removed — auth handled via HttpOnly cookies
+// The response interceptor below handles 401 errors
+
 
 // Response interceptor for handling token refresh and errors
 api.interceptors.response.use(

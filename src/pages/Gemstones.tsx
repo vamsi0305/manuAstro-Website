@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, ShieldCheck, Award, Microscope } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
+import SEOHead from '@/components/SEOHead'
 
 const GEM_CATEGORIES = [
     'All', 'Ruby', 'Emerald', 'Yellow Sapphire', 'Blue Sapphire', 'Pearl', 'Coral', 'Hessonite', 'Cat\'s Eye'
@@ -30,6 +31,7 @@ export default function Gemstones() {
 
     return (
         <div className="bg-[#fdf7ed]">
+            <SEOHead title="Certified Astrological Gemstones" description="Natural, lab-certified gemstones (Ruby, Emerald, Sapphires) for planetary strength and astrological remedies." />
             {/* ════ HERO ════ */}
             <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
                 <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

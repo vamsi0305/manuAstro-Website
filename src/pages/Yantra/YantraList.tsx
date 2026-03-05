@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { HelpCircle, Eye, Calendar } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
+import SEOHead from '@/components/SEOHead'
 
 const YANTRA_TABS = [
     'All', 'Copper Platted', 'Export Premium', 'Meru Shree 3D', 'Pyra Silver'
@@ -35,6 +36,7 @@ export default function YantraList() {
 
     return (
         <div className="bg-[#fdf7ed]">
+            <SEOHead title="Sacred Yantras & Geometric Talismans" description="Energized copper and silver Yantras for home and office. Harmonize your environment with sacred Vedic geometry." />
             {/* ════ HERO ════ */}
             <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
                 <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

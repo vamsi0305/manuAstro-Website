@@ -1,5 +1,6 @@
 ﻿import { motion } from 'framer-motion'
 import { CheckCircle2, ArrowRight, Sun, Stars, Moon } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 
 const rise = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
@@ -11,6 +12,9 @@ const rise = (delay = 0) => ({
 export default function VedicAstrology() {
   return (
     <div className="bg-[#fdf7ed]">
+      <SEOHead title="Vedic Astrology Services" description="Personalised Vedic astrology consultations. Birth chart analysis, planetary remedies and life guidance by Er. Manu Gupta." />
+
+
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

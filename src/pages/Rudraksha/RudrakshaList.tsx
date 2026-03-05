@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ShieldCheck, Heart, ShoppingCart } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
+import SEOHead from '@/components/SEOHead'
 
 const MUKHI_TABS = [
     'All', '1 Mukhi', '2 Mukhi', '3 Mukhi', '4 Mukhi', '5 Mukhi', '6 Mukhi', '7 Mukhi', '8 Mukhi', '9 Mukhi', '10 Mukhi', '11 Mukhi', '12 Mukhi', '13 Mukhi', '14 Mukhi', 'Gauri Shankar', 'Garbha Gauri'
@@ -55,6 +56,7 @@ export default function RudrakshaList() {
 
     return (
         <div className="bg-[#fdf7ed]">
+            <SEOHead title="Nepali Rudraksha Collection" description="Authentic Nepali Rudraksha beads from 1 to 21 Mukhi. Laboratory certified with independent X-Ray reports for spiritual seekers." />
             {/* ════ HERO ════ */}
             <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
                 <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

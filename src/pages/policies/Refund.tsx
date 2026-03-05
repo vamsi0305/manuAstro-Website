@@ -1,8 +1,10 @@
 ﻿import { motion } from 'framer-motion'
+import SEOHead from '@/components/SEOHead'
 
 export default function Refund() {
   return (
     <div className="bg-[#fdf7ed] min-h-screen pt-32 pb-20">
+      <SEOHead title="Refund & Return Policy" description="Learn about our return eligibility and refund process for products and services." />
       <div className="container max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Search, Calendar, Clock, ChevronRight } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 
 const BLOG_CATS = ['All', 'Astrology', 'Rudraksha', 'Vaastu', 'Numerology', 'Lifestyle']
 
@@ -43,6 +44,7 @@ export default function BlogList() {
 
   return (
     <div className="bg-[#fdf7ed] pb-16">
+      <SEOHead title="Blog — Wisdom & Guidance" description="Explore articles on Vedic astrology, Rudraksha, Vaastu Shastra, and spiritual lifestyle by Er. Manu Gupta." />
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

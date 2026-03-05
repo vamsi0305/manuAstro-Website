@@ -1,6 +1,7 @@
 ﻿import { Link } from 'react-router-dom'
 import { ShoppingBag, Trash2, ArrowRight, Minus, Plus } from 'lucide-react'
 import { useCartStore } from '@/stores/cartStore'
+import SEOHead from '@/components/SEOHead'
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, total, discount, subtotal } = useCartStore()
@@ -20,6 +21,7 @@ export default function CartPage() {
 
   return (
     <div className="bg-[#fdf7ed] min-h-screen section">
+      <SEOHead title="Your Shopping Cart" description="Review your selected sacred items and proceed to secure checkout for your spiritual journey." />
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <h1 className="font-serif" style={{ fontSize: '3rem', color: 'var(--color-earth)', marginBottom: '1rem' }}>Shopping Cart</h1>

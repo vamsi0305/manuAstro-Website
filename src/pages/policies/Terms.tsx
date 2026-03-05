@@ -1,8 +1,10 @@
 ﻿import { motion } from 'framer-motion'
+import SEOHead from '@/components/SEOHead'
 
 export default function Terms() {
   return (
     <div className="bg-[#fdf7ed] min-h-screen pt-32 pb-20">
+      <SEOHead title="Terms of Service" description="The rules and regulations for using the ManuAstro website." />
       <div className="container max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

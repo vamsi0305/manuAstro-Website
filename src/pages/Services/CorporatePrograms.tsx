@@ -1,5 +1,6 @@
 ﻿import { motion } from 'framer-motion'
 import { ArrowRight, Briefcase, Users, LayoutDashboard, TrendingUp } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 
 const rise = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
@@ -11,6 +12,8 @@ const rise = (delay = 0) => ({
 export default function CorporatePrograms() {
   return (
     <div className="bg-[#fdf7ed]">
+      <SEOHead title="Corporate Astrology Programs" description="Astrology-based corporate wellness and strategic decision-making programs for businesses." />
+
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

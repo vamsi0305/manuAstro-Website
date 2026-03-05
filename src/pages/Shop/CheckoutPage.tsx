@@ -4,6 +4,7 @@ import { useCartStore } from '@/stores/cartStore'
 import { CreditCard, Wallet, Truck, ChevronRight } from 'lucide-react'
 import { orderService } from '@/api/services/order.service'
 import toast from 'react-hot-toast'
+import SEOHead from '@/components/SEOHead'
 
 export default function CheckoutPage() {
   const { items, total, clearCart, subtotal } = useCartStore()
@@ -39,6 +40,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="bg-[#fdf7ed] min-h-screen py-20 section">
+      <SEOHead title="Secure Checkout" description="Complete your purchase securely. Provide your shipping details to receive your energized Vedic products." />
       <div className="container">
         <div className="grid lg:grid-cols-[1fr_420px] gap-20 items-start">
 

@@ -1,5 +1,6 @@
 ﻿import { motion } from 'framer-motion'
 import { ArrowRight, UserCheck, MessageSquare, ShieldCheck, Heart, Moon, Sparkles as Stars } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 
 const rise = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
@@ -11,6 +12,8 @@ const rise = (delay = 0) => ({
 export default function PersonalConsultation() {
   return (
     <div className="bg-[#fdf7ed]">
+      <SEOHead title="Personal Consultation" description="One-on-one Vedic astrology consultation with Er. Manu Gupta. Book your 30-minute session today." />
+
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

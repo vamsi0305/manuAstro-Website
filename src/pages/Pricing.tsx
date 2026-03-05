@@ -1,5 +1,6 @@
 ﻿import { motion } from 'framer-motion'
 import { Check, ArrowRight, ShieldCheck } from 'lucide-react'
+import SEOHead from '@/components/SEOHead'
 
 const PLANS = [
   {
@@ -26,6 +27,7 @@ const PLANS = [
 export default function Pricing() {
   return (
     <div className="bg-[#fdf7ed]">
+      <SEOHead title="Consultation Plans & Pricing" description="Pricing and details for Vedic astrology, palmistry, and Vaastu consultation sessions with Er. Manu Gupta." />
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>

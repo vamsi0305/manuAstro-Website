@@ -1,6 +1,7 @@
 ﻿import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, MessageCircle, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
+import SEOHead from '@/components/SEOHead'
 
 const FAQS = [
   { q: 'How do I book a consultation?', a: 'You can book directly through our integrated Calendly link found on the "Personal Consultation" page.' },
@@ -14,6 +15,7 @@ export default function Contact() {
 
   return (
     <div className="bg-[#fdf7ed]">
+      <SEOHead title="Contact Us" description="Get in touch with Er. Manu Gupta for astrology, palmistry, and Vaastu consultations. Visit our center or book online." />
       {/* ════ HERO ════ */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden', minHeight: '400px', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
