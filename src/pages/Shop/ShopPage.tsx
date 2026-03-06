@@ -5,6 +5,69 @@ import ProductCard from '@/components/shop/ProductCard'
 import { useQuery } from '@tanstack/react-query'
 import { productService } from '@/api/services/product.service'
 
+const FALLBACK_PRODUCTS = [
+  {
+    id: 1, name: "Premium Natural Ruby (Manik)", slug: "premium-natural-ruby-manik",
+    price: 15000, is_featured: true,
+    image_url: "https://manuastro.com/cdn/shop/files/Vedic_Astrology_New_500x500_jpg.jpg?v=1770036692",
+    category: { name: "Gemstones" }, rating: 5
+  },
+  {
+    id: 2, name: "Zambian Emerald (Panna)", slug: "zambian-emerald-panna",
+    price: 12000, is_featured: true,
+    image_url: "https://manuastro.com/cdn/shop/files/Palm_Reading_New_500x500_jpg.jpg?v=1770036747",
+    category: { name: "Gemstones" }, rating: 5
+  },
+  {
+    id: 3, name: "Ceylon Yellow Sapphire", slug: "ceylon-yellow-sapphire-pukhraj",
+    price: 18000, is_featured: true,
+    image_url: "https://manuastro.com/cdn/shop/files/Personal_Consultation_New_500x500_jpg.jpg?v=1770036746",
+    category: { name: "Gemstones" }, rating: 5
+  },
+  {
+    id: 4, name: "5 Mukhi Nepali Rudraksha", slug: "5-mukhi-nepali-rudraksha",
+    price: 1320, is_featured: true,
+    image_url: "https://manuastro.com/cdn/shop/files/01_11.jpg?v=1770928893",
+    category: { name: "Rudraksha" }, rating: 5
+  },
+  {
+    id: 5, name: "4 Mukhi Nepali Rudraksha", slug: "4-mukhi-nepali-rudraksha",
+    price: 1200, is_featured: false,
+    image_url: "https://manuastro.com/cdn/shop/files/01_10.jpg?v=1770927798",
+    category: { name: "Rudraksha" }, rating: 5
+  },
+  {
+    id: 6, name: "10 Mukhi Nepali Rudraksha", slug: "10-mukhi-nepali-rudraksha",
+    price: 7150, is_featured: true,
+    image_url: "https://manuastro.com/cdn/shop/files/10fr_1.jpg?v=1770986595",
+    category: { name: "Rudraksha" }, rating: 5
+  },
+  {
+    id: 7, name: "Gauri Shankar Rudraksha", slug: "gauri-shankar-rudraksha",
+    price: 9680, is_featured: true,
+    image_url: "https://manuastro.com/cdn/shop/files/GSR.png?v=1770991378",
+    category: { name: "Rudraksha" }, rating: 5
+  },
+  {
+    id: 8, name: "Shree Yantra Copper", slug: "shree-yantra-copper",
+    price: 950, is_featured: true,
+    image_url: "https://manuastro.com/cdn/shop/files/shriRahuyantra.jpg?v=1765297876",
+    category: { name: "Yantra" }, rating: 5
+  },
+  {
+    id: 9, name: "Surya Yantra", slug: "surya-yantra",
+    price: 750, is_featured: false,
+    image_url: "https://manuastro.com/cdn/shop/files/SuryaYantra.jpg?v=1765298842",
+    category: { name: "Yantra" }, rating: 5
+  },
+  {
+    id: 10, name: "Mangal Yantra", slug: "mangal-yantra",
+    price: 850, is_featured: true,
+    image_url: "https://manuastro.com/cdn/shop/files/Mangal_Yantra.jpg?v=1765298377",
+    category: { name: "Yantra" }, rating: 5
+  },
+]
+
 export default function ShopPage() {
   const [activeCat, setActiveCat] = useState('All Products')
   const [priceRange, setPriceRange] = useState(100000)
@@ -23,8 +86,17 @@ export default function ShopPage() {
     })
   })
 
-  // Filter local price (as a fallback or additional filter)
-  const filteredProducts = products.filter(p => p.price <= priceRange)
+  // In ShopPage component — fallback if backend returns empty
+  const rawProducts = Array.isArray(products) ? products : []
+  const displayProducts = rawProducts.length > 0 ? rawProducts : FALLBACK_PRODUCTS
+
+  // Filter products
+  const filteredProducts = displayProducts.filter((p: any) => {
+    const matchesCategory = activeCat === 'All Products' || p.category?.name === activeCat
+    const matchesPrice = p.price <= priceRange
+    const matchesSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase())
+    return matchesCategory && matchesPrice && matchesSearch
+  })
 
   return (
     <div className="bg-[#fdf7ed]">
@@ -130,7 +202,7 @@ export default function ShopPage() {
                   >
                     All Products
                   </button>
-                  {categories.map(cat => (
+                  {categories.map((cat: any) => (
                     <button
                       key={cat.id}
                       onClick={() => setActiveCat(cat.name)}

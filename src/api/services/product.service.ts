@@ -2,24 +2,15 @@ import api from '../axios'
 import type { Product, Category } from '@/types'
 
 export const productService = {
-    getAll: async (params?: any) => {
-        const response = await api.get<Product[]>('/products', { params })
-        return response.data
-    },
-
-    getById: async (id: string) => {
-        const response = await api.get<Product>(`/products/${id}`)
-        return response.data
-    },
-
-    getBySlug: async (slug: string) => {
-        const response = await api.get<Product>(`/products/slug/${slug}`)
-        return response.data
+    getAll: async (params?: { category?: string; q?: string; featured?: boolean }) => {
+        const { data } = await api.get('/products', { params })
+        // Return data directly — image_url comes from backend
+        return Array.isArray(data) ? data : (data as any).items || (data as any).products || []
     },
 
     getCategories: async () => {
-        const response = await api.get<Category[]>('/categories')
-        return response.data
+        const { data } = await api.get('/categories')
+        return Array.isArray(data) ? data : (data as any).items || []
     },
 
     getReviews: async (productId: string) => {
