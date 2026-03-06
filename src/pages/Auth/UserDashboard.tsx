@@ -200,9 +200,11 @@ export default function UserDashboard() {
                                                     ? 'var(--color-saffron)'
                                                     : 'var(--color-bg-card)',
                                                 color: activeTab === tab.id
-                                                    ? 'white'
+                                                    ? '#ffffff'
                                                     : 'var(--color-earth)',
-                                                border: `1px solid ${activeTab === tab.id ? 'var(--color-saffron)' : 'var(--color-border)'}`,
+                                                border: `1px solid ${activeTab === tab.id
+                                                    ? 'var(--color-saffron)'
+                                                    : 'var(--color-border)'}`,
                                                 borderRadius: '0.75rem',
                                                 cursor: 'pointer',
                                                 fontFamily: 'var(--font-accent)',
@@ -212,9 +214,11 @@ export default function UserDashboard() {
                                                 alignItems: 'center',
                                                 gap: '0.75rem',
                                                 transition: 'all 0.2s',
-                                                boxShadow: activeTab === tab.id ? '0 4px 16px rgba(199,69,0,0.2)' : 'none'
+                                                marginBottom: '0.4rem'
                                             }}>
-                                            <span style={{ opacity: activeTab === tab.id ? 1 : 0.6 }}>{tab.icon}</span>
+                                            <span style={{ opacity: activeTab === tab.id ? 1 : 0.7 }}>
+                                                {tab.icon}
+                                            </span>
                                             {tab.label}
                                         </button>
                                     ))}
@@ -227,7 +231,7 @@ export default function UserDashboard() {
                                             textAlign: 'left',
                                             padding: '0.875rem 1.25rem',
                                             background: 'transparent',
-                                            color: 'var(--color-text-muted)',
+                                            color: 'var(--color-earth)',
                                             border: '1px solid var(--color-border)',
                                             borderRadius: '0.75rem',
                                             cursor: 'pointer',
@@ -237,8 +241,7 @@ export default function UserDashboard() {
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: '0.75rem',
-                                            marginTop: '0.5rem',
-                                            transition: 'all 0.2s'
+                                            marginTop: '0.5rem'
                                         }}>
                                         <LogOut size={15} />
                                         Logout
@@ -267,9 +270,12 @@ export default function UserDashboard() {
                                             </div>
                                             {orders.length === 0 ? (
                                                 <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
-                                                    <p style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '1.25rem' }}>
-                                                        No orders yet. Start exploring our sacred collection.
-                                                    </p>
+                                                    <p style={{
+                                                        color: 'var(--color-text-secondary)',
+                                                        fontSize: '0.95rem',
+                                                        lineHeight: 1.7,
+                                                        marginBottom: '1.25rem'
+                                                    }}>No orders yet. Start exploring our sacred collection.</p>
                                                     <Link to="/shop" className="btn-primary">Explore Shop</Link>
                                                 </div>
                                             ) : orders.slice(0, 3).map((order: any) => (
@@ -314,9 +320,12 @@ export default function UserDashboard() {
                                             </div>
                                             {bookings.length === 0 ? (
                                                 <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
-                                                    <p style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '1.25rem' }}>
-                                                        No bookings yet. Book a consultation with Er. Manu Gupta.
-                                                    </p>
+                                                    <p style={{
+                                                        color: 'var(--color-text-secondary)',
+                                                        fontSize: '0.95rem',
+                                                        lineHeight: 1.7,
+                                                        marginBottom: '1.25rem'
+                                                    }}>No bookings yet. Book a consultation with Er. Manu Gupta.</p>
                                                     <Link to="/services/personal-consultation" className="btn-primary">Book Now</Link>
                                                 </div>
                                             ) : bookings.slice(0, 3).map((b: any) => (
@@ -508,7 +517,7 @@ export default function UserDashboard() {
                                                         fontFamily: 'var(--font-accent)',
                                                         fontSize: '0.72rem',
                                                         letterSpacing: '0.1em',
-                                                        color: 'var(--color-text-muted)'
+                                                        color: 'var(--color-text-secondary)',
                                                     }}>{field.label}</span>
                                                     <span style={{
                                                         color: 'var(--color-earth)',
