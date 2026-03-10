@@ -79,9 +79,9 @@ origins = [
     "http://localhost:5173",
     "http://localhost:5174",
     "http://127.0.0.1:5173",
+    "https://manu-astro-website.vercel.app",
     "https://manuastro.vercel.app",
-    "https://manuastro-website.vercel.app",
-    frontend_url,
+    os.getenv("FRONTEND_URL", "http://localhost:5173"),
 ]
 origins = list(set(origins))
 
