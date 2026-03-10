@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: manuastro-backend
+    runtime: python
+    rootDir: backend
+    pythonVersion: "3.11.0"
+    buildCommand: pip install -r requirements.txt
+    startCommand: python startup.py && uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+      - key: ENVIRONMENT
+        value: production
