@@ -3,6 +3,8 @@ import toast from 'react-hot-toast'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1'
 
+console.log('API URL:', API_URL) // remove after testing
+
 const api = axios.create({
     baseURL: API_URL,
     withCredentials: true,  // sends HttpOnly cookies automatically
