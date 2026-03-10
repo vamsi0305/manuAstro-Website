@@ -1,6 +1,27 @@
 import jsPDF from 'jspdf'
 
-export const generateInvoice = (order: any) => {
+interface OrderItem {
+    product?: { name?: string }
+    name?: string
+    quantity: number
+    price?: number
+    price_at_purchase?: number
+}
+
+interface Order {
+    id: number | string
+    created_at?: string
+    status?: string
+    total?: number
+    total_inr?: number
+    total_amount?: number
+    items?: OrderItem[]
+    order_items?: OrderItem[]
+    user?: { name?: string; full_name?: string; email?: string }
+    shipping_address?: string
+}
+
+export const generateInvoice = (order: Order) => {
     const doc = new jsPDF()
 
     // Header
@@ -40,7 +61,7 @@ export const generateInvoice = (order: any) => {
     // Items
     let y = 105
     const items = order.items || order.order_items || []
-    items.forEach((item: any) => {
+    items.forEach((item: OrderItem) => {
         const name = item.product?.name || item.name || 'Product'
         const qty = item.quantity
         const price = item.price || item.price_at_purchase || 0

@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { useParams, Link, Navigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import { SlidersHorizontal, ChevronDown } from 'lucide-react'
 import SEOHead from '@/components/SEOHead'
@@ -9,13 +11,6 @@ import { productService } from '@/api/services/product.service'
 
 export default function CategoryPage() {
     const { category } = useParams<{ category: string }>();
-    if (!category) return null;
-
-    // REDIRECT MOCK CATEGORIES
-    if (category === 'gemstones') return <Navigate to="/gemstones" replace />;
-    if (category === 'rudraksha') return <Navigate to="/rudraksha" replace />;
-    if (category === 'yantra') return <Navigate to="/yantra" replace />;
-
     const [priceRange, setPriceRange] = useState(100000)
 
     const categoryTitle = category
@@ -34,6 +29,13 @@ export default function CategoryPage() {
             category: categoryTitle,
         })
     })
+
+    if (!category) return null;
+
+    // REDIRECT MOCK CATEGORIES
+    if (category === 'gemstones') return <Navigate to="/gemstones" replace />;
+    if (category === 'rudraksha') return <Navigate to="/rudraksha" replace />;
+    if (category === 'yantra') return <Navigate to="/yantra" replace />;
 
     const products = productsData ?? [];
     const filteredProducts = products.filter((p: any) => (p.price || 0) <= priceRange)

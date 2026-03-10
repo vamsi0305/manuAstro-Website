@@ -73,20 +73,17 @@ app.add_middleware(ErrorLoggingMiddleware)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # ── CORS ──────────────────────────────────────────────────────────────────────
+frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
+
 origins = [
     "http://localhost:5173",
     "http://localhost:5174",
-    "http://localhost:5175",
-    "http://localhost:5176",
-    "http://localhost:5177",
     "http://127.0.0.1:5173",
-    "http://127.0.0.1:5174",
-    "http://127.0.0.1:5175",
-    "http://127.0.0.1:5176",
-    "http://127.0.0.1:5177",
-    "https://manuastro.com",
-    "https://www.manuastro.com"
+    frontend_url,
 ]
+
+# Remove duplicates
+origins = list(set(origins))
 
 app.add_middleware(
     CORSMiddleware,

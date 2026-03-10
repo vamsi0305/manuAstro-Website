@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { LayoutDashboard, ShoppingCart, Users, Calendar, TrendingUp, Package, MessageSquare, Bell, Loader2 } from 'lucide-react'

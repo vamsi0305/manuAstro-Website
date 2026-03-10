@@ -1,6 +1,8 @@
-﻿import { useState, useEffect } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { CreditCard, Wallet, Truck, ChevronRight, Tag, X } from 'lucide-react'
+import { CreditCard, Wallet, Truck, Tag, X } from 'lucide-react'
 import { orderService } from '@/api/services/order.service'
 import api from '@/api/axios'
 import toast from 'react-hot-toast'

@@ -1,73 +1,61 @@
-# React + TypeScript + Vite
+# ManuAstro Setup Guide
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Prerequisites
+1. Node.js v18+ → https://nodejs.org
+2. Python 3.10+ → https://python.org
+3. Git → https://git-scm.com
+4. PostgreSQL 18 → https://postgresql.org/download/windows
 
-Currently, two official plugins are available:
+## Setup Steps
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Clone Repository
+```bash
+git clone https://github.com/vamsi0305/manuAstro-Website.git
+cd manuAstro-Website
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Setup PostgreSQL
+```bash
+# Open psql and run:
+psql -U postgres -h localhost
+CREATE DATABASE manuastro;
+\q
 ```
+
+### 3. Setup Backend
+```bash
+cd backend
+python -m venv venv
+venv\Scripts\activate
+pip install "bcrypt==3.2.2"
+pip install "passlib[bcrypt]==1.7.4"
+pip install -r requirements.txt
+
+# Create .env file (copy from .env.example)
+copy .env.example .env
+# Edit .env and set your PostgreSQL password
+
+# Create tables and seed data
+python -c "from database import engine, Base; from models.all import *; Base.metadata.create_all(bind=engine)"
+python seed_safe.py
+```
+
+### 4. Setup Frontend
+```bash
+cd ..
+npm install
+```
+
+### 5. Run Project
+```bash
+# Option 1 — Double click start.bat
+# Option 2 — Manual:
+# Terminal 1:
+cd backend && venv\Scripts\activate && uvicorn main:app --reload --port 8000
+# Terminal 2:
+npm run dev
+```
+
+## Login Credentials
+- Admin: admin@manuastro.com / Admin@123456
+- User: user@test.com / Test@1234

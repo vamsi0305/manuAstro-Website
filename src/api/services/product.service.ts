@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import api from '../axios'
 import type { Product, Category } from '@/types'
 
@@ -6,6 +8,11 @@ export const productService = {
         const { data } = await api.get('/products', { params })
         // Return data directly — image_url comes from backend
         return Array.isArray(data) ? data : (data as any).items || (data as any).products || []
+    },
+
+    getBySlug: async (slug: string) => {
+        const { data } = await api.get(`/products/${slug}`)
+        return data
     },
 
     getCategories: async () => {

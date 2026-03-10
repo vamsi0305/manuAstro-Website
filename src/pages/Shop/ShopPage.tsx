@@ -5,7 +5,20 @@ import ProductCard from '@/components/shop/ProductCard'
 import { useQuery } from '@tanstack/react-query'
 import { productService } from '@/api/services/product.service'
 
-const FALLBACK_PRODUCTS = [
+interface Product {
+  id: number | string
+  name: string
+  slug: string
+  price: number
+  compare_price?: number
+  image_url?: string
+  category?: { name: string }
+  rating?: number
+  is_featured?: boolean
+  stock?: number
+}
+
+const FALLBACK_PRODUCTS: Product[] = [
   {
     id: 1, name: "Premium Natural Ruby (Manik)", slug: "premium-natural-ruby-manik",
     price: 15000, is_featured: true,
@@ -91,7 +104,7 @@ export default function ShopPage() {
   const displayProducts = rawProducts.length > 0 ? rawProducts : FALLBACK_PRODUCTS
 
   // Filter products
-  const filteredProducts = displayProducts.filter((p: any) => {
+  const filteredProducts = displayProducts.filter((p: Product) => {
     const matchesCategory = activeCat === 'All Products' || p.category?.name === activeCat
     const matchesPrice = p.price <= priceRange
     const matchesSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -202,7 +215,7 @@ export default function ShopPage() {
                   >
                     All Products
                   </button>
-                  {categories.map((cat: any) => (
+                  {categories.map((cat: { id: number | string; name: string }) => (
                     <button
                       key={cat.id}
                       onClick={() => setActiveCat(cat.name)}
@@ -298,8 +311,8 @@ export default function ShopPage() {
                 </div>
               ) : (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', flex: 1 }}>
-                  {filteredProducts.map(p => (
-                    <ProductCard key={p.id} product={p as any} />
+                  {filteredProducts.map((p: Product) => (
+                    <ProductCard key={p.id} product={p} />
                   ))}
                 </div>
               )}

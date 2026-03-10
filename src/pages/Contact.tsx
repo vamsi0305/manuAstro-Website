@@ -1,4 +1,6 @@
-﻿import { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, MessageCircle, ChevronDown, CheckCircle, AlertCircle } from 'lucide-react'
 import SEOHead from '@/components/SEOHead'

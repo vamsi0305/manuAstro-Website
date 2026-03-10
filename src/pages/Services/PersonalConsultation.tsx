@@ -1,13 +1,5 @@
-﻿import { motion } from 'framer-motion'
-import { ArrowRight, UserCheck, MessageSquare, ShieldCheck, Heart, Moon, Sparkles as Stars } from 'lucide-react'
+﻿import { ArrowRight, ShieldCheck, Heart, Moon, Sparkles as Stars } from 'lucide-react'
 import SEOHead from '@/components/SEOHead'
-
-const rise = (delay = 0) => ({
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.6, delay }
-})
 
 export default function PersonalConsultation() {
   return (

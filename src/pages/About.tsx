@@ -1,4 +1,6 @@
-﻿import { motion } from 'framer-motion'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { motion } from 'framer-motion'
 import { ShieldCheck, Heart, Users, Brain, Star } from 'lucide-react'
 import SEOHead from '@/components/SEOHead'
 

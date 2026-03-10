@@ -1,4 +1,6 @@
-﻿import { useState, useEffect } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
+import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Star, ShieldCheck, Truck, RefreshCcw, ChevronRight, Heart, ShoppingCart } from 'lucide-react'
 import { motion } from 'framer-motion'

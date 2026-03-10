@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { BrowserRouter, useRoutes } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
-import { routes } from '@/routes'
+import AppRoutes from '@/routes'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import CartSidebar from '@/components/cart/CartSidebar'
@@ -16,10 +16,6 @@ const queryClient = new QueryClient({
     },
   },
 })
-
-function AppRoutes() {
-  return useRoutes(routes)
-}
 
 export default function App() {
   return (

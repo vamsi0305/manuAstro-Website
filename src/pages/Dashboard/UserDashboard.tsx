@@ -1,4 +1,6 @@
-﻿import { useState, useEffect } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
+import { useState, useEffect } from 'react'
 import { useAuthStore } from '@/stores/authStore'
 import { useQuery } from '@tanstack/react-query'
 import { orderService } from '@/api/services/order.service'

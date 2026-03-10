@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react'
+﻿import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ZoomIn } from 'lucide-react'
@@ -23,16 +23,10 @@ const MOCK_IMAGES = [
 
 export default function Gallery() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const initialTab = searchParams.get('tab') || 'Events'
-  const [activeTab, setActiveTab] = useState(initialTab)
+  const activeTab = searchParams.get('tab') || 'Events'
   const [selectedImg, setSelectedImg] = useState<typeof MOCK_IMAGES[0] | null>(null)
 
-  useEffect(() => {
-    setActiveTab(searchParams.get('tab') || 'Events')
-  }, [searchParams])
-
   const handleTabClick = (val: string) => {
-    setActiveTab(val)
     setSearchParams({ tab: val })
   }
 

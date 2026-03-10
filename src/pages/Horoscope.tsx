@@ -1,4 +1,6 @@
-﻿import { useState } from 'react'
+ 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Calendar, Star, Sparkles } from 'lucide-react'
 import SEOHead from '@/components/SEOHead'

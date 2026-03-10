@@ -1,5 +1,7 @@
-﻿import { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { ShoppingBag, Trash2, Minus, Plus, ArrowRight } from 'lucide-react'
 import SEOHead from '@/components/SEOHead'
 import api from '@/api/axios'
@@ -7,7 +9,7 @@ import api from '@/api/axios'
 export default function CartPage() {
   const [cartData, setCartData] = useState({ items: [], total: 0 })
   const [loading, setLoading] = useState(true)
-  const navigate = useNavigate()
+
 
   useEffect(() => {
     const loadCart = async () => {

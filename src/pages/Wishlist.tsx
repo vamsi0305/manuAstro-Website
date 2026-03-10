@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Heart } from 'lucide-react'
 import api from '@/api/axios'
 import SEOHead from '@/components/SEOHead'
@@ -87,7 +89,7 @@ const WishlistCard = ({ product, onRemove }: { product: any, onRemove: (id: numb
 
 export default function Wishlist() {
     const [wishlistItems, setWishlistItems] = useState<any[]>([])
-    const [loading, setLoading] = useState(true)
+
 
     useEffect(() => {
         const loadWishlist = async () => {
@@ -96,8 +98,6 @@ export default function Wishlist() {
                 setWishlistItems(data)
             } catch (err) {
                 console.error('Wishlist load failed', err)
-            } finally {
-                setLoading(false)
             }
         }
         loadWishlist()

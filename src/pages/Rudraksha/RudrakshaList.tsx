@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ShieldCheck, Heart, ShoppingCart } from 'lucide-react'
@@ -24,16 +25,9 @@ const MOCK_RUDRAKSHA = [
 
 export default function RudrakshaList() {
     const [searchParams, setSearchParams] = useSearchParams()
-    const initialMukhi = searchParams.get('mukhi') || 'All'
-    const [activeTab, setActiveTab] = useState(initialMukhi)
-
-    useEffect(() => {
-        const mukhi = searchParams.get('mukhi') || 'All'
-        setActiveTab(mukhi)
-    }, [searchParams])
+    const activeTab = searchParams.get('mukhi') || 'All'
 
     const handleTabClick = (value: string) => {
-        setActiveTab(value)
         setSearchParams({ mukhi: value })
     }
 

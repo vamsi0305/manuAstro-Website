@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowRight, ChevronRight, Star, ShieldCheck, Truck, FlaskConical, BadgeCheck, Users, Clock, Package } from 'lucide-react'

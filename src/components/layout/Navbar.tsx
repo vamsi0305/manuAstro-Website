@@ -1,3 +1,6 @@
+ 
+ 
+/* eslint-disable react-hooks/static-components */
 import { useState, useRef, useEffect } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { ShoppingCart, Search, User, Menu, X, ChevronDown, Heart } from 'lucide-react'

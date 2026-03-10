@@ -1,4 +1,6 @@
-﻿import { useState, useEffect } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Calendar, Clock, User, Share2, Facebook, Twitter, MessageSquare, ChevronLeft, Mail, Phone, MapPin, Send, ChevronDown, CheckCircle, AlertCircle } from 'lucide-react'

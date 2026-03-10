@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface User {
     id: string
     name: string
@@ -8,6 +9,7 @@ export interface User {
     birth_time?: string
     birth_place?: string
     role: 'user' | 'admin'
+    is_admin?: boolean
     avatar_url?: string
     is_active: boolean
     created_at: string

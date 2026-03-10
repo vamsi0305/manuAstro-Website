@@ -1,4 +1,4 @@
-import { Navigate, type RouteObject } from 'react-router-dom'
+import { Navigate, useRoutes, type RouteObject } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { useAuthStore } from '@/stores/authStore'
 
@@ -69,7 +69,7 @@ function S({ children }: { children: React.ReactNode }) {
     return <Suspense fallback={<Loading />}>{children}</Suspense>
 }
 
-export const routes: RouteObject[] = [
+const routes: RouteObject[] = [
     { path: '/', element: <S><Home /></S> },
     {
         path: '/services',
@@ -121,3 +121,7 @@ export const routes: RouteObject[] = [
     },
     { path: '*', element: <Navigate to="/" replace /> },
 ]
+
+export default function AppRoutes() {
+    return useRoutes(routes)
+}

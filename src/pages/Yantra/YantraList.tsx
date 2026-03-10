@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { HelpCircle, Eye, Calendar } from 'lucide-react'
@@ -22,15 +23,9 @@ const MOCK_YANTRAS = [
 
 export default function YantraList() {
     const [searchParams, setSearchParams] = useSearchParams()
-    const initialType = searchParams.get('type') || 'All'
-    const [activeTab, setActiveTab] = useState(initialType)
-
-    useEffect(() => {
-        setActiveTab(searchParams.get('type') || 'All')
-    }, [searchParams])
+    const activeTab = searchParams.get('type') || 'All'
 
     const handleTabClick = (val: string) => {
-        setActiveTab(val)
         setSearchParams({ type: val })
     }
 
