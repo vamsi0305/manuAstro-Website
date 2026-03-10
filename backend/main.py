@@ -73,8 +73,6 @@ app.add_middleware(ErrorLoggingMiddleware)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # ── CORS ──────────────────────────────────────────────────────────────────────
-frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
-
 origins = [
     "http://localhost:5173",
     "http://localhost:5174",
@@ -82,9 +80,7 @@ origins = [
     "https://manu-astro-website.vercel.app",
     "https://manu-astro-website-euzpodhha.vercel.app",
     "https://manuastro.vercel.app",
-    os.getenv("FRONTEND_URL", "http://localhost:5173"),
 ]
-origins = list(set(origins))
 
 app.add_middleware(
     CORSMiddleware,
@@ -92,6 +88,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 # ── Routes ────────────────────────────────────────────────────────────────────
