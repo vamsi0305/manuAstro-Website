@@ -75,10 +75,9 @@ app.add_middleware(GZipMiddleware, minimum_size=1000)
 # ── CORS ──────────────────────────────────────────────────────────────────────
 origins = [
     "http://localhost:5173",
-    "http://localhost:5174",
-    "http://127.0.0.1:5173",
     "https://manu-astro-website.vercel.app",
     "https://manu-astro-website-euzpodhha.vercel.app",
+    "https://manu-astro-website-e8d5qckpz.vercel.app",
     "https://manuastro.vercel.app",
 ]
 
