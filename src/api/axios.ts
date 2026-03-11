@@ -13,9 +13,24 @@ const api = axios.create({
     },
 })
 
-// Response interceptor — cookie-based auth refresh + correct error messages
+// Request interceptor — add token from localStorage if exists
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('access_token')
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+})
+
+// Response interceptor — save token to localStorage + cookie-based auth refresh
 api.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        const token = response.data?.access_token
+        if (token) {
+            localStorage.setItem('access_token', token)
+        }
+        return response
+    },
     async (error) => {
         const originalRequest = error.config
 
@@ -25,18 +40,29 @@ api.interceptors.response.use(
 
             try {
                 // Cookies are sent automatically (withCredentials: true)
-                await axios.post(
+                const response = await axios.post(
                     `${API_URL}/auth/refresh`,
                     {},
                     { withCredentials: true }
                 )
-                // Retry original request — new access_token cookie is now set
+                
+                // If refresh returns a new token in body, save it
+                if (response.data?.access_token) {
+                    localStorage.setItem('access_token', response.data.access_token)
+                }
+                
+                // Retry original request
                 return api(originalRequest)
             } catch (refreshError) {
-                // Refresh failed — redirect to login
+                // Refresh failed — clear localStorage and redirect to login
+                localStorage.removeItem('access_token')
                 window.location.href = '/login'
                 return Promise.reject(refreshError)
             }
+        }
+
+        if (error.response?.status === 401) {
+            localStorage.removeItem('access_token')
         }
 
         // FIX: FastAPI returns "detail", not "message"

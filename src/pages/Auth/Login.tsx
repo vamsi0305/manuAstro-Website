@@ -13,18 +13,14 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const loginProgress = useAuthStore(s => s.login)
+  const login = useAuthStore(s => s.login)
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     try {
-      const response = await authService.login({
-        email: email.trim().toLowerCase(),
-        password
-      })
-      loginProgress(response.user, response.access_token, response.access_token)
+      await login(email.trim().toLowerCase(), password)
       toast.success('Pranam! Welcome back.')
       navigate('/dashboard')
     } catch (err: any) {

@@ -55,17 +55,19 @@ def login(request: Request, response: Response, login_data: LoginSchema, db: Ses
         key="access_token",
         value=access_token,
         httponly=True,
-        secure=False,
-        samesite="lax",
-        max_age=1800
+        secure=True,          # ← must be True for HTTPS
+        samesite="none",      # ← must be "none" for cross-domain
+        max_age=1800,
+        path="/"
     )
     response.set_cookie(
-        key="refresh_token",
+        key="refresh_token", 
         value=refresh_token,
         httponly=True,
-        secure=False,
-        samesite="lax",
-        max_age=settings.REFRESH_TOKEN_EXPIRE_DAYS * 86400
+        secure=True,          # ← must be True for HTTPS
+        samesite="none",      # ← must be "none" for cross-domain
+        max_age=604800,
+        path="/"
     )
 
     logger.info(f"User logged in: {user.email}")
@@ -73,12 +75,10 @@ def login(request: Request, response: Response, login_data: LoginSchema, db: Ses
         "access_token": access_token,
         "token_type": "bearer",
         "user": {
-            "id": str(user.id),
-            "full_name": user.full_name or user.name,
+            "id": user.id,
             "email": user.email,
-            "role": user.role,
-            "is_active": user.is_active,
-            "created_at": user.created_at.isoformat()
+            "full_name": user.full_name,
+            "is_admin": user.role == "admin"
         }
     }
 
@@ -108,9 +108,10 @@ def refresh_token(
         key="access_token",
         value=new_access_token,
         httponly=True,
-        secure=False,
-        samesite="lax",
-        max_age=1800
+        secure=True,          # ← must be True for HTTPS
+        samesite="none",      # ← must be "none" for cross-domain
+        max_age=1800,
+        path="/"
     )
     logger.info(f"Token refreshed for user: {user.email}")
     return {"message": "Token refreshed successfully"}

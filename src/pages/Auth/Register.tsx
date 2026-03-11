@@ -35,7 +35,10 @@ export default function Register() {
         password: formData.password
       }
       const response = await authService.register(payload)
-      login(response.user, response.access_token, response.access_token)
+      
+      // Use setAuth since we already have the tokens from registration
+      const setAuth = useAuthStore.getState().setAuth
+      setAuth(response.user, response.access_token, response.access_token)
       toast.success('Welcome to the ManuAstro Family!')
       navigate('/dashboard')
     } catch (err: any) {
