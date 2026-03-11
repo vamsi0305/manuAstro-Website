@@ -79,6 +79,7 @@ origins = [
     "https://manu-astro-website-euzpodhha.vercel.app",
     "https://manu-astro-website-e8d5qckpz.vercel.app",
     "https://manuastro.vercel.app",
+    "https://manuastro-website.onrender.com",
 ]
 
 app.add_middleware(
