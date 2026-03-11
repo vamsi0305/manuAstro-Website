@@ -7,7 +7,7 @@ console.log('API URL:', API_URL) // remove after testing
 
 const api = axios.create({
     baseURL: API_URL,
-    withCredentials: true,  // sends HttpOnly cookies automatically
+    withCredentials: false,  // disabled for simplified CORS compatibility
     headers: {
         'Content-Type': 'application/json',
     },
@@ -43,7 +43,7 @@ api.interceptors.response.use(
                 const response = await axios.post(
                     `${API_URL}/auth/refresh`,
                     {},
-                    { withCredentials: true }
+                    { withCredentials: false }
                 )
                 
                 // If refresh returns a new token in body, save it
