@@ -125,7 +125,7 @@ app.include_router(contact.router, prefix="/api/v1", tags=["contact"])
 app.include_router(coupons.router, prefix="/api/v1", tags=["coupons"])
 app.include_router(admin.router, prefix="/api/v1", tags=["admin"])
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 async def root():
     return {"message": "Welcome to ManuAstro API"}
 
