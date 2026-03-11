@@ -1,5 +1,5 @@
 import { Navigate, useRoutes, type RouteObject } from 'react-router-dom'
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { useAuthStore } from '@/stores/authStore'
 
 // Lazy-loaded pages
@@ -54,12 +54,28 @@ const Loading = () => (
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 100)
+        return () => clearTimeout(timer)
+    }, [])
+
+    if (isLoading) return null
     if (!isAuthenticated) return <Navigate to="/login" replace />
     return <>{children}</>
 }
 
 function AdminRoute({ children }: { children: React.ReactNode }) {
     const { isAuthenticated, user } = useAuthStore()
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 100)
+        return () => clearTimeout(timer)
+    }, [])
+
+    if (isLoading) return null
     if (!isAuthenticated) return <Navigate to="/login" replace />
     if (user?.role !== 'admin') return <Navigate to="/" replace />
     return <>{children}</>
