@@ -4,11 +4,10 @@ from fastapi.middleware.gzip import GZipMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse
 from datetime import datetime
 import os
 import uvicorn
-import re
 
 from app.api.v1.endpoints import (
     auth, products, orders, cart, wishlist, 
@@ -74,44 +73,13 @@ app.add_middleware(ErrorLoggingMiddleware)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # ── CORS ──────────────────────────────────────────────────────────────────────
-# Custom CORS middleware to allow all Vercel preview deployments
-class DynamicCORSMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request, call_next):
-        origin = request.headers.get("origin", "")
-        
-        # Allow if origin matches any of these patterns
-        allowed = (
-            origin in [
-                "http://localhost:5173",
-                "http://localhost:5174",
-                "http://127.0.0.1:5173",
-                "https://manu-astro-website.vercel.app",
-                "https://manuastro.vercel.app",
-                "https://manuastro-website.onrender.com",
-            ]
-            or re.match(r"https://manu-astro-website-.*\.vercel\.app", origin)
-            or re.match(r"https://manuastro-.*\.vercel\.app", origin)
-        )
-        
-        if request.method == "OPTIONS":
-            response = Response()
-            if allowed:
-                response.headers["Access-Control-Allow-Origin"] = origin
-            response.headers["Access-Control-Allow-Credentials"] = "true"
-            response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-            response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, Accept, X-Requested-With, X-CSRF-Token"
-            response.headers["Access-Control-Expose-Headers"] = "Content-Type, Authorization"
-            return response
-        
-        response = await call_next(request)
-        if allowed:
-            response.headers["Access-Control-Allow-Origin"] = origin
-            response.headers["Access-Control-Allow-Credentials"] = "true"
-            response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-            response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, Accept, X-Requested-With, X-CSRF-Token"
-        return response
-
-app.add_middleware(DynamicCORSMiddleware)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # ── Routes ────────────────────────────────────────────────────────────────────
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
