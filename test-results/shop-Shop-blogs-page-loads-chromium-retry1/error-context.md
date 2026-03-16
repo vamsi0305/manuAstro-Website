@@ -1,0 +1,567 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e6]:
+        - link "मं ManuAstro Vedic Sciences" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: मं
+          - generic [ref=e9]:
+            - paragraph [ref=e10]: ManuAstro
+            - paragraph [ref=e11]: Vedic Sciences
+        - navigation [ref=e12]:
+          - link "Home" [ref=e13] [cursor=pointer]:
+            - /url: /
+          - link "Horoscope 2026" [ref=e14] [cursor=pointer]:
+            - /url: /horoscope
+          - button "Services" [ref=e16] [cursor=pointer]:
+            - text: Services
+            - img [ref=e17]
+          - button "Rudraksha" [ref=e20] [cursor=pointer]:
+            - text: Rudraksha
+            - img [ref=e21]
+          - link "Gemstones" [ref=e23] [cursor=pointer]:
+            - /url: /gemstones
+          - button "Yantra" [ref=e25] [cursor=pointer]:
+            - text: Yantra
+            - img [ref=e26]
+          - button "Shop More" [ref=e29] [cursor=pointer]:
+            - text: Shop More
+            - img [ref=e30]
+          - link "About Us" [ref=e32] [cursor=pointer]:
+            - /url: /about
+          - button "Gallery" [ref=e34] [cursor=pointer]:
+            - text: Gallery
+            - img [ref=e35]
+          - link "Blogs" [ref=e37] [cursor=pointer]:
+            - /url: /blog
+          - link "Contact Us" [ref=e38] [cursor=pointer]:
+            - /url: /contact
+        - generic [ref=e39]:
+          - button [ref=e40]:
+            - img [ref=e41]
+          - button [ref=e44]:
+            - img [ref=e45]
+          - button [ref=e47]:
+            - img [ref=e48]
+          - link "Sign In" [ref=e52] [cursor=pointer]:
+            - /url: /login
+    - main [ref=e53]:
+      - generic [ref=e54]:
+        - generic [ref=e55]:
+          - img "hero" [ref=e57]
+          - generic [ref=e60]:
+            - generic [ref=e61]:
+              - generic [ref=e62]: 🕉 BEST ONLINE ASTROLOGY CONSULTATION
+              - heading "A Modern Astrologer with a Scientific Mindset & Spiritual Soul" [level=1] [ref=e63]
+              - paragraph [ref=e64]:
+                - strong [ref=e65]: Er. Manu Gupta
+                - text: — IIM Ahmedabad Alumnus, Founder & CEO, MANUASTRO® LLP. Accurate Kundli readings, birth chart analysis, numerology & Vaastu guidance.
+              - generic [ref=e66]:
+                - link "Book Your Consultation Now" [ref=e67] [cursor=pointer]:
+                  - /url: https://calendly.com/manuastro2022/30min
+                  - text: Book Your Consultation Now
+                  - img [ref=e68]
+                - link "Shop Rudraksha" [ref=e70] [cursor=pointer]:
+                  - /url: /shop
+                  - img [ref=e71]
+                  - text: Shop Rudraksha
+              - generic [ref=e73]:
+                - generic [ref=e74]: ✔ 100% Natural Nepali Rudraksha
+                - generic [ref=e75]: ✔ Lab Certified
+                - generic [ref=e76]: ✔ IIM Ahmedabad Alumnus
+                - generic [ref=e77]: ✔ Global Consultations
+            - img "Er. Manu Gupta" [ref=e80]
+        - generic [ref=e81]: "*"
+        - generic [ref=e84]:
+          - generic [ref=e85]:
+            - img [ref=e87]
+            - generic [ref=e90]:
+              - generic [ref=e91]: Secure Payment
+              - generic [ref=e92]: UPI · Cards · Net Banking
+          - generic [ref=e93]:
+            - img [ref=e95]
+            - generic [ref=e100]:
+              - generic [ref=e101]: Free Shipping
+              - generic [ref=e102]: On orders above ₹999
+          - generic [ref=e103]:
+            - img [ref=e105]
+            - generic [ref=e107]:
+              - generic [ref=e108]: Lab Certified
+              - generic [ref=e109]: X-Ray & IRL certified beads
+          - generic [ref=e110]:
+            - img [ref=e112]
+            - generic [ref=e115]:
+              - generic [ref=e116]: Money-Back
+              - generic [ref=e117]: 100% no-questions guarantee
+        - generic [ref=e118]: "*"
+        - generic [ref=e120]:
+          - generic [ref=e121]:
+            - generic [ref=e122]: SERVICES OFFERED
+            - heading "Vedic Sciences We Practice" [level=2] [ref=e123]
+            - paragraph [ref=e125]: Authentic guidance rooted in classical texts by Er. Manu Gupta, IIM Ahmedabad Alumnus
+          - generic [ref=e126]:
+            - link "Vedic Astrology Vedic Astrology Birth chart analysis & Jyotish predictions based on classical texts" [ref=e128] [cursor=pointer]:
+              - /url: /services/vedic-astrology
+              - img "Vedic Astrology" [ref=e129]
+              - generic [ref=e130]:
+                - heading "Vedic Astrology" [level=3] [ref=e131]
+                - paragraph [ref=e132]: Birth chart analysis & Jyotish predictions based on classical texts
+            - link "Palm Reading Palm Reading Expert Samudrika Shastra hand analysis for life path guidance" [ref=e134] [cursor=pointer]:
+              - /url: /services/palm-reading
+              - img "Palm Reading" [ref=e135]
+              - generic [ref=e136]:
+                - heading "Palm Reading" [level=3] [ref=e137]
+                - paragraph [ref=e138]: Expert Samudrika Shastra hand analysis for life path guidance
+            - link "Personal Consultation Personal Consultation One-on-one career, marriage & health guidance sessions" [ref=e140] [cursor=pointer]:
+              - /url: /services/personal-consultation
+              - img "Personal Consultation" [ref=e141]
+              - generic [ref=e142]:
+                - heading "Personal Consultation" [level=3] [ref=e143]
+                - paragraph [ref=e144]: One-on-one career, marriage & health guidance sessions
+            - link "Vaastu Consultation Vaastu Consultation Home & office energy harmony for prosperity and health" [ref=e146] [cursor=pointer]:
+              - /url: /services/vaastu
+              - img "Vaastu Consultation" [ref=e147]
+              - generic [ref=e148]:
+                - heading "Vaastu Consultation" [level=3] [ref=e149]
+                - paragraph [ref=e150]: Home & office energy harmony for prosperity and health
+            - link "Corporate Programs Corporate Programs Astrology-driven team alignment & business insights" [ref=e152] [cursor=pointer]:
+              - /url: /services/corporate-programs
+              - img "Corporate Programs" [ref=e153]
+              - generic [ref=e154]:
+                - heading "Corporate Programs" [level=3] [ref=e155]
+                - paragraph [ref=e156]: Astrology-driven team alignment & business insights
+            - link "Face Reading & Numerology Face Reading & Numerology Classical Samudrika facial & numerology personality mapping" [ref=e158] [cursor=pointer]:
+              - /url: /services/face-reading
+              - img "Face Reading & Numerology" [ref=e159]
+              - generic [ref=e160]:
+                - heading "Face Reading & Numerology" [level=3] [ref=e161]
+                - paragraph [ref=e162]: Classical Samudrika facial & numerology personality mapping
+          - link "Book Your Consultation" [ref=e164] [cursor=pointer]:
+            - /url: https://calendly.com/manuastro2022/30min
+            - text: Book Your Consultation
+            - img [ref=e165]
+        - generic [ref=e167]: "*"
+        - generic [ref=e170]:
+          - generic [ref=e172]:
+            - img [ref=e174]
+            - generic [ref=e179]: 10,000+
+            - generic [ref=e180]: HAPPY CLIENTS
+          - generic [ref=e182]:
+            - img [ref=e184]
+            - generic [ref=e187]: 15+
+            - generic [ref=e188]: YEARS OF PRACTICE
+          - generic [ref=e190]:
+            - img [ref=e192]
+            - generic [ref=e196]: 300+
+            - generic [ref=e197]: RUDRAKSHA PRODUCTS
+          - generic [ref=e199]:
+            - img [ref=e201]
+            - generic [ref=e203]: 4.9 ★
+            - generic [ref=e204]: AVERAGE RATING
+        - generic [ref=e205]: "*"
+        - generic [ref=e207]:
+          - generic [ref=e208]:
+            - generic [ref=e209]: LATEST PRODUCTS
+            - heading "Authentic Nepali Rudraksha" [level=2] [ref=e210]
+            - paragraph [ref=e212]: Lab-certified, energised through Vedic rituals — each piece hand-selected from Nepal
+          - generic [ref=e213]:
+            - generic [ref=e214]:
+              - generic [ref=e215]:
+                - img "Gauri Shankar Ganesh Rudraksha (2.25g)" [ref=e216]
+                - generic [ref=e217]: Rare
+                - generic [ref=e219]: ★ 5
+              - generic [ref=e220]:
+                - generic [ref=e221]: Rudraksha
+                - heading "Gauri Shankar Ganesh Rudraksha (2.25g)" [level=3] [ref=e222]
+                - generic [ref=e223]:
+                  - generic [ref=e224]: ₹65,000
+                  - generic [ref=e225]: ₹72,000
+                  - generic [ref=e226]: 10% OFF
+                - generic [ref=e227]:
+                  - button "Add to Cart" [ref=e228] [cursor=pointer]
+                  - link [ref=e229] [cursor=pointer]:
+                    - /url: /product/natural-gauri-shankar-ganesh-rudraksha-2-25-gram
+                    - img [ref=e230]
+            - generic [ref=e232]:
+              - generic [ref=e233]:
+                - img "Gauri Shankar Rudraksha (3.67g)" [ref=e234]
+                - generic [ref=e235]: Popular
+                - generic [ref=e237]: ★ 4.9
+              - generic [ref=e238]:
+                - generic [ref=e239]: Rudraksha
+                - heading "Gauri Shankar Rudraksha (3.67g)" [level=3] [ref=e240]
+                - generic [ref=e241]:
+                  - generic [ref=e242]: ₹9,680
+                  - generic [ref=e243]: ₹12,000
+                  - generic [ref=e244]: 19% OFF
+                - generic [ref=e245]:
+                  - button "Add to Cart" [ref=e246] [cursor=pointer]
+                  - link [ref=e247] [cursor=pointer]:
+                    - /url: /product/natural-gauri-shankar-rudraksha3-67-gram
+                    - img [ref=e248]
+            - generic [ref=e250]:
+              - generic [ref=e251]:
+                - img "16 Mukhi Nepali Rudraksha (2.73g)" [ref=e252]
+                - generic [ref=e253]: Premium
+                - generic [ref=e255]: ★ 5
+              - generic [ref=e256]:
+                - generic [ref=e257]: Rudraksha
+                - heading "16 Mukhi Nepali Rudraksha (2.73g)" [level=3] [ref=e258]
+                - generic [ref=e259]:
+                  - generic [ref=e260]: ₹110,000
+                  - generic [ref=e261]: ₹130,000
+                  - generic [ref=e262]: 15% OFF
+                - generic [ref=e263]:
+                  - button "Add to Cart" [ref=e264] [cursor=pointer]
+                  - link [ref=e265] [cursor=pointer]:
+                    - /url: /product/100-natural-nepali-16-mukhi-rudraksha-2-73-gram
+                    - img [ref=e266]
+            - generic [ref=e268]:
+              - generic [ref=e269]:
+                - img "15 Mukhi Nepali Rudraksha (2.73g)" [ref=e270]
+                - generic [ref=e271]: Premium
+                - generic [ref=e273]: ★ 5
+              - generic [ref=e274]:
+                - generic [ref=e275]: Rudraksha
+                - heading "15 Mukhi Nepali Rudraksha (2.73g)" [level=3] [ref=e276]
+                - generic [ref=e277]:
+                  - generic [ref=e278]: ₹45,000
+                  - generic [ref=e279]: ₹55,000
+                  - generic [ref=e280]: 18% OFF
+                - generic [ref=e281]:
+                  - button "Add to Cart" [ref=e282] [cursor=pointer]
+                  - link [ref=e283] [cursor=pointer]:
+                    - /url: /product/100-natural-nepali-15-mukhi-rudraksha-2-73-gram
+                    - img [ref=e284]
+            - generic [ref=e286]:
+              - generic [ref=e287]:
+                - img "14 Mukhi Nepali Rudraksha (2.5g)" [ref=e288]
+                - generic [ref=e289]: Dev Mani
+                - generic [ref=e291]: ★ 4.9
+              - generic [ref=e292]:
+                - generic [ref=e293]: Rudraksha
+                - heading "14 Mukhi Nepali Rudraksha (2.5g)" [level=3] [ref=e294]
+                - generic [ref=e295]:
+                  - generic [ref=e296]: ₹40,000
+                  - generic [ref=e297]: ₹48,000
+                  - generic [ref=e298]: 17% OFF
+                - generic [ref=e299]:
+                  - button "Add to Cart" [ref=e300] [cursor=pointer]
+                  - link [ref=e301] [cursor=pointer]:
+                    - /url: /product/100-natural-nepali-14-mukhi-rudraksha-2-5-gram
+                    - img [ref=e302]
+            - generic [ref=e304]:
+              - generic [ref=e305]:
+                - img "13 Mukhi Nepali Rudraksha (2.27g)" [ref=e306]
+                - generic [ref=e307]: Power
+                - generic [ref=e309]: ★ 4.8
+              - generic [ref=e310]:
+                - generic [ref=e311]: Rudraksha
+                - heading "13 Mukhi Nepali Rudraksha (2.27g)" [level=3] [ref=e312]
+                - generic [ref=e313]:
+                  - generic [ref=e314]: ₹21,000
+                  - generic [ref=e315]: ₹26,000
+                  - generic [ref=e316]: 19% OFF
+                - generic [ref=e317]:
+                  - button "Add to Cart" [ref=e318] [cursor=pointer]
+                  - link [ref=e319] [cursor=pointer]:
+                    - /url: /product/100-natural-nepali-13-mukhi-rudraksha-2-27-gram
+                    - img [ref=e320]
+            - generic [ref=e322]:
+              - generic [ref=e323]:
+                - img "5 Mukhi Nepali Rudraksha (6.44g)" [ref=e324]
+                - generic [ref=e325]: Best Seller
+                - generic [ref=e327]: ★ 4.8
+              - generic [ref=e328]:
+                - generic [ref=e329]: Rudraksha
+                - heading "5 Mukhi Nepali Rudraksha (6.44g)" [level=3] [ref=e330]
+                - generic [ref=e331]:
+                  - generic [ref=e332]: ₹1,320
+                  - generic [ref=e333]: ₹2,000
+                  - generic [ref=e334]: 34% OFF
+                - generic [ref=e335]:
+                  - button "Add to Cart" [ref=e336] [cursor=pointer]
+                  - link [ref=e337] [cursor=pointer]:
+                    - /url: /product/100-natural-nepali-5-mukhi-rudraksha-6-44-gram
+                    - img [ref=e338]
+            - generic [ref=e340]:
+              - generic [ref=e341]:
+                - img "10 Mukhi Nepali Rudraksha (2.96g)" [ref=e342]
+                - generic [ref=e343]: Top Rated
+                - generic [ref=e345]: ★ 4.7
+              - generic [ref=e346]:
+                - generic [ref=e347]: Rudraksha
+                - heading "10 Mukhi Nepali Rudraksha (2.96g)" [level=3] [ref=e348]
+                - generic [ref=e349]:
+                  - generic [ref=e350]: ₹7,150
+                  - generic [ref=e351]: ₹9,000
+                  - generic [ref=e352]: 21% OFF
+                - generic [ref=e353]:
+                  - button "Add to Cart" [ref=e354] [cursor=pointer]
+                  - link [ref=e355] [cursor=pointer]:
+                    - /url: /product/100-natural-nepali-10-mukhi-rudraksha-2-96-gram
+                    - img [ref=e356]
+          - link "View Full Collection" [ref=e359] [cursor=pointer]:
+            - /url: /shop
+            - text: View Full Collection
+            - img [ref=e360]
+        - generic [ref=e362]: "*"
+        - generic [ref=e365]:
+          - img "Er. Manu Gupta — Founder ManuAstro" [ref=e367]
+          - generic [ref=e368]:
+            - paragraph [ref=e369]: A Modern Astrologer with a Scientific Mindset and a Spiritual Soul
+            - heading "Er. Manu Gupta" [level=2] [ref=e370]
+            - paragraph [ref=e371]: IIM Ahmedabad Alumnus · Founder & CEO, MANUASTRO® LLP
+            - paragraph [ref=e372]: With a strong academic background and over 15 years of experience in astrology and allied sciences, Er. Manu Gupta brings a rare combination of logic, intuition, and practical understanding to his work.
+            - paragraph [ref=e373]:
+              - text: His expertise has been featured on media platforms such as
+              - strong [ref=e374]: Shraddha TV
+              - text: and
+              - strong [ref=e375]: Signature Monthly Magazine
+              - text: . He has conducted consultations globally and delivered guest lectures at colleges and institutions.
+            - generic [ref=e376]:
+              - generic [ref=e377]:
+                - generic [ref=e378]: ✓
+                - generic [ref=e379]: No vague promises — grounded, compassionate solutions
+              - generic [ref=e380]:
+                - generic [ref=e381]: ✓
+                - generic [ref=e382]: No sensationalism — clear explanations and honest guidance
+              - generic [ref=e383]:
+                - generic [ref=e384]: ✓
+                - generic [ref=e385]: Lab & X-ray certified Nepali Rudraksha with reports
+              - generic [ref=e386]:
+                - generic [ref=e387]: ✓
+                - generic [ref=e388]: Global consultations — career, marriage, health & personal growth
+              - generic [ref=e389]:
+                - generic [ref=e390]: ✓
+                - generic [ref=e391]: Simplifying complex astrological concepts for common people
+            - generic [ref=e392]:
+              - link "Discover Now" [ref=e393] [cursor=pointer]:
+                - /url: https://www.manuastro.com/pages/about-us
+                - text: Discover Now
+                - img [ref=e394]
+              - link "Book Consultation" [ref=e396] [cursor=pointer]:
+                - /url: https://calendly.com/manuastro2022/30min
+        - generic [ref=e398]:
+          - generic [ref=e399]:
+            - generic [ref=e400]: WHAT OUR CLIENTS SAY
+            - heading "Real Transformations" [level=2] [ref=e401]
+            - paragraph [ref=e403]: Thousands of lives changed through authentic Vedic guidance
+          - generic [ref=e404]:
+            - generic [ref=e405]:
+              - generic [ref=e406]:
+                - img [ref=e407]
+                - img [ref=e409]
+                - img [ref=e411]
+                - img [ref=e413]
+                - img [ref=e415]
+              - paragraph [ref=e417]: "\"Sir aapse baat karke bhout positive feel hota hai… aap bhout acha motivate bhi karte ho.. or aapke btaaye huye uppaye se muje bhout fayda hua hai or professional life or personal life me bhi bhout good changes hue hain.\""
+              - generic [ref=e418]:
+                - img "Padamshree Sakshi Malik" [ref=e420]
+                - generic [ref=e421]:
+                  - heading "Padamshree Sakshi Malik" [level=4] [ref=e422]
+                  - paragraph [ref=e423]: International Wrestler, Commonwealth Games 2022 Gold Winner
+            - generic [ref=e424]:
+              - generic [ref=e425]:
+                - img [ref=e426]
+                - img [ref=e428]
+                - img [ref=e430]
+                - img [ref=e432]
+                - img [ref=e434]
+              - paragraph [ref=e436]: "\"Bhout jayda positive hua hu sir mai.. or aapse milne k baad aapke uppaye kr baad muje esa lagta hai ki abhi sare kaam ache hi honge.. or mai life me or bhout achieve kar sakta hu.\""
+              - generic [ref=e437]:
+                - img "Satyawart Kadian" [ref=e439]
+                - generic [ref=e440]:
+                  - heading "Satyawart Kadian" [level=4] [ref=e441]
+                  - paragraph [ref=e442]: International Wrestler, India
+            - generic [ref=e443]:
+              - generic [ref=e444]:
+                - img [ref=e445]
+                - img [ref=e447]
+                - img [ref=e449]
+                - img [ref=e451]
+                - img [ref=e453]
+              - paragraph [ref=e455]: "\"I appreciate your work and your experience in the field of Astrology, Vastu and allied subjects. Your advice and clarity of subject to your clients is of par excellence. The accuracy of your predictions is almost 100%.\""
+              - generic [ref=e456]:
+                - img "Devendra Singh" [ref=e458]
+                - generic [ref=e459]:
+                  - heading "Devendra Singh" [level=4] [ref=e460]
+                  - paragraph [ref=e461]: Under Secretary, Government of India
+            - generic [ref=e462]:
+              - generic [ref=e463]:
+                - img [ref=e464]
+                - img [ref=e466]
+                - img [ref=e468]
+                - img [ref=e470]
+                - img [ref=e472]
+              - paragraph [ref=e474]: "\"Our vision is to make astrology logical, accessible, and globally respected by combining ancient wisdom with modern logic.\""
+              - generic [ref=e475]:
+                - img "Manu Gupta" [ref=e477]
+                - generic [ref=e478]:
+                  - heading "Manu Gupta" [level=4] [ref=e479]
+                  - paragraph [ref=e480]: Founder, ManuAstro
+          - link "📱 Get the ManuAstro App" [ref=e482] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=com.manuastroapp&hl=en_GB
+        - generic [ref=e483]: "*"
+        - generic [ref=e485]:
+          - generic [ref=e486]:
+            - generic [ref=e487]: LATEST BLOGS
+            - heading "Vedic Insights & Guidance" [level=2] [ref=e488]
+          - generic [ref=e490]:
+            - link "How to Choose the Best Numerology Reading Online Bangalore for Life Guidance Numerology How to Choose the Best Numerology Reading Online Bangalore for Life Guidance Feb 2026 Read More →" [ref=e492] [cursor=pointer]:
+              - /url: /blog/best-numerology-reading-online-bangalore
+              - generic [ref=e493]:
+                - img "How to Choose the Best Numerology Reading Online Bangalore for Life Guidance" [ref=e494]
+                - generic [ref=e495]: Numerology
+              - generic [ref=e496]:
+                - heading "How to Choose the Best Numerology Reading Online Bangalore for Life Guidance" [level=3] [ref=e497]
+                - generic [ref=e498]:
+                  - generic [ref=e499]: Feb 2026
+                  - generic [ref=e500]: Read More →
+            - link "Why You Need a Vaastu Expert in Bangalore for Home and Office Before Buying Property Vaastu Why You Need a Vaastu Expert in Bangalore for Home and Office Before Buying Property Feb 2026 Read More →" [ref=e502] [cursor=pointer]:
+              - /url: /blog/vaastu-expert-bangalore-home-office-before-buying
+              - generic [ref=e503]:
+                - img "Why You Need a Vaastu Expert in Bangalore for Home and Office Before Buying Property" [ref=e504]
+                - generic [ref=e505]: Vaastu
+              - generic [ref=e506]:
+                - heading "Why You Need a Vaastu Expert in Bangalore for Home and Office Before Buying Property" [level=3] [ref=e507]
+                - generic [ref=e508]:
+                  - generic [ref=e509]: Feb 2026
+                  - generic [ref=e510]: Read More →
+            - 'link "Horoscope Consultation Online Delhi: Accurate Predictions from Trusted Astrologers Horoscope Horoscope Consultation Online Delhi: Accurate Predictions from Trusted Astrologers Feb 2026 Read More →" [ref=e512] [cursor=pointer]':
+              - /url: /blog/horoscope-consultation-online-delhi-services
+              - generic [ref=e513]:
+                - 'img "Horoscope Consultation Online Delhi: Accurate Predictions from Trusted Astrologers" [ref=e514]'
+                - generic [ref=e515]: Horoscope
+              - generic [ref=e516]:
+                - 'heading "Horoscope Consultation Online Delhi: Accurate Predictions from Trusted Astrologers" [level=3] [ref=e517]'
+                - generic [ref=e518]:
+                  - generic [ref=e519]: Feb 2026
+                  - generic [ref=e520]: Read More →
+          - link "View All Blogs" [ref=e522] [cursor=pointer]:
+            - /url: /blog
+            - text: View All Blogs
+            - img [ref=e523]
+        - generic [ref=e525]: "*"
+        - generic [ref=e528]:
+          - generic [ref=e529]: 🔮
+          - heading "Ready for Your Personalised Cosmic Guidance?" [level=2] [ref=e530]
+          - paragraph [ref=e531]: Book a one-on-one consultation with Er. Manu Gupta — IIM Ahmedabad Alumnus, Vedic Astrologer with 15+ years guiding thousands globally.
+          - generic [ref=e532]:
+            - link "Book Consultation Now" [ref=e533] [cursor=pointer]:
+              - /url: https://calendly.com/manuastro2022/30min
+              - text: Book Consultation Now
+              - img [ref=e534]
+            - link "View Pricing Plans" [ref=e536] [cursor=pointer]:
+              - /url: /pricing
+    - contentinfo [ref=e537]:
+      - generic [ref=e539]:
+        - generic [ref=e540]:
+          - link "मं ManuAstro Vedic Sciences" [ref=e541] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e542]: मं
+            - generic [ref=e543]:
+              - paragraph [ref=e544]: ManuAstro
+              - paragraph [ref=e545]: Vedic Sciences
+          - paragraph [ref=e546]: Authentic Vedic astrology, sacred Rudraksha, and spiritual guidance. Rooted in classical Sanskrit texts. Trusted since 2003.
+          - generic [ref=e547]:
+            - link [ref=e548] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e549]
+            - link [ref=e552] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e553]
+            - link [ref=e555] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e556]
+        - generic [ref=e559]:
+          - paragraph [ref=e560]: Explore
+          - list [ref=e561]:
+            - listitem [ref=e562]:
+              - link "Home" [ref=e563] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e564]:
+              - link "Shop" [ref=e565] [cursor=pointer]:
+                - /url: /shop
+            - listitem [ref=e566]:
+              - link "Horoscope" [ref=e567] [cursor=pointer]:
+                - /url: /horoscope
+            - listitem [ref=e568]:
+              - link "Blog" [ref=e569] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e570]:
+              - link "Gallery" [ref=e571] [cursor=pointer]:
+                - /url: /gallery
+            - listitem [ref=e572]:
+              - link "About Us" [ref=e573] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e574]:
+              - link "Contact" [ref=e575] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=e576]:
+          - paragraph [ref=e577]: Services
+          - list [ref=e578]:
+            - listitem [ref=e579]:
+              - link "Vedic Astrology" [ref=e580] [cursor=pointer]:
+                - /url: /services/vedic-astrology
+            - listitem [ref=e581]:
+              - link "Palm Reading" [ref=e582] [cursor=pointer]:
+                - /url: /services/palm-reading
+            - listitem [ref=e583]:
+              - link "Face Reading" [ref=e584] [cursor=pointer]:
+                - /url: /services/face-reading
+            - listitem [ref=e585]:
+              - link "Vaastu Shastra" [ref=e586] [cursor=pointer]:
+                - /url: /services/vaastu
+            - listitem [ref=e587]:
+              - link "Corporate Programs" [ref=e588] [cursor=pointer]:
+                - /url: /services/corporate-programs
+            - listitem [ref=e589]:
+              - link "Consultation" [ref=e590] [cursor=pointer]:
+                - /url: /services/personal-consultation
+        - generic [ref=e591]:
+          - paragraph [ref=e592]: Contact
+          - generic [ref=e593]:
+            - generic [ref=e594]:
+              - img [ref=e596]
+              - generic [ref=e598]: +91 97424 00000
+            - generic [ref=e599]:
+              - img [ref=e601]
+              - generic [ref=e604]: support@manuastro.com
+            - generic [ref=e605]:
+              - img [ref=e607]
+              - generic [ref=e610]: HSR Layout, Bengaluru, India
+          - generic [ref=e611]:
+            - generic [ref=e612]:
+              - generic [ref=e613]: ✓
+              - text: X-Ray Certified Products
+            - generic [ref=e614]:
+              - generic [ref=e615]: ✓
+              - text: ISO 9001 Operations
+            - generic [ref=e616]:
+              - generic [ref=e617]: ✓
+              - text: 100% Money-Back Guarantee
+      - generic [ref=e619]:
+        - paragraph [ref=e620]: © 2026 ManuAstro. All rights reserved.
+        - generic [ref=e621]:
+          - link "Privacy Policy" [ref=e622] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms & Conditions" [ref=e623] [cursor=pointer]:
+            - /url: /terms
+          - link "Refund Policy" [ref=e624] [cursor=pointer]:
+            - /url: /refund
+          - link "Shipping Policy" [ref=e625] [cursor=pointer]:
+            - /url: /shipping
+      - link "💬" [ref=e626] [cursor=pointer]:
+        - /url: https://wa.me/+91XXXXXXXXXX
+  - generic [ref=e628]:
+    - paragraph [ref=e629]:
+      - text: We use cookies to enhance your experience. By continuing, you agree to our
+      - link "Privacy Policy" [ref=e630] [cursor=pointer]:
+        - /url: /privacy-policy
+      - text: .
+    - button "Accept" [ref=e631] [cursor=pointer]
+```
