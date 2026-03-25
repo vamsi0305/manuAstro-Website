@@ -7,13 +7,62 @@ import { Link } from 'react-router-dom'
 import { generateInvoice } from '@/utils/generateInvoice'
 import SEOHead from '@/components/SEOHead'
 import api from '@/lib/api'
+import type { Booking, Product } from '@/types'
+
+interface ExtendedBooking extends Booking {
+  service_type?: string
+  date?: string
+  time_slot?: string
+}
+
+interface WishlistItem {
+  id: number
+  product_id: number
+  product?: {
+    id: number
+    name: string
+    slug: string
+    price: number
+    image_url?: string
+    thumbnail_url?: string
+  }
+}
+
+interface ExtendedOrder {
+  id: number
+  status: string
+  total?: number
+  total_inr?: number
+  payment_status: string
+  created_at: string
+  user?: { name?: string; full_name?: string; email?: string }
+  shipping_address?: string
+  items?: Array<{
+    product?: {
+      name: string
+    }
+    name?: string
+    quantity?: number
+    price?: number
+    price_at_purchase?: number
+  }>
+  order_items?: Array<{
+    product?: {
+      name: string
+    }
+    name?: string
+    quantity?: number
+    price?: number
+    price_at_purchase?: number
+  }>
+}
 
 export default function UserDashboard() {
   const user = useAuthStore(s => s.user)
   const logout = useAuthStore(s => s.logout)
   const [activeTab, setActiveTab] = useState('overview')
-  const [bookings, setBookings] = useState<any[]>([])
-  const [wishlistItems, setWishlistItems] = useState<any[]>([])
+  const [bookings, setBookings] = useState<ExtendedBooking[]>([])
+  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([])
 
   const userInitial = user?.full_name?.charAt(0)?.toUpperCase() || 'U'
   const userName = user?.full_name || user?.name || 'Sacred User'
@@ -23,7 +72,7 @@ export default function UserDashboard() {
     queryKey: ['my-orders'],
     queryFn: () => orderService.getMyOrders()
   })
-  const orders = Array.isArray(orderData) ? orderData : orderData?.items || []
+  const orders: ExtendedOrder[] = Array.isArray(orderData) ? orderData : orderData?.items || []
 
   useEffect(() => {
     api.get('/bookings/my').then(r => setBookings(r.data || [])).catch(() => { })
@@ -336,7 +385,7 @@ export default function UserDashboard() {
                           </tr>
                         </thead>
                         <tbody>
-                          {orders.slice(0, 5).map((order: any) => (
+                          {orders.slice(0, 5).map((order) => (
                             <tr key={order.id} style={{
                               borderTop: '1px solid rgba(201,151,42,0.08)',
                               fontSize: '0.875rem'
@@ -366,7 +415,7 @@ export default function UserDashboard() {
                                 </span>
                               </td>
                               <td style={{ padding: '1rem 1.5rem' }}>
-                                <button onClick={() => generateInvoice(order)} style={{
+                                <button onClick={() => generateInvoice(order as any)} style={{
                                   display: 'flex', alignItems: 'center', gap: '0.4rem',
                                   padding: '0.3rem 0.75rem',
                                   background: 'var(--color-saffron)', color: 'white',
@@ -428,7 +477,7 @@ export default function UserDashboard() {
                         color: 'var(--color-earth)',
                         marginBottom: '1.5rem'
                       }}>Recent Bookings</h3>
-                      {bookings.slice(0, 3).map((b: any) => (
+                      {bookings.slice(0, 3).map((b) => (
                         <div key={b.id} style={{
                           display: 'flex', justifyContent: 'space-between',
                           alignItems: 'center',
@@ -499,7 +548,7 @@ export default function UserDashboard() {
                           </tr>
                         </thead>
                         <tbody>
-                          {orders.map((order: any) => (
+                          {orders.map((order) => (
                             <tr key={order.id} style={{
                               borderTop: '1px solid rgba(201,151,42,0.08)',
                               fontSize: '0.875rem'
@@ -522,7 +571,7 @@ export default function UserDashboard() {
                                 }}>{order.status?.toUpperCase()}</span>
                               </td>
                               <td style={{ padding: '1rem 1.5rem' }}>
-                                <button onClick={() => generateInvoice(order)} style={{
+                                <button onClick={() => generateInvoice(order as any)} style={{
                                   display: 'flex', alignItems: 'center', gap: '0.4rem',
                                   padding: '0.3rem 0.75rem',
                                   background: 'var(--color-saffron)', color: 'white',
@@ -577,7 +626,7 @@ export default function UserDashboard() {
                           Book Now
                         </Link>
                       </div>
-                    ) : bookings.map((b: any) => (
+                    ) : bookings.map((b) => (
                       <div key={b.id} style={{
                         padding: '1.25rem',
                         borderRadius: '0.75rem',
@@ -634,7 +683,7 @@ export default function UserDashboard() {
                     </div>
                   ) : (
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem' }}>
-                      {wishlistItems.map((item: any) => (
+                      {wishlistItems.map((item) => (
                         <div key={item.id} className="card" style={{
                           overflow: 'hidden', padding: 0,
                           border: '1px solid rgba(201,151,42,0.15)'
@@ -687,8 +736,8 @@ export default function UserDashboard() {
                       {[
                         { label: 'FULL NAME', value: user?.full_name || user?.name || '—' },
                         { label: 'EMAIL ADDRESS', value: user?.email || '—' },
-                        { label: 'PHONE NUMBER', value: (user as any)?.phone || '—' },
-                        { label: 'ACCOUNT TYPE', value: (user as any)?.is_admin ? 'Administrator' : 'Member' },
+                        { label: 'PHONE NUMBER', value: user?.phone || '—' },
+                        { label: 'ACCOUNT TYPE', value: user?.is_admin ? 'Administrator' : 'Member' },
                       ].map(field => (
                         <div key={field.label} style={{
                           padding: '1.25rem 1.5rem',

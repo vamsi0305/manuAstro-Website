@@ -73,7 +73,7 @@ def get_order_by_id(
     order = db.query(Order).filter(Order.id == order_id).first()
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
-    if order.user_id != current_user.id and current_user.role != "admin":
+    if order.user_id != current_user.id and not current_user.is_admin:
         raise HTTPException(status_code=403, detail="Not authorized")
     return order
 

@@ -11,7 +11,13 @@
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:report": "playwright show-report",
-    "test:backend": "cd backend && pytest tests/ -v"
+    "test:debug": "playwright test --debug",
+    "test:api": "playwright test api.spec.ts",
+    "test:auth": "playwright test auth.spec.ts",
+    "test:admin": "playwright test admin.spec.ts",
+    "test:shop": "playwright test shop.spec.ts",
+    "test:backend": "cd backend && pytest tests/ -v",
+    "test:all": "npm run test:auth && npm run test:admin && npm run test:shop && npm run test:api"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
