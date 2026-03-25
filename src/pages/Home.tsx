@@ -2,8 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import { ArrowRight, ChevronRight, Star, ShieldCheck, Truck, FlaskConical, BadgeCheck, Users, Clock, Package } from 'lucide-react'
-import { useCartStore } from '@/stores/cartStore'
+import { productService } from '@/api/services/product.service'
+import ProductCard from '@/components/shop/ProductCard'
 import SEOHead from '@/components/SEOHead'
 
 /* ─── Real manuastro.com Shopify CDN images ──────────────────────────────── */
@@ -169,7 +171,23 @@ function StarRow({ n }: { n: number }) {
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 export default function Home() {
-    const addItem = useCartStore(s => s.addItem)
+    const { data: homeProducts = [], isLoading: homeProductsLoading } = useQuery({
+        queryKey: ['home-products'],
+        queryFn: () => productService.getAll(),
+    })
+    const featuredHomeProducts = homeProducts.filter((item: any) => item.is_featured)
+    const latestProducts = (featuredHomeProducts.length > 0 ? featuredHomeProducts : homeProducts).slice(0, 4)
+    const homeDisplayProducts = latestProducts.map((product: any) => ({
+        id: product.id,
+        name: product.name,
+        slug: product.slug,
+        price: product.price,
+        compare: product.compare_price || Math.round(product.price * 1.15),
+        rating: product.rating || 5,
+        badge: product.category?.name || 'Featured',
+        img: product.thumbnail_url || product.image_url,
+        cat: product.category?.name || 'Sacred Item',
+    }))
 
     return (
         <div style={{ background: '#fdfbf7', fontFamily: 'DM Sans, sans-serif' }}>
@@ -397,7 +415,7 @@ export default function Home() {
                         </p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {PRODUCTS.map((p, i) => (
+                        {(homeProductsLoading ? [] : homeDisplayProducts).map((p, i) => (
                             <motion.div key={p.id} {...rise((i % 4) * 0.07)} className="card group" style={{ padding: 0 }}>
                                 <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
                                     <img src={p.img} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -415,8 +433,8 @@ export default function Home() {
                                         </span>
                                     </div>
                                     <div className="flex gap-2 mt-2">
-                                        <button onClick={() => addItem(p as any)} className="btn-primary flex-1 text-xs py-2.5">Add to Cart</button>
-                                        <Link to={`/product/${p.slug}`} className="btn-outline px-3 py-2.5"><ArrowRight size={16} /></Link>
+                                        <Link to={`/shop/${p.slug}`} className="btn-primary flex-1 text-xs py-2.5" style={{ textDecoration: 'none', justifyContent: 'center' }}>View Product</Link>
+                                        <Link to={`/shop/${p.slug}`} className="btn-outline px-3 py-2.5"><ArrowRight size={16} /></Link>
                                     </div>
                                 </div>
                             </motion.div>

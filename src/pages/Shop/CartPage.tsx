@@ -1,175 +1,306 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
- 
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+
+import { useCallback, useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { ShoppingBag, Trash2, Minus, Plus, ArrowRight } from 'lucide-react'
+import toast from 'react-hot-toast'
+
 import SEOHead from '@/components/SEOHead'
 import api from '@/api/axios'
+import { FALLBACK_PRODUCT_IMAGE, resolveAssetUrl } from '@/utils/assets'
+
+interface CartItemShape {
+  id: number
+  product_id: number
+  quantity: number
+  subtotal: number
+  product: {
+    id: number
+    name: string
+    slug: string
+    price: number
+    compare_price?: number
+    image?: string
+    image_url?: string
+    thumbnail_url?: string
+    category?: { name?: string }
+  }
+}
 
 export default function CartPage() {
-  const [cartData, setCartData] = useState({ items: [], total: 0 })
+  const navigate = useNavigate()
+  const [cartData, setCartData] = useState<{ items: CartItemShape[]; total: number }>({ items: [], total: 0 })
   const [loading, setLoading] = useState(true)
 
-
-  useEffect(() => {
-    const loadCart = async () => {
-      try {
-        const { data } = await api.get('/cart')
-        setCartData(data)
-      } catch (err) {
-        console.error('Cart load failed', err)
-      } finally {
-        setLoading(false)
-      }
-    }
-    loadCart()
-  }, [])
-
-  const handleUpdateQuantity = async (itemId: number, quantity: number) => {
+  const loadCart = useCallback(async () => {
     try {
-      await api.put(`/cart/items/${itemId}`, { quantity })
       const { data } = await api.get('/cart')
       setCartData(data)
-    } catch (err) {
-      console.error('Update failed', err)
+    } catch (err: any) {
+      if (err.response?.status === 401) {
+        toast.error('Please sign in to view your cart.')
+        navigate('/login')
+        return
+      }
+      toast.error(err.response?.data?.detail || 'Unable to load your cart right now.')
+    } finally {
+      setLoading(false)
+    }
+  }, [navigate])
+
+  useEffect(() => {
+    void loadCart()
+  }, [loadCart])
+
+  const handleUpdateQuantity = async (itemId: number, quantity: number) => {
+    if (quantity < 1) {
+      toast.error('Quantity must be at least 1.')
+      return
+    }
+
+    if (quantity > 99) {
+      toast.error('You can add up to 99 units of one item at a time.')
+      return
+    }
+
+    try {
+      await api.put(`/cart/items/${itemId}`, { quantity })
+      await loadCart()
+    } catch (err: any) {
+      if (err.response?.status === 401) {
+        toast.error('Please sign in to update your cart.')
+        navigate('/login')
+        return
+      }
+      toast.error(err.response?.data?.detail || 'Unable to update cart quantity right now.')
     }
   }
 
   const handleRemoveItem = async (itemId: number) => {
     try {
       await api.delete(`/cart/items/${itemId}`)
-      const { data } = await api.get('/cart')
-      setCartData(data)
-    } catch (err) {
-      console.error('Remove failed', err)
+      await loadCart()
+      toast.success('Item removed from cart')
+    } catch (err: any) {
+      if (err.response?.status === 401) {
+        toast.error('Please sign in to update your cart.')
+        navigate('/login')
+        return
+      }
+      toast.error(err.response?.data?.detail || 'Unable to remove this item right now.')
     }
   }
 
-  if (loading) return (
-    <div className="min-h-[60vh] flex flex-center flex-col text-center bg-[#fdf7ed] py-20">
-      <h2 className="text-2xl font-serif text-earth mb-4">Loading Sacred Cart...</h2>
-    </div>
-  )
+  if (loading) {
+    return (
+      <div className="bg-[#fdf7ed] min-h-screen section">
+        <div className="container">
+          <div className="card" style={{ padding: '3rem', textAlign: 'center' }}>
+            Loading your cart...
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   if (cartData.items.length === 0) {
     return (
-      <div className="min-h-[60vh] flex flex-center flex-col text-center bg-[#fdf7ed] py-20">
-        <div className="w-24 h-24 bg-[#faf2e2] rounded-full flex items-center justify-center text-gold mx-auto mb-8">
-          <ShoppingBag size={40} />
+      <div className="bg-[#fdf7ed] min-h-screen section">
+        <SEOHead title="Your Shopping Cart" description="Review your selected sacred items and proceed to secure checkout for your spiritual journey." />
+        <div className="container">
+          <div className="card" style={{
+            maxWidth: '560px',
+            margin: '0 auto',
+            padding: '4rem 2rem',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '1.25rem'
+          }}>
+            <div style={{
+              width: '84px',
+              height: '84px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '2px solid var(--color-gold)',
+              background: 'rgba(250,242,226,0.75)'
+            }}>
+              <ShoppingBag size={38} color="var(--color-saffron)" />
+            </div>
+            <h2 className="font-serif" style={{ fontSize: '2rem', color: 'var(--color-earth)' }}>Your cart is empty</h2>
+            <p style={{ color: 'var(--color-text-muted)', maxWidth: '380px' }}>
+              Add your selected sacred items here and continue to checkout when you are ready.
+            </p>
+            <Link to="/shop" className="btn-primary" style={{ textDecoration: 'none' }}>Start Shopping</Link>
+          </div>
         </div>
-        <h2 className="text-3xl font-serif text-earth mb-4">Your Cart is Empty</h2>
-        <p className="text-muted mb-10 max-w-sm mx-auto">It looks like you haven't added any sacred items to your cart yet.</p>
-        <Link to="/shop" className="btn-primary">Start Shopping</Link>
       </div>
     )
   }
 
   return (
-    <div className="bg-[#fdf7ed] min-h-screen section">
+    <div className="bg-[#fdf7ed] min-h-screen">
       <SEOHead title="Your Shopping Cart" description="Review your selected sacred items and proceed to secure checkout for your spiritual journey." />
-      <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h1 className="font-serif" style={{ fontSize: '3rem', color: 'var(--color-earth)', marginBottom: '1rem' }}>Shopping Cart</h1>
-          <div style={{ width: '60px', height: '3px', background: 'var(--color-gold)', margin: '0 auto' }} />
-        </div>
 
-        <div className="grid lg:grid-cols-[1fr_400px] gap-12 items-start">
-          {/* Cart Items */}
-          <div className="space-y-6">
-            <div className="card overflow-hidden border-0 shadow-2xl" style={{ padding: 0 }}>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead className="bg-[#faf2e2] text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest border-b border-[var(--color-gold)]/10">
-                    <tr>
-                      <th className="px-8 py-5">Product</th>
-                      <th className="px-8 py-5">Price</th>
-                      <th className="px-8 py-5">Quantity</th>
-                      <th className="px-8 py-5 text-right">Subtotal</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[var(--color-gold)]/10">
-                    {cartData.items.map((item: any) => (
-                      <tr key={item.id} className="group hover:bg-[var(--color-bg-secondary)]/50 transition-colors">
-                        <td className="px-8 py-6">
-                          <div className="flex gap-6 items-center">
-                            <div className="w-20 h-20 rounded-2xl overflow-hidden bg-[#faf2e2] flex-shrink-0 border border-[var(--color-gold)]/10 p-1">
-                              <img src={item.product?.image || 'https://manuastro.com/cdn/shop/files/16_FACE_1.jpg?v=1770990686'} className="w-full h-full object-cover rounded-xl" />
-                            </div>
-                            <div>
-                              <Link to={`/shop/${item.product?.slug}`} className="font-serif font-bold text-[var(--color-earth)] hover:text-[var(--color-saffron)] transition-colors block mb-2 text-lg" style={{ textDecoration: 'none' }}>{item.product?.name}</Link>
-                              <button
-                                onClick={() => handleRemoveItem(item.id)}
-                                className="text-[10px] font-bold text-[var(--color-saffron)] uppercase flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity"
-                              >
-                                <Trash2 size={12} /> Remove Item
-                              </button>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-8 py-6 text-[var(--color-earth)] font-bold">₹{item.product?.price?.toLocaleString()}</td>
-                        <td className="px-8 py-6">
-                          <div className="flex items-center bg-[#faf2e2] rounded-xl w-fit p-1 border border-[var(--color-gold)]/10">
-                            <button onClick={() => handleUpdateQuantity(item.id, Math.max(1, item.quantity - 1))} className="w-8 h-8 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-saffron)] transition-colors"><Minus size={14} /></button>
-                            <span className="w-10 text-center text-sm font-bold text-[var(--color-earth)]">{item.quantity}</span>
-                            <button onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)} className="w-8 h-8 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-saffron)] transition-colors"><Plus size={14} /></button>
-                          </div>
-                        </td>
-                        <td className="px-8 py-6 text-right text-[var(--color-earth)] font-bold text-lg">₹{(item.product?.price * item.quantity).toLocaleString()}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <Link to="/shop" className="inline-flex items-center gap-2 text-xs font-bold text-[var(--color-saffron)] uppercase tracking-widest hover:translate-x-1 transition-transform" style={{ textDecoration: 'none' }}>
-              <ArrowRight size={16} className="rotate-180" /> Continue Shopping
-            </Link>
+      <section className="section" style={{ paddingBottom: '2.5rem' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto' }}>
+            <span className="badge-saffron" style={{ marginBottom: '1rem', display: 'inline-block' }}>YOUR ORDER</span>
+            <h1 className="font-serif" style={{ fontSize: '3rem', color: 'var(--color-earth)', marginBottom: '1rem' }}>Shopping Cart</h1>
+            <div style={{ width: '60px', height: '3px', background: 'var(--color-gold)', margin: '0 auto 1rem' }} />
+            <p style={{ color: 'var(--color-text-muted)' }}>
+              Review your items, adjust quantities, and continue to checkout.
+            </p>
           </div>
-
-          {/* Order Summary - Fix 7 */}
-          <aside className="card p-8 sticky top-24 bg-white border-2 border-[var(--color-gold)]/10 shadow-3xl">
-            <h3 className="font-serif text-[var(--color-earth)] mb-8" style={{ fontSize: '1.75rem' }}>Order Summary</h3>
-
-            <div className="space-y-4 mb-8">
-              <div className="flex justify-between text-[var(--color-text-secondary)] font-sans">
-                <span className="text-xs font-bold uppercase tracking-widest">Subtotal</span>
-                <span className="font-bold">₹{cartData.total.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between text-[var(--color-saffron)] font-sans">
-                <span className="text-xs font-bold uppercase tracking-widest">Discount</span>
-                <span className="font-bold">-₹0</span>
-              </div>
-              <div className="flex justify-between text-[var(--color-text-muted)] font-sans items-center">
-                <span className="text-xs font-bold uppercase tracking-widest">Shipping</span>
-                <span className="text-[9px] font-bold uppercase text-forest bg-forest/10 px-2.5 py-1 rounded-full border border-forest/10">Free Shipping</span>
-              </div>
-              <div className="border-t border-[var(--color-gold)]/10 pt-5 mt-5 flex justify-between items-baseline">
-                <span className="font-serif text-[var(--color-earth)] text-xl">Total</span>
-                <span className="font-bold text-[var(--color-gold)] text-3xl">₹{cartData.total.toLocaleString()}</span>
-              </div>
-            </div>
-
-            <div className="mb-8 p-4 bg-[var(--color-bg-secondary)] rounded-2xl border border-[var(--color-gold)]/10">
-              <p className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-3">Apply Coupon</p>
-              <div className="flex gap-2">
-                <input type="text" placeholder="SACRED10" className="flex-1 px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-xl border border-[var(--color-gold)]/10 focus:ring-2 focus:ring-[var(--color-saffron)]/10 outline-none bg-white transition-all shadow-sm" />
-                <button className="bg-[var(--color-earth)] text-white px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-[var(--color-saffron)] transition-all shadow-md">Apply</button>
-              </div>
-            </div>
-
-            <Link to="/checkout" className="btn-primary w-full justify-center py-5 text-sm font-bold uppercase tracking-widest shadow-xl" style={{ textDecoration: 'none' }}>
-              Proceed to Checkout <ArrowRight size={16} className="ml-2" />
-            </Link>
-
-            <div className="mt-8 flex justify-center gap-6 grayscale opacity-30">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" className="h-4" alt="Paypal" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" className="h-4" alt="Visa" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" className="h-4" alt="Mastercard" />
-            </div>
-          </aside>
         </div>
-      </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <div className="grid lg:grid-cols-[minmax(0,1.6fr)_380px]" style={{ gap: '2rem', alignItems: 'start' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              {cartData.items.map((item) => {
+                const product = item.product
+                const imageSource =
+                  resolveAssetUrl(product.image_url) ||
+                  resolveAssetUrl(product.thumbnail_url) ||
+                  resolveAssetUrl(product.image) ||
+                  FALLBACK_PRODUCT_IMAGE
+
+                return (
+                  <article key={item.id} className="card" style={{ padding: '1.25rem', background: 'white' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr auto', gap: '1.25rem', alignItems: 'center' }}>
+                      <Link to={`/shop/${product.slug}`} style={{ display: 'block' }}>
+                        <img
+                          src={imageSource}
+                          alt={product.name}
+                          style={{ width: '120px', height: '120px', objectFit: 'cover', borderRadius: '1rem', background: 'rgba(250,242,226,0.75)' }}
+                        />
+                      </Link>
+
+                      <div>
+                        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.4rem' }}>
+                          {product.category?.name || 'Sacred Item'}
+                        </p>
+                        <Link to={`/shop/${product.slug}`} style={{ textDecoration: 'none' }}>
+                          <h3 className="font-serif" style={{ fontSize: '1.55rem', color: 'var(--color-earth)', marginBottom: '0.65rem' }}>
+                            {product.name}
+                          </h3>
+                        </Link>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+                          <span style={{ color: 'var(--color-saffron)', fontWeight: 700, fontSize: '1.25rem' }}>
+                            {`\u20B9${product.price.toLocaleString('en-IN')}`}
+                          </span>
+                          {product.compare_price && product.compare_price > product.price && (
+                            <span style={{ color: 'var(--color-text-muted)', textDecoration: 'line-through', fontSize: '0.9rem' }}>
+                              {`\u20B9${product.compare_price.toLocaleString('en-IN')}`}
+                            </span>
+                          )}
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(250,242,226,0.9)', border: '1px solid rgba(201,151,42,0.12)', borderRadius: '999px', padding: '0.25rem' }}>
+                            <button onClick={() => handleUpdateQuantity(item.id, Math.max(1, item.quantity - 1))} style={{ width: '34px', height: '34px', borderRadius: '50%', border: 'none', background: 'transparent', color: 'var(--color-saffron)', cursor: 'pointer' }}>
+                              <Minus size={16} />
+                            </button>
+                            <span style={{ minWidth: '2.5rem', textAlign: 'center', fontWeight: 700, color: 'var(--color-earth)' }}>{item.quantity}</span>
+                            <button onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)} style={{ width: '34px', height: '34px', borderRadius: '50%', border: 'none', background: 'transparent', color: 'var(--color-saffron)', cursor: 'pointer' }}>
+                              <Plus size={16} />
+                            </button>
+                          </div>
+                          <button
+                            onClick={() => handleRemoveItem(item.id)}
+                            style={{
+                              border: 'none',
+                              background: 'transparent',
+                              color: 'var(--color-saffron)',
+                              fontSize: '0.8rem',
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.08em',
+                              fontWeight: 700,
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '0.35rem',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            <Trash2 size={14} /> Remove
+                          </button>
+                        </div>
+                      </div>
+
+                      <div style={{ textAlign: 'right' }}>
+                        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.45rem' }}>Subtotal</p>
+                        <div className="font-serif" style={{ fontSize: '1.9rem', color: 'var(--color-earth)' }}>
+                          {`\u20B9${item.subtotal.toLocaleString('en-IN')}`}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                )
+              })}
+
+              <Link to="/shop" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-saffron)', textDecoration: 'none', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: '0.8rem' }}>
+                <ArrowRight size={16} className="rotate-180" /> Continue Shopping
+              </Link>
+            </div>
+
+            <aside className="card" style={{ padding: '1.75rem', background: 'white', position: 'sticky', top: '6.5rem' }}>
+              <h3 className="font-serif" style={{ fontSize: '2rem', color: 'var(--color-earth)', marginBottom: '1.5rem' }}>Order Summary</h3>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-text-secondary)' }}>
+                  <span style={{ textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: '0.8rem', fontWeight: 700 }}>Subtotal</span>
+                  <span style={{ fontWeight: 700 }}>{`\u20B9${cartData.total.toLocaleString('en-IN')}`}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-saffron)' }}>
+                  <span style={{ textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: '0.8rem', fontWeight: 700 }}>Discount</span>
+                  <span style={{ fontWeight: 700 }}>{`\u2212\u20B90`}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--color-text-muted)' }}>
+                  <span style={{ textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: '0.8rem', fontWeight: 700 }}>Shipping</span>
+                  <span style={{ padding: '0.25rem 0.65rem', borderRadius: '999px', background: 'rgba(46,125,50,0.08)', color: '#2e7d32', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase' }}>
+                    Free Shipping
+                  </span>
+                </div>
+                <div style={{ borderTop: '1px solid rgba(201,151,42,0.12)', paddingTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
+                  <span className="font-serif" style={{ fontSize: '1.8rem', color: 'var(--color-earth)' }}>Total</span>
+                  <span style={{ fontSize: '2.6rem', fontWeight: 700, color: 'var(--color-gold)', lineHeight: 1 }}>
+                    {`\u20B9${cartData.total.toLocaleString('en-IN')}`}
+                  </span>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '1.5rem', padding: '1rem', borderRadius: '1rem', border: '1px solid rgba(201,151,42,0.12)', background: 'rgba(250,242,226,0.55)' }}>
+                <p style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--color-earth)', marginBottom: '0.75rem' }}>
+                  Apply Coupon
+                </p>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <input
+                    type="text"
+                    placeholder="SACRED10"
+                    style={{
+                      flex: 1,
+                      borderRadius: '0.85rem',
+                      border: '1px solid rgba(201,151,42,0.12)',
+                      padding: '0.8rem 1rem',
+                      outline: 'none',
+                      background: 'white'
+                    }}
+                  />
+                  <button className="btn-outline" style={{ paddingInline: '1rem' }}>Apply</button>
+                </div>
+              </div>
+
+              <Link to="/checkout" className="btn-primary" style={{ width: '100%', justifyContent: 'center', textDecoration: 'none', paddingBlock: '1rem' }}>
+                Proceed to Checkout <ArrowRight size={16} />
+              </Link>
+            </aside>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

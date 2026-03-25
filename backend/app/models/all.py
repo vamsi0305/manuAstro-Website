@@ -1,63 +1,84 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Boolean, JSON, Index, Text
+from sqlalchemy import Column, Integer, String, Float, Boolean, ForeignKey, Text, DateTime, Enum as SAEnum, JSON
 from sqlalchemy.orm import relationship
-from datetime import datetime
+from sqlalchemy.sql import func
 from app.db.session import Base
+import enum
+
+class DiscountType(enum.Enum):
+    percentage = "percentage"
+    fixed = "fixed"
 
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String)
-    full_name = Column(String)
-    email = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
-    role = Column(String, default="user") # user, admin
+    full_name = Column(String(100))
+    email = Column(String(100), unique=True, index=True)
+    phone = Column(String(20), nullable=True)
+    hashed_password = Column(String(255))
+    is_admin = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    orders = relationship("Order", back_populates="user")
+    cart = relationship("Cart", back_populates="user", uselist=False)
+    wishlist = relationship("Wishlist", back_populates="user")
+    bookings = relationship("Booking", back_populates="user")
 
 class Category(Base):
     __tablename__ = "categories"
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True)
-    slug = Column(String, unique=True)
-    description = Column(String)
+    name = Column(String(100), unique=True)
+    slug = Column(String(100), unique=True)
+    description = Column(Text, nullable=True)
+    image_url = Column(String(500), nullable=True)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    products = relationship("Product", back_populates="category")
 
 class Product(Base):
     __tablename__ = "products"
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String)
-    slug = Column(String, unique=True)
-    description = Column(String)
+    name = Column(String(200))
+    slug = Column(String(200), unique=True, index=True)
+    description = Column(Text, nullable=True)
     price = Column(Float)
     compare_price = Column(Float, nullable=True)
-    thumbnail_url = Column(String)
-    images = Column(JSON) # List of image URLs
-    category_id = Column(Integer, ForeignKey("categories.id"))
+    discount_type = Column(SAEnum(DiscountType), nullable=True)
+    discount_value = Column(Float, nullable=True)
     stock = Column(Integer, default=0)
-    rating = Column(Float, default=4.5)
-    reviews_count = Column(Integer, default=0)
+    thumbnail_url = Column(String(500), nullable=True)
+    image_url = Column(String(500), nullable=True)
+    images = Column(JSON, default=list)
+    category_id = Column(Integer, ForeignKey("categories.id"), nullable=True)
+    is_active = Column(Boolean, default=True)
     is_featured = Column(Boolean, default=False)
-    category = relationship("Category")
-    __table_args__ = (
-        Index('ix_products_slug', 'slug'),
-        Index('ix_products_category_id', 'category_id'),
-        Index('ix_products_is_featured', 'is_featured'),
-    )
+    rating = Column(Float, default=0.0)
+    reviews_count = Column(Integer, default=0)
+    weight = Column(String(50), nullable=True)
+    dimensions = Column(String(100), nullable=True)
+    material = Column(String(100), nullable=True)
+    origin = Column(String(100), nullable=True)
+    sku = Column(String(100), nullable=True, unique=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    category = relationship("Category", back_populates="products")
+    order_items = relationship("OrderItem", back_populates="product")
+    cart_items = relationship("CartItem", back_populates="product")
+    wishlist_items = relationship("Wishlist", back_populates="product")
 
 class Order(Base):
     __tablename__ = "orders"
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
-    total_amount = Column(Float)
-    status = Column(String, default="pending") # pending, processing, shipped, delivered, cancelled
-    shipping_address = Column(JSON)
-    payment_method = Column(String)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    user = relationship("User")
+    status = Column(String(50), default="pending")
+    total = Column(Float)
+    shipping_address = Column(JSON, nullable=True)
+    payment_method = Column(String(50), nullable=True)
+    payment_status = Column(String(50), default="pending")
+    notes = Column(Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    user = relationship("User", back_populates="orders")
     items = relationship("OrderItem", back_populates="order")
-    __table_args__ = (
-        Index('ix_orders_user_id', 'user_id'),
-        Index('ix_orders_status', 'status'),
-    )
 
 class OrderItem(Base):
     __tablename__ = "order_items"
@@ -65,87 +86,82 @@ class OrderItem(Base):
     order_id = Column(Integer, ForeignKey("orders.id"))
     product_id = Column(Integer, ForeignKey("products.id"))
     quantity = Column(Integer)
-    price_at_purchase = Column(Float)
+    price = Column(Float)
     order = relationship("Order", back_populates="items")
-    product = relationship("Product")
+    product = relationship("Product", back_populates="order_items")
 
 class Cart(Base):
     __tablename__ = "carts"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), unique=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    items = relationship("CartItem", back_populates="cart", cascade="all, delete")
-    user = relationship("User")
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    user = relationship("User", back_populates="cart")
+    items = relationship("CartItem", back_populates="cart")
 
 class CartItem(Base):
     __tablename__ = "cart_items"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
     cart_id = Column(Integer, ForeignKey("carts.id"))
-    product_id = Column(Integer, ForeignKey("products.id"))
+    product_id = Column(ForeignKey("products.id"))
     quantity = Column(Integer, default=1)
     cart = relationship("Cart", back_populates="items")
-    product = relationship("Product")
+    product = relationship("Product", back_populates="cart_items")
 
 class Wishlist(Base):
     __tablename__ = "wishlists"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     product_id = Column(Integer, ForeignKey("products.id"))
-    created_at = Column(DateTime, default=datetime.utcnow)
-    product = relationship("Product")
-    __table_args__ = (Index('ix_wishlist_user_product', 'user_id', 'product_id'),)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    user = relationship("User", back_populates="wishlist")
+    product = relationship("Product", back_populates="wishlist_items")
 
 class Booking(Base):
     __tablename__ = "bookings"
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
-    service_type = Column(String)
-    name = Column(String)
-    email = Column(String)
-    phone = Column(String)
-    date = Column(String)
-    time_slot = Column(String)
-    message = Column(String, nullable=True)
-    status = Column(String, default="pending")
-    created_at = Column(DateTime, default=datetime.utcnow)
-    __table_args__ = (Index('ix_bookings_status', 'status'),)
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    service_type = Column(String(100))
+    date = Column(String(50))
+    time_slot = Column(String(50))
+    status = Column(String(50), default="pending")
+    notes = Column(Text, nullable=True)
+    amount = Column(Float, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    user = relationship("User", back_populates="bookings")
 
 class Blog(Base):
     __tablename__ = "blogs"
-    id = Column(Integer, primary_key=True)
-    title = Column(String)
-    slug = Column(String, unique=True)
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(200))
+    slug = Column(String(200), unique=True)
     content = Column(Text)
-    excerpt = Column(String)
-    image_url = Column(String)
-    author = Column(String, default="Er. Manu Gupta")
-    tags = Column(String, nullable=True)
-    published = Column(Boolean, default=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    __table_args__ = (
-        Index('ix_blogs_slug', 'slug'),
-        Index('ix_blogs_published', 'published'),
-    )
+    excerpt = Column(Text, nullable=True)
+    image_url = Column(String(500), nullable=True)
+    author = Column(String(100), default="Er. Manu Gupta")
+    is_published = Column(Boolean, default=True)
+    tags = Column(JSON, default=list)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
 class ContactSubmission(Base):
     __tablename__ = "contact_submissions"
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    email = Column(String)
-    phone = Column(String, nullable=True)
-    subject = Column(String, nullable=True)
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(100))
+    email = Column(String(100))
+    phone = Column(String(20), nullable=True)
     message = Column(Text)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    is_read = Column(Boolean, default=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 class Coupon(Base):
     __tablename__ = "coupons"
-    id = Column(Integer, primary_key=True)
-    code = Column(String, unique=True)
-    discount_type = Column(String)
+    id = Column(Integer, primary_key=True, index=True)
+    code = Column(String(50), unique=True)
+    discount_type = Column(SAEnum(DiscountType))
     discount_value = Column(Float)
-    min_order = Column(Float, default=0)
-    max_uses = Column(Integer, default=100)
+    min_order_amount = Column(Float, default=0)
+    max_uses = Column(Integer, nullable=True)
     used_count = Column(Integer, default=0)
-    active = Column(Boolean, default=True)
-    expires_at = Column(DateTime, nullable=True)
-
+    is_active = Column(Boolean, default=True)
+    expiry_date = Column(DateTime(timezone=True), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())

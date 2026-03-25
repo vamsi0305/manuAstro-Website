@@ -1,13 +1,11 @@
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1'
-
-console.log('API URL:', API_URL) // remove after testing
+const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api/v1'
 
 const api = axios.create({
     baseURL: API_URL,
-    withCredentials: false,  // disabled for simplified CORS compatibility
+    withCredentials: true,  // Enable for cookie-based auth
     headers: {
         'Content-Type': 'application/json',
     },
@@ -43,14 +41,14 @@ api.interceptors.response.use(
                 const response = await axios.post(
                     `${API_URL}/auth/refresh`,
                     {},
-                    { withCredentials: false }
+                    { withCredentials: true }
                 )
-                
+
                 // If refresh returns a new token in body, save it
                 if (response.data?.access_token) {
                     localStorage.setItem('access_token', response.data.access_token)
                 }
-                
+
                 // Retry original request
                 return api(originalRequest)
             } catch (refreshError) {

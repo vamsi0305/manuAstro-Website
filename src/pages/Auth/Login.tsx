@@ -1,36 +1,53 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import SEOHead from '@/components/SEOHead'
 import { motion } from 'framer-motion'
-import { Mail, Lock, LogIn } from 'lucide-react'
-import { useAuthStore } from '@/stores/authStore'
-import { authService } from '@/api/services/auth.service'
 import toast from 'react-hot-toast'
+
+import SEOHead from '@/components/SEOHead'
+import { useAuthStore } from '@/stores/authStore'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const login = useAuthStore(s => s.login)
+  const [error, setError] = useState('')
+  const { login } = useAuthStore()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    const normalizedEmail = email.trim().toLowerCase()
+
+    if (!normalizedEmail) {
+      setError('Email is required')
+      toast.error('Please enter your email address.')
+      return
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+      setError('Enter a valid email address')
+      toast.error('Please enter a valid email address.')
+      return
+    }
+
+    if (!password.trim()) {
+      setError('Password is required')
+      toast.error('Please enter your password.')
+      return
+    }
+
     setLoading(true)
+    setError('')
+
     try {
-      await login(email.trim().toLowerCase(), password)
+      const data = await login(normalizedEmail, password)
       toast.success('Pranam! Welcome back.')
-      navigate('/dashboard')
+      navigate(data.user?.is_admin ? '/admin' : '/dashboard', { replace: true })
     } catch (err: any) {
-      if (err.response?.status === 401) {
-        toast.error('Invalid email or password')
-      } else if (err.response?.status === 422) {
-        toast.error('Please check your email and password format')
-      } else {
-        toast.error('Login failed. Please try again.')
-      }
+      const message = err?.response?.data?.detail || 'Invalid email or password'
+      setError(message)
+      toast.error(message)
     } finally {
       setLoading(false)
     }
@@ -70,7 +87,7 @@ export default function Login() {
             margin: '0 auto 1rem',
             fontSize: '1.8rem',
             color: 'var(--color-saffron)'
-          }}>ॐ</div>
+          }}>OM</div>
           <h1 className="font-serif" style={{
             fontSize: '2rem',
             color: 'var(--color-earth)'
@@ -105,6 +122,7 @@ export default function Login() {
                 outline: 'none'
               }}
               placeholder="you@example.com"
+              autoComplete="email"
               required
             />
           </div>
@@ -132,10 +150,21 @@ export default function Login() {
                 fontSize: '0.95rem',
                 outline: 'none'
               }}
-              placeholder="••••••••"
+              placeholder="********"
+              autoComplete="current-password"
               required
             />
           </div>
+
+          {error && (
+            <p style={{
+              color: '#b42318',
+              fontSize: '0.875rem',
+              marginTop: '-0.25rem'
+            }}>
+              {error}
+            </p>
+          )}
 
           <div style={{ marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <button

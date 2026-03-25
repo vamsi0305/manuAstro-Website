@@ -1,5 +1,5 @@
- 
- 
+
+
 /* eslint-disable react-hooks/static-components */
 import { useState, useRef, useEffect } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
@@ -66,9 +66,21 @@ export default function Navbar() {
     const [searchOpen, setSearchOpen] = useState(false)
     const [query, setQuery] = useState('')
     const [scrolled, setScrolled] = useState(false)
+    const [hydrated, setHydrated] = useState(false)
 
     const cartCount = useCartStore(s => s.items.reduce((n, i) => n + i.quantity, 0))
-    const { user, isAuthenticated } = useAuthStore()
+    const { user, isAuthenticated, restoreAuth } = useAuthStore()
+    const accountHref = user?.is_admin ? '/admin' : '/dashboard'
+    const accountLabel = user?.is_admin
+        ? 'Admin'
+        : user?.full_name?.split(' ')[0] || user?.name?.split(' ')[0] || 'Account'
+
+    useEffect(() => {
+        restoreAuth()
+        const timer = window.setTimeout(() => setHydrated(true), 0)
+        return () => window.clearTimeout(timer)
+    }, [restoreAuth])
+
     const navigate = useNavigate()
     const navRef = useRef<HTMLDivElement>(null)
     const searchRef = useRef<HTMLInputElement>(null)
@@ -258,18 +270,25 @@ export default function Navbar() {
                             )}
                         </button>
 
-                        {isAuthenticated ? (
-                            <Link to="/dashboard"
+                        {/* Account Button - Show based on localStorage token */}
+                        {hydrated && isAuthenticated ? (
+                            <Link to={accountHref}
                                 className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-colors"
                                 style={{ background: 'rgba(199,69,0,0.07)', color: '#c74500', fontFamily: 'DM Sans, sans-serif' }}>
-                                <User size={13} /> {user?.name?.split(' ')[0] || 'Account'}
+                                <User size={13} /> {accountLabel}
                             </Link>
-                        ) : (
+                        ) : hydrated ? (
                             <Link to="/login"
                                 className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-[12px] font-semibold text-white transition-all"
                                 style={{ background: 'linear-gradient(135deg,#c74500,#e07a10)', fontFamily: 'DM Sans, sans-serif', boxShadow: '0 2px 10px rgba(199,69,0,0.22)' }}>
                                 Sign In
                             </Link>
+                        ) : (
+                            /* Show loading state while hydrating */
+                            <div className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-lg text-[12px] font-semibold"
+                                style={{ background: 'rgba(199,69,0,0.07)', color: '#c74500', fontFamily: 'DM Sans, sans-serif' }}>
+                                <User size={13} /> Loading...
+                            </div>
                         )}
 
                         {/* Mobile burger */}

@@ -5,15 +5,21 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from datetime import datetime
 import os
+import sys
+import mimetypes
 import uvicorn
 
+# Add backend directory to path for proper imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from app.api.v1.endpoints import (
-    auth, products, orders, cart, wishlist, 
+    auth, products, orders, cart, wishlist,
     bookings, blogs, contact, coupons, admin
 )
-from app.db.session import get_db
+from app.db.session import get_db, Base, engine
 
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
@@ -37,9 +43,16 @@ from app.utils.logger import logger
 
 app = FastAPI(title="ManuAstro API", version="1.0.0")
 
+# Some Windows environments do not register .webp by default. Without this,
+# uploaded product images can be served as text/plain and fail under nosniff.
+mimetypes.add_type("image/webp", ".webp")
+
 # Rate limiter
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+os.makedirs("static/uploads", exist_ok=True)
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # ── Security Headers Middleware ───────────────────────────────────────────────
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
@@ -73,10 +86,21 @@ app.add_middleware(ErrorLoggingMiddleware)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # ── CORS ──────────────────────────────────────────────────────────────────────
+origins = [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:5174",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:5175",
+    "http://127.0.0.1:5175",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=".*",
-    allow_credentials=False,
+    allow_origins=origins,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -91,7 +115,7 @@ app.include_router(bookings.router, prefix="/api/v1", tags=["bookings"])
 app.include_router(blogs.router, prefix="/api/v1", tags=["blogs"])
 app.include_router(contact.router, prefix="/api/v1", tags=["contact"])
 app.include_router(coupons.router, prefix="/api/v1", tags=["coupons"])
-app.include_router(admin.router, prefix="/api/v1", tags=["admin"])
+app.include_router(admin.router, prefix="/api/v1/admin", tags=["admin"])
 
 @app.api_route("/", methods=["GET", "HEAD"])
 async def root():

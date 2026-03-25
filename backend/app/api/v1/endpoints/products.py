@@ -5,6 +5,7 @@ from app.db.session import get_db
 from app.models.all import Product, Category
 from app.schemas.all import ProductSchema, CategorySchema
 from app.utils.cache import products_cache, categories_cache, invalidate_products_cache
+from app.utils.catalog import ensure_default_categories
 
 router = APIRouter()
 
@@ -39,8 +40,8 @@ def get_product_by_slug(slug: str, db: Session = Depends(get_db)):
 def get_categories(db: Session = Depends(get_db)):
     if "all_categories" in categories_cache:
         return categories_cache["all_categories"]
-        
-    result = db.query(Category).all()
+
+    result = ensure_default_categories(db)
     categories_cache["all_categories"] = result
     return result
 

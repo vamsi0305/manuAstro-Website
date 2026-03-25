@@ -1,6 +1,5 @@
 import { Navigate, useRoutes, type RouteObject } from 'react-router-dom'
-import { lazy, Suspense, useEffect, useState } from 'react'
-import { useAuthStore } from '@/stores/authStore'
+import { Suspense, lazy } from 'react'
 
 // Lazy-loaded pages
 const Home = lazy(() => import('@/pages/Home'))
@@ -52,34 +51,7 @@ const Loading = () => (
     </div>
 )
 
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-    const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 100)
-        return () => clearTimeout(timer)
-    }, [])
-
-    if (isLoading) return null
-    if (!isAuthenticated) return <Navigate to="/login" replace />
-    return <>{children}</>
-}
-
-function AdminRoute({ children }: { children: React.ReactNode }) {
-    const { isAuthenticated, user } = useAuthStore()
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 100)
-        return () => clearTimeout(timer)
-    }, [])
-
-    if (isLoading) return null
-    if (!isAuthenticated) return <Navigate to="/login" replace />
-    if (user?.role !== 'admin') return <Navigate to="/" replace />
-    return <>{children}</>
-}
+import { ProtectedRoute, AdminRoute } from '@/components/ProtectedRoute'
 
 function S({ children }: { children: React.ReactNode }) {
     return <Suspense fallback={<Loading />}>{children}</Suspense>
@@ -111,6 +83,7 @@ const routes: RouteObject[] = [
         element: <ProtectedRoute><S><CheckoutPage /></S></ProtectedRoute>,
     },
     { path: '/horoscope', element: <S><Horoscope /></S> },
+    { path: '/blogs', element: <S><BlogList /></S> },
     { path: '/blog', element: <S><BlogList /></S> },
     { path: '/blog/:slug', element: <S><BlogDetail /></S> },
     { path: '/gallery', element: <S><Gallery /></S> },

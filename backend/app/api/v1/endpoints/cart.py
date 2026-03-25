@@ -33,7 +33,14 @@ def get_cart(current_user=Depends(get_current_user), db: Session = Depends(get_d
                 "name": product.name,
                 "slug": product.slug,
                 "price": product.price,
-                "image": product.thumbnail_url
+                "compare_price": product.compare_price,
+                "image": product.thumbnail_url or product.image_url,
+                "thumbnail_url": product.thumbnail_url,
+                "image_url": product.image_url,
+                "images": product.images or [],
+                "category": {
+                    "name": product.category.name
+                } if product.category else None
             },
             "subtotal": item.quantity * product.price
         }

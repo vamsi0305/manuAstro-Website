@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import SEOHead from '@/components/SEOHead'
 import { motion } from 'framer-motion'
-import { Mail, Lock, User, Phone, CheckCircle } from 'lucide-react'
+import toast from 'react-hot-toast'
+
+import SEOHead from '@/components/SEOHead'
 import { authService } from '@/api/services/auth.service'
 import { useAuthStore } from '@/stores/authStore'
-import toast from 'react-hot-toast'
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -18,29 +17,51 @@ export default function Register() {
     confirmPassword: ''
   })
   const [loading, setLoading] = useState(false)
-  const login = useAuthStore(s => s.login)
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (formData.password !== formData.confirmPassword) {
-      return toast.error("Passwords do not match!")
+    const normalizedName = formData.name.trim()
+    const normalizedEmail = formData.email.trim().toLowerCase()
+    const normalizedPhone = formData.phone.replace(/\D/g, '')
+
+    if (normalizedName.length < 2) {
+      toast.error('Please enter your full name.')
+      return
     }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+      toast.error('Please enter a valid email address.')
+      return
+    }
+
+    if (normalizedPhone.length < 10 || normalizedPhone.length > 15) {
+      toast.error('Please enter a valid phone number.')
+      return
+    }
+
+    if (formData.password.length < 6) {
+      toast.error('Password must be at least 6 characters long.')
+      return
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      return toast.error('Passwords do not match!')
+    }
+
     setLoading(true)
     try {
       const payload = {
-        full_name: formData.name,
-        email: formData.email.trim().toLowerCase(),
-        phone: formData.phone,
+        full_name: normalizedName,
+        email: normalizedEmail,
+        phone: normalizedPhone,
         password: formData.password
       }
       const response = await authService.register(payload)
-      
-      // Use setAuth since we already have the tokens from registration
-      const setAuth = useAuthStore.getState().setAuth
-      setAuth(response.user, response.access_token, response.access_token)
+
+      useAuthStore.getState().setAuth(response.user, response.access_token, response.refresh_token)
       toast.success('Welcome to the ManuAstro Family!')
-      navigate('/dashboard')
+      navigate(response.user?.is_admin ? '/admin' : '/dashboard', { replace: true })
     } catch (err: any) {
       const message = err.response?.data?.detail || 'Registration failed. Please try again.'
       toast.error(typeof message === 'string' ? message : 'Invalid registration data')
@@ -83,7 +104,7 @@ export default function Register() {
             margin: '0 auto 1rem',
             fontSize: '1.8rem',
             color: 'var(--color-saffron)'
-          }}>ॐ</div>
+          }}>OM</div>
           <h1 className="font-serif" style={{
             fontSize: '2rem',
             color: 'var(--color-earth)'
@@ -96,7 +117,6 @@ export default function Register() {
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-
           <div style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
@@ -124,6 +144,7 @@ export default function Register() {
                   outline: 'none'
                 }}
                 placeholder="John Doe"
+                autoComplete="name"
                 required
               />
             </div>
@@ -150,6 +171,7 @@ export default function Register() {
                   outline: 'none'
                 }}
                 placeholder="you@example.com"
+                autoComplete="email"
                 required
               />
             </div>
@@ -176,6 +198,8 @@ export default function Register() {
                   outline: 'none'
                 }}
                 placeholder="+91 XXXXX XXXXX"
+                inputMode="tel"
+                autoComplete="tel"
                 required
               />
             </div>
@@ -201,7 +225,8 @@ export default function Register() {
                   fontSize: '0.95rem',
                   outline: 'none'
                 }}
-                placeholder="••••••••"
+                placeholder="********"
+                autoComplete="new-password"
                 required
               />
             </div>
@@ -228,7 +253,8 @@ export default function Register() {
                 fontSize: '0.95rem',
                 outline: 'none'
               }}
-              placeholder="••••••••"
+              placeholder="********"
+              autoComplete="new-password"
               required
             />
           </div>

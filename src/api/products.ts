@@ -18,7 +18,7 @@ export const productsApi = {
         apiClient.get<ApiResponse<Product[]>>('/products/featured'),
 
     getBySlug: (slug: string) =>
-        apiClient.get<ApiResponse<Product>>(`/products/${slug}`),
+        apiClient.get<ApiResponse<Product>>(`/products/slug/${slug}`),
 
     create: (data: FormData) =>
         apiClient.post<ApiResponse<Product>>('/products/', data, {

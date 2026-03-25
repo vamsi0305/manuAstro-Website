@@ -11,3 +11,7 @@ def invalidate_products_cache():
 
 def invalidate_blogs_cache():
     blogs_cache.clear()
+
+
+def invalidate_categories_cache():
+    categories_cache.clear()

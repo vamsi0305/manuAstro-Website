@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, MessageCircle, ChevronDown, CheckCircle, AlertCircle } from 'lucide-react'
+import toast from 'react-hot-toast'
 import SEOHead from '@/components/SEOHead'
 import api from '@/api/axios'
 
@@ -26,14 +27,52 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim().toLowerCase(),
+      phone: formData.phone.replace(/\D/g, ''),
+      message: formData.message.trim()
+    }
+
+    if (payload.name.length < 2) {
+      setStatus('error')
+      setErrorMsg('Please enter your full name.')
+      toast.error('Please enter your full name.')
+      return
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+      setStatus('error')
+      setErrorMsg('Please enter a valid email address.')
+      toast.error('Please enter a valid email address.')
+      return
+    }
+
+    if (payload.phone.length < 10 || payload.phone.length > 15) {
+      setStatus('error')
+      setErrorMsg('Please enter a valid phone number.')
+      toast.error('Please enter a valid phone number.')
+      return
+    }
+
+    if (payload.message.length < 10) {
+      setStatus('error')
+      setErrorMsg('Please enter a slightly more detailed message.')
+      toast.error('Please enter at least 10 characters in your message.')
+      return
+    }
+
     setStatus('loading')
+    setErrorMsg('')
     try {
-      await api.post('/contact', formData)
+      await api.post('/contact', payload)
       setStatus('success')
       setFormData({ name: '', email: '', phone: '', message: '' })
+      toast.success('Your message has been sent successfully.')
     } catch (err: any) {
       setStatus('error')
       setErrorMsg(err.response?.data?.detail || 'Something went wrong. Please try again.')
+      toast.error(err.response?.data?.detail || 'Something went wrong. Please try again.')
     }
   }
 

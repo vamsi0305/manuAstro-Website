@@ -1,24 +1,24 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface User {
     id: string
-    name: string
+    name?: string
     full_name?: string
     email: string
     phone?: string
     dob?: string
     birth_time?: string
     birth_place?: string
-    role: 'user' | 'admin'
+    role?: 'user' | 'admin'
     is_admin?: boolean
     avatar_url?: string
-    is_active: boolean
-    created_at: string
+    is_active?: boolean
+    created_at?: string
 }
 
 export interface AuthResponse {
     user: User
     access_token: string
-    refresh_token: string
+    refresh_token?: string
 }
 
 export interface LoginRequest {

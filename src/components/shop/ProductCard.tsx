@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
- 
- 
-import { useState, useEffect } from 'react'
+
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Heart, ShoppingCart, Star } from 'lucide-react'
 import { motion } from 'framer-motion'
+import toast from 'react-hot-toast'
+
 import api from '@/api/axios'
+import { FALLBACK_PRODUCT_IMAGE, resolveAssetUrl } from '@/utils/assets'
 
 interface ProductProps {
     product: {
@@ -14,9 +16,8 @@ interface ProductProps {
         slug: string
         price: number
         compare_price?: number
-        image_url?: string        // ← backend field
-        thumbnail_url?: string    // ← keep for compatibility
-        fallback_url?: string
+        image_url?: string
+        thumbnail_url?: string
         rating?: number
         badge?: string
         planet?: string
@@ -29,52 +30,91 @@ export default function ProductCard({ product }: ProductProps) {
     const navigate = useNavigate()
     const [isWishlisted, setIsWishlisted] = useState(false)
     const [adding, setAdding] = useState(false)
+    const [wishlistUpdating, setWishlistUpdating] = useState(false)
     const [imgError, setImgError] = useState(false)
+    const hasAuthToken = Boolean(localStorage.getItem('access_token'))
+    const idNum = Number(product.id)
+    const isPurchasable = !isNaN(idNum) && Number.isInteger(idNum)
 
-    // Use image_url from backend, fallback to thumbnail_url, then fallback image
     const imageSource = imgError
-        ? 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311'
-        : (product.image_url || product.thumbnail_url || 'https://manuastro.com/cdn/shop/files/new_astro.png?v=1766604311')
+        ? FALLBACK_PRODUCT_IMAGE
+        : (resolveAssetUrl(product.image_url) || resolveAssetUrl(product.thumbnail_url) || FALLBACK_PRODUCT_IMAGE)
 
     useEffect(() => {
-        // Only check wishlist if product.id is a valid integer (backend requirement)
-        // Mock IDs like 'g1', 'g2' will be skipped to avoid 422 errors
-        const idNum = Number(product.id)
-        if (!isNaN(idNum) && Number.isInteger(idNum)) {
+        const wishlistProductId = Number(product.id)
+        if (hasAuthToken && !isNaN(wishlistProductId) && Number.isInteger(wishlistProductId)) {
             api.get(`/wishlist/check/${product.id}`)
                 .then(({ data }) => setIsWishlisted(data.is_wishlisted))
-                .catch(() => { })
+                .catch(() => {})
         }
-    }, [product.id])
+    }, [hasAuthToken, product.id])
 
     const handleWishlistToggle = async (e: React.MouseEvent) => {
         e.preventDefault()
         e.stopPropagation()
-        const idNum = Number(product.id)
-        if (isNaN(idNum) || !Number.isInteger(idNum)) return
+
+        if (!isPurchasable) {
+            toast('This catalog item will be available for wishlist soon.')
+            navigate(`/shop/${product.slug}`)
+            return
+        }
+
+        if (!hasAuthToken) {
+            toast.error('Please sign in to save items to your wishlist.')
+            navigate('/login')
+            return
+        }
+
         try {
+            setWishlistUpdating(true)
             if (isWishlisted) {
                 await api.delete(`/wishlist/${product.id}`)
                 setIsWishlisted(false)
+                toast.success('Removed from wishlist')
             } else {
                 await api.post('/wishlist', { product_id: product.id })
                 setIsWishlisted(true)
+                toast.success('Saved to wishlist')
             }
         } catch (err: any) {
-            if (err.response?.status === 401) navigate('/login')
+            if (err.response?.status === 401) {
+                toast.error('Please sign in to save items to your wishlist.')
+                navigate('/login')
+                return
+            }
+            toast.error(err.response?.data?.detail || 'Unable to update wishlist right now.')
+        } finally {
+            setWishlistUpdating(false)
         }
     }
 
     const handleAddToCart = async (e: React.MouseEvent) => {
         e.preventDefault()
         e.stopPropagation()
-        const idNum = Number(product.id)
-        if (isNaN(idNum) || !Number.isInteger(idNum)) return
+
+        if (!isPurchasable) {
+            toast('This catalog item is being synced. Please open the product page for details.')
+            navigate(`/shop/${product.slug}`)
+            return
+        }
+
+        if (!hasAuthToken) {
+            toast.error('Please sign in to add items to your cart.')
+            navigate('/login')
+            return
+        }
+
         setAdding(true)
         try {
             await api.post('/cart/items', { product_id: product.id, quantity: 1 })
+            toast.success(`${product.name} added to cart`)
         } catch (err: any) {
-            if (err.response?.status === 401) navigate('/login')
+            if (err.response?.status === 401) {
+                toast.error('Please sign in to add items to your cart.')
+                navigate('/login')
+                return
+            }
+            toast.error(err.response?.data?.detail || 'Unable to add this item to your cart right now.')
         } finally {
             setAdding(false)
         }
@@ -111,7 +151,6 @@ export default function ProductCard({ product }: ProductProps) {
                         onError={() => setImgError(true)}
                     />
 
-                    {/* Category badge top-left */}
                     {(product.badge || product.category?.name || product.planet) && (
                         <span style={{
                             position: 'absolute', top: '0.75rem', left: '0.75rem',
@@ -125,10 +164,9 @@ export default function ProductCard({ product }: ProductProps) {
                         </span>
                     )}
 
-                    {/* Featured badge */}
                     {product.is_featured && (
                         <span style={{
-                            position: 'absolute', top: '0.75rem', left: '0.75rem',
+                            position: 'absolute', bottom: '0.75rem', left: '0.75rem',
                             background: 'var(--color-gold)', color: 'white',
                             fontSize: '0.65rem', fontWeight: 700,
                             padding: '0.2rem 0.6rem', borderRadius: '1rem',
@@ -139,9 +177,9 @@ export default function ProductCard({ product }: ProductProps) {
                         </span>
                     )}
 
-                    {/* Wishlist heart top-right */}
                     <button
                         onClick={handleWishlistToggle}
+                        disabled={wishlistUpdating}
                         style={{
                             position: 'absolute', top: '0.75rem', right: '0.75rem',
                             width: '34px', height: '34px', borderRadius: '50%',
@@ -151,55 +189,61 @@ export default function ProductCard({ product }: ProductProps) {
                             justifyContent: 'center', cursor: 'pointer',
                             color: isWishlisted ? 'var(--color-saffron)' : 'var(--color-text-muted)',
                             transition: 'all 0.2s',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
-                        }}>
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                            opacity: wishlistUpdating ? 0.75 : 1
+                        }}
+                    >
                         <Heart size={15} fill={isWishlisted ? 'currentColor' : 'none'} />
                     </button>
 
-                    {/* Hover overlay */}
-                    <div style={{
-                        position: 'absolute', inset: 0,
-                        background: 'rgba(0,0,0,0.04)',
-                        opacity: 0,
-                        transition: 'opacity 0.2s'
-                    }} className="group-hover:opacity-100" />
+                    <div
+                        style={{
+                            position: 'absolute', inset: 0,
+                            background: 'rgba(0,0,0,0.04)',
+                            opacity: 0,
+                            transition: 'opacity 0.2s'
+                        }}
+                        className="group-hover:opacity-100"
+                    />
                 </div>
             </Link>
 
             <div style={{ padding: '1.25rem' }}>
-                <Link to={`/shop/${product.slug}`}>
-                    <h3 style={{
-                        fontFamily: 'var(--font-serif)',
-                        fontSize: '1rem',
-                        marginBottom: '0.5rem',
-                        color: 'var(--color-earth)',
-                        lineHeight: 1.3,
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden',
-                        transition: 'color 0.2s'
-                    }} className="group-hover:text-[var(--color-saffron)]">
+                <Link to={`/shop/${product.slug}`} style={{ textDecoration: 'none' }}>
+                    <h3
+                        style={{
+                            fontFamily: 'var(--font-serif)',
+                            fontSize: '1rem',
+                            marginBottom: '0.5rem',
+                            color: 'var(--color-earth)',
+                            lineHeight: 1.3,
+                            display: '-webkit-box',
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                            transition: 'color 0.2s'
+                        }}
+                        className="group-hover:text-[var(--color-saffron)]"
+                    >
                         {product.name}
                     </h3>
                 </Link>
 
-                {/* Stars */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.875rem' }}>
                     <div style={{ display: 'flex', color: 'var(--color-gold)' }}>
                         {[...Array(5)].map((_, i) => (
-                            <Star key={i} size={13}
-                                fill={i < (product.rating || 5) ? 'currentColor' : 'none'} />
+                            <Star key={i} size={13} fill={i < (product.rating || 5) ? 'currentColor' : 'none'} />
                         ))}
                     </div>
                     <span style={{
                         fontSize: '0.72rem',
                         color: 'var(--color-text-muted)',
                         fontFamily: 'var(--font-accent)'
-                    }}>({product.rating || 5}.0)</span>
+                    }}>
+                        ({product.rating || 5}.0)
+                    </span>
                 </div>
 
-                {/* Price + Add to Cart */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem' }}>
                     <div>
                         <div style={{
@@ -208,15 +252,15 @@ export default function ProductCard({ product }: ProductProps) {
                             color: 'var(--color-gold)',
                             fontFamily: 'var(--font-serif)'
                         }}>
-                            ₹{product.price.toLocaleString('en-IN')}
+                            {`\u20B9${product.price.toLocaleString('en-IN')}`}
                         </div>
-                        {product.compare_price && (
+                        {product.compare_price && product.compare_price > product.price && (
                             <div style={{
                                 fontSize: '0.75rem',
                                 color: 'var(--color-text-muted)',
                                 textDecoration: 'line-through'
                             }}>
-                                ₹{product.compare_price.toLocaleString('en-IN')}
+                                {`\u20B9${product.compare_price.toLocaleString('en-IN')}`}
                             </div>
                         )}
                     </div>
@@ -232,7 +276,8 @@ export default function ProductCard({ product }: ProductProps) {
                             alignItems: 'center',
                             gap: '0.4rem',
                             whiteSpace: 'nowrap'
-                        }}>
+                        }}
+                    >
                         <ShoppingCart size={13} />
                         {adding ? 'Adding...' : 'Add to Cart'}
                     </button>

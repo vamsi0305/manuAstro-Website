@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
@@ -6,6 +7,7 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import CartSidebar from '@/components/cart/CartSidebar'
 import CookieBanner from '@/components/CookieBanner'
+import { useAuthStore } from '@/stores/authStore'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,6 +20,12 @@ const queryClient = new QueryClient({
 })
 
 export default function App() {
+  const restoreAuth = useAuthStore((state) => state.restoreAuth)
+
+  useEffect(() => {
+    restoreAuth()
+  }, [restoreAuth])
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>

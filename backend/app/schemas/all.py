@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from typing import List, Optional
 from datetime import datetime
 
@@ -25,12 +25,13 @@ class Token(BaseModel):
 class ProductBase(BaseModel):
     name: str
     slug: str
-    description: str
+    description: Optional[str] = None
     price: float
     compare_price: Optional[float] = None
-    thumbnail_url: str
-    images: List[str]
-    category_id: int
+    thumbnail_url: Optional[str] = None
+    image_url: Optional[str] = None
+    images: List[str] = Field(default_factory=list)
+    category_id: Optional[int] = None
     stock: int
 
 class ProductSchema(ProductBase):

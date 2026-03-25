@@ -29,7 +29,14 @@ def get_wishlist(
             "name": item.product.name,
             "slug": item.product.slug,
             "price": item.product.price,
-            "image": item.product.thumbnail_url
+            "compare_price": item.product.compare_price,
+            "image": item.product.thumbnail_url or item.product.image_url,
+            "thumbnail_url": item.product.thumbnail_url,
+            "image_url": item.product.image_url,
+            "images": item.product.images or [],
+            "category": {
+                "name": item.product.category.name
+            } if item.product.category else None
         }
     } for item in items]
 
